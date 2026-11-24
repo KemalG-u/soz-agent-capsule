@@ -1,0 +1,21 @@
+# Kullanıcı gerçek verisi ve yerel durum (ASLA GİT'E GİRMEZ)
+veri/
+*.db
+*.db-wal
+*.db-shm
+
+# Geçici derleme, yayın ve test çıktıları
+_gecici/
+yayin/
+**/bin/
+**/obj/
+**/node_modules/
+ui/dist/
+*.user
+*.suo
+*.log
+ui/node_modules/
+.vs/
+
+# Sentetik şema örnekleri (gerçek veri yok); testlerin ihtiyacı
+!test/sema-ornekleri/*.db

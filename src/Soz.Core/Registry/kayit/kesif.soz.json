@@ -1,0 +1,583 @@
+{
+  "$schema": "https://soz.local/schema/registry-1.json",
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "id": "setting:discovery.half-life-days",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": {
+        "tr": "Kullanım ne kadar çabuk eskir",
+        "en": "How fast use fades"
+      },
+      "description": "Bir kullanımın önerideki ağırlığı bu kadar aktif günde yarıya iner. Yalnız Söz kullanılan günler sayılır, tatil eskitmez.",
+      "keywords": [
+        "öneri",
+        "yarılanma",
+        "eskime",
+        "frecency"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Gelişmiş bölümünde \"Öneri formülü\" kartında bulunur.",
+        "disable": "Kapatılmaz. Büyük değer eski alışkanlığı uzun tutar, varsayılan 14.",
+        "onError": "1 ile 365 arası tam sayı değilse kaydedilmez: \"setting:discovery.half-life-days: 1 ile 365 arası tam sayı olmalı\" der. Eski değer kalır.",
+        "onNewTool": "Öneri sayaçları araca göre değil nesneye göre tutulur. Yeni ajan aracı gelince bu ayar değişmez."
+      },
+      "body": {
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 365
+        },
+        "default": 14,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "gelismis",
+        "card": "Öneri formülü",
+        "order": 1,
+        "control": "number",
+        "unit": "gün",
+        "restart": "none"
+      }
+    },
+    {
+      "id": "setting:discovery.project-weight",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": {
+        "tr": "Bu projedeki kullanım ne kadar sayılsın",
+        "en": "Weight of use in this project"
+      },
+      "description": "Aynı projede yapılan kullanım genel kullanıma göre kaç kat sayılır.",
+      "keywords": [
+        "öneri",
+        "proje",
+        "ağırlık"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Gelişmiş bölümünde \"Öneri formülü\" kartında bulunur.",
+        "disable": "0 yazılırsa proje hiç hesaba katılmaz. Varsayılan 4.",
+        "onError": "0 ile 20 arası sayı değilse kaydedilmez ve eski değer kalır.",
+        "onNewTool": "Öneri sayaçları araca göre değil nesneye göre tutulur. Yeni ajan aracı gelince bu ayar değişmez."
+      },
+      "body": {
+        "schema": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 20
+        },
+        "default": 4,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "gelismis",
+        "card": "Öneri formülü",
+        "order": 2,
+        "control": "number",
+        "unit": "kat",
+        "restart": "none"
+      }
+    },
+    {
+      "id": "setting:discovery.time-weight",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": {
+        "tr": "Günün bu saatindeki kullanım ne kadar sayılsın",
+        "en": "Weight of use in this time slot"
+      },
+      "description": "Aynı hafta günü ve saat diliminde yapılan kullanım genel kullanıma göre kaç kat sayılır.",
+      "keywords": [
+        "öneri",
+        "saat",
+        "zaman",
+        "ağırlık"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Gelişmiş bölümünde \"Öneri formülü\" kartında bulunur.",
+        "disable": "0 yazılırsa zaman hiç hesaba katılmaz. Varsayılan 4.",
+        "onError": "0 ile 20 arası sayı değilse kaydedilmez ve eski değer kalır.",
+        "onNewTool": "Öneri sayaçları araca göre değil nesneye göre tutulur. Yeni ajan aracı gelince bu ayar değişmez."
+      },
+      "body": {
+        "schema": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 20
+        },
+        "default": 4,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "gelismis",
+        "card": "Öneri formülü",
+        "order": 3,
+        "control": "number",
+        "unit": "kat",
+        "restart": "none"
+      }
+    },
+    {
+      "id": "setting:discovery.saturation",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": {
+        "tr": "Kaç kullanımdan sonra puan artmasın",
+        "en": "Usage saturation"
+      },
+      "description": "Toplam kullanım bu sayıya ulaşınca puan yarıya çıkar. Çok kullanılanlar sonsuza kadar öne geçmesin diye puan 0 ile 1 arasında kalır.",
+      "keywords": [
+        "öneri",
+        "doyma",
+        "puan"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Gelişmiş bölümünde \"Öneri formülü\" kartında bulunur.",
+        "disable": "Kapatılmaz. Varsayılan 12.",
+        "onError": "0 dan büyük ve 1000 i geçmeyen sayı değilse kaydedilmez.",
+        "onNewTool": "Öneri sayaçları araca göre değil nesneye göre tutulur. Yeni ajan aracı gelince bu ayar değişmez."
+      },
+      "body": {
+        "schema": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 1000
+        },
+        "default": 12,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "gelismis",
+        "card": "Öneri formülü",
+        "order": 4,
+        "control": "number",
+        "restart": "none"
+      }
+    },
+    {
+      "id": "setting:discovery.threshold",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": {
+        "tr": "Öneri için en düşük puan",
+        "en": "Suggestion threshold"
+      },
+      "description": "Puanı bu değerin altında kalan nesne önerilmez.",
+      "keywords": [
+        "öneri",
+        "eşik"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Gelişmiş bölümünde \"Öneri formülü\" kartında bulunur.",
+        "disable": "1 yazılırsa hiçbir şey önerilmez. Varsayılan 0,30.",
+        "onError": "0 ile 1 arası sayı değilse kaydedilmez.",
+        "onNewTool": "Öneri sayaçları araca göre değil nesneye göre tutulur. Yeni ajan aracı gelince bu ayar değişmez."
+      },
+      "body": {
+        "schema": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "default": 0.3,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "gelismis",
+        "card": "Öneri formülü",
+        "order": 5,
+        "control": "slider",
+        "restart": "none"
+      }
+    },
+    {
+      "id": "setting:discovery.in-slot-factor",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": {
+        "tr": "Zaten elinin altında olanın puan oranı",
+        "en": "Factor for items already in a slot"
+      },
+      "description": "Ekranda zaten hazır duran nesne tek tık uzakta olduğu için öneri puanı bu oranla azaltılır.",
+      "keywords": [
+        "öneri",
+        "yuva",
+        "çarpan",
+        "oran"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Gelişmiş bölümünde \"Öneri formülü\" kartında bulunur.",
+        "disable": "1 yazılırsa ekranda hazır duranlar da tam puanla önerilir. Varsayılan 0,2.",
+        "onError": "0 ile 1 arası sayı değilse kaydedilmez.",
+        "onNewTool": "Öneri sayaçları araca göre değil nesneye göre tutulur. Yeni ajan aracı gelince bu ayar değişmez."
+      },
+      "body": {
+        "schema": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "default": 0.2,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "gelismis",
+        "card": "Öneri formülü",
+        "order": 6,
+        "control": "slider",
+        "restart": "none"
+      }
+    },
+    {
+      "id": "setting:discovery.shadow-mode",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": {
+        "tr": "Öneriler yalnız Öneriler sayfasında görünsün, araya girmesin",
+        "en": "Suggestions only on the Suggestions page"
+      },
+      "description": "Açıkken öneriler yalnız Öneriler sayfasında görünür: kendiliğinden bildirim, kapsül ya da iş ekranı içinde çıkmaz, araya girmez. Sayfayı kendin açınca dayanağı olan öneriler her zaman gösterilir. Kapatırsan öneriler gerektiğinde kendiliğinden de çıkar. Formülün sayıları ölçülmeden araya girmesin diye varsayılan açıktır.",
+      "keywords": [
+        "öneri",
+        "gölge",
+        "ölçüm",
+        "isabet"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Gelişmiş bölümünde \"Öneri davranışı\" kartında bulunur.",
+        "disable": "Kapatınca öneriler kendiliğinden de çıkar. Açık kalırsa öneriler yalnız Öneriler sayfasında görünür, araya girmez. Varsayılan açık.",
+        "onError": "Yalnızca açık ya da kapalı kaydedilir. Başka değer reddedilir.",
+        "onNewTool": "Öneri sayaçları araca göre değil nesneye göre tutulur. Yeni ajan aracı gelince bu ayar değişmez."
+      },
+      "body": {
+        "schema": {
+          "type": "boolean"
+        },
+        "default": true,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "gelismis",
+        "card": "Öneri davranışı",
+        "order": 1,
+        "control": "toggle",
+        "restart": "none"
+      }
+    },
+    {
+      "id": "setting:discovery.max-suggestions",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": {
+        "tr": "En çok kaç öneri",
+        "en": "Most suggestions"
+      },
+      "description": "Bir seferde gösterilecek öneri sayısının üst sınırı.",
+      "keywords": [
+        "öneri",
+        "sayı",
+        "sınır"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Gelişmiş bölümünde \"Öneri davranışı\" kartında bulunur.",
+        "disable": "Kapatılmaz. 1 yazılırsa tek öneri çıkar, varsayılan 3.",
+        "onError": "1 ile 3 arası tam sayı değilse kaydedilmez.",
+        "onNewTool": "Öneri sayaçları araca göre değil nesneye göre tutulur. Yeni ajan aracı gelince bu ayar değişmez."
+      },
+      "body": {
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        },
+        "default": 3,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "gelismis",
+        "card": "Öneri davranışı",
+        "order": 2,
+        "control": "number",
+        "unit": "öneri",
+        "restart": "none"
+      }
+    },
+    {
+      "id": "setting:discovery.hit-window-minutes",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": {
+        "tr": "İsabet ölçüm süresi",
+        "en": "Hit measurement window"
+      },
+      "description": "Öneri hesaplandıktan sonra bu kadar dakika içinde kişinin seçtiği şey, \"önerilseydi seçer miydi\" ölçümüne yazılır.",
+      "keywords": [
+        "öneri",
+        "isabet",
+        "süre",
+        "ölçüm"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Gelişmiş bölümünde \"Öneri davranışı\" kartında bulunur.",
+        "disable": "Kapatılmaz. Varsayılan 30 dakika.",
+        "onError": "1 ile 1440 arası tam sayı değilse kaydedilmez.",
+        "onNewTool": "Öneri sayaçları araca göre değil nesneye göre tutulur. Yeni ajan aracı gelince bu ayar değişmez."
+      },
+      "body": {
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1440
+        },
+        "default": 30,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "gelismis",
+        "card": "Öneri davranışı",
+        "order": 3,
+        "control": "number",
+        "unit": "dk",
+        "restart": "none"
+      }
+    },
+    {
+      "id": "setting:discovery.dismiss-step",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": {
+        "tr": "Her yok sayma ne kadar ceza yazar",
+        "en": "Penalty per ignored suggestion"
+      },
+      "description": "Kişi öneriyi görüp başka şey seçince o nesne ve proje için ceza bu kadar artar.",
+      "keywords": [
+        "öneri",
+        "yok say",
+        "ceza"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Gelişmiş bölümünde \"Öneri davranışı\" kartında bulunur.",
+        "disable": "0 yazılırsa yok sayma ceza yazmaz. Varsayılan 0,30.",
+        "onError": "0 ile 1 arası sayı değilse kaydedilmez.",
+        "onNewTool": "Öneri sayaçları araca göre değil nesneye göre tutulur. Yeni ajan aracı gelince bu ayar değişmez."
+      },
+      "body": {
+        "schema": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "default": 0.3,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "gelismis",
+        "card": "Öneri davranışı",
+        "order": 4,
+        "control": "slider",
+        "restart": "none"
+      }
+    },
+    {
+      "id": "setting:discovery.dismiss-max",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": {
+        "tr": "En büyük yok sayma cezası",
+        "en": "Largest penalty"
+      },
+      "description": "Biriken ceza bunu aşamaz. Kalıcı susturma için \"Burada önerme\" ya da \"Hiç önerme\" kullanılır.",
+      "keywords": [
+        "öneri",
+        "yok say",
+        "ceza",
+        "üst sınır"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Gelişmiş bölümünde \"Öneri davranışı\" kartında bulunur.",
+        "disable": "0 yazılırsa ceza hiç uygulanmaz. Varsayılan 0,90.",
+        "onError": "0 ile 1 arası sayı değilse kaydedilmez.",
+        "onNewTool": "Öneri sayaçları araca göre değil nesneye göre tutulur. Yeni ajan aracı gelince bu ayar değişmez."
+      },
+      "body": {
+        "schema": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "default": 0.9,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "gelismis",
+        "card": "Öneri davranışı",
+        "order": 5,
+        "control": "slider",
+        "restart": "none"
+      }
+    },
+    {
+      "id": "setting:discovery.dismiss-half-life-days",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": {
+        "tr": "Yok sayma cezası ne çabuk geçer",
+        "en": "Penalty half-life"
+      },
+      "description": "Biriken ceza bu kadar aktif günde yarıya iner.",
+      "keywords": [
+        "öneri",
+        "yok say",
+        "ceza",
+        "yarılanma"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Gelişmiş bölümünde \"Öneri davranışı\" kartında bulunur.",
+        "disable": "Kapatılmaz. Varsayılan 30.",
+        "onError": "1 ile 365 arası tam sayı değilse kaydedilmez.",
+        "onNewTool": "Öneri sayaçları araca göre değil nesneye göre tutulur. Yeni ajan aracı gelince bu ayar değişmez."
+      },
+      "body": {
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 365
+        },
+        "default": 30,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "gelismis",
+        "card": "Öneri davranışı",
+        "order": 6,
+        "control": "number",
+        "unit": "gün",
+        "restart": "none"
+      }
+    },
+    {
+      "id": "setting:discovery.time-block-hours",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": {
+        "tr": "Saat dilimi uzunluğu",
+        "en": "Time block length"
+      },
+      "description": "\"Pazartesi sabahı\" gibi alışkanlıklar hafta günü ve bu uzunluktaki saat dilimiyle tutulur.",
+      "keywords": [
+        "öneri",
+        "saat dilimi",
+        "alışkanlık"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Gelişmiş bölümünde \"Öneri davranışı\" kartında bulunur.",
+        "disable": "Kapatılmaz. 1, 2, 3, 4, 6, 8 ya da 12 seçilir, varsayılan 3. Değişince eski saat dilimi sayaçları yeni dilimle eşleşmez, genel ve proje sayaçları etkilenmez.",
+        "onError": "Listede olmayan değer kaydedilmez.",
+        "onNewTool": "Öneri sayaçları araca göre değil nesneye göre tutulur. Yeni ajan aracı gelince bu ayar değişmez."
+      },
+      "body": {
+        "schema": {
+          "type": "integer",
+          "enum": [
+            1,
+            2,
+            3,
+            4,
+            6,
+            8,
+            12
+          ]
+        },
+        "default": 3,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "gelismis",
+        "card": "Öneri davranışı",
+        "order": 7,
+        "control": "select",
+        "unit": "saat",
+        "restart": "none"
+      }
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+    <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained Condition="'$(SelfContained)' == ''">false</SelfContained>
+    <AssemblyName>Soz-Kapsul</AssemblyName>
+    <AssemblyTitle>Söz Kapsül</AssemblyTitle>
+    <Product>Söz</Product>
+    <Company>Oluk</Company>
+    <Description>Söz masaüstü kapsül göstergesi</Description>
+    <Copyright>Copyright (c) 2026 Oluk</Copyright>
+    <RootNamespace>Soz.Capsule</RootNamespace>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>soz.ico</ApplicationIcon>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <!-- Boşta bellek ve ilk kare: katmanlı derleme ve önceden derleme, UseSystemResourceKeys ile kaynak metinleri küçük tutulur. -->
+    <TieredPGO>false</TieredPGO>
+    <TieredCompilation>true</TieredCompilation>
+    <UseSystemResourceKeys>true</UseSystemResourceKeys>
+    <PublishReadyToRun Condition="'$(RuntimeIdentifier)' != ''">true</PublishReadyToRun>
+    <NoWarn>$(NoWarn);CA1416</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="Soz.Capsule.Tests" />
+  </ItemGroup>
+</Project>

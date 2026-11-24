@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "id": "setting:ornek.gevsek",
+      "kind": "setting",
+      "owner": "user",
+      "title": "Örnek ayar",
+      "body": {
+        "schema": {
+          "type": "boolean"
+        },
+        "default": false,
+        "class": "K3",
+        "group": "genel",
+        "card": "Örnek",
+        "order": 1,
+        "control": "toggle",
+        "modeSettable": true
+      }
+    }
+  ]
+}

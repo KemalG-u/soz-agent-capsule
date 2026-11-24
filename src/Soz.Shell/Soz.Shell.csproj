@@ -1,0 +1,92 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <AssemblyName>Soz-Masaustu</AssemblyName>
+    <AssemblyTitle>Söz</AssemblyTitle>
+    <Product>Söz</Product>
+    <Company>Oluk</Company>
+    <Description>Söz masaüstü kontrol kulesi</Description>
+    <Copyright>Copyright (c) 2026 Oluk</Copyright>
+    <SatelliteResourceLanguages>tr;en</SatelliteResourceLanguages>
+    <RootNamespace>Soz.Shell</RootNamespace>
+    <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\soz.ico</ApplicationIcon>
+    <PublishReadyToRun Condition="'$(RuntimeIdentifier)' != ''">true</PublishReadyToRun>
+    <NoWarn>$(NoWarn);MSB3277;WFO1000</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Web.WebView2">
+      <Version>1.0.4314.35</Version>
+    </PackageReference>
+    <PackageReference Include="Velopack" Version="1.2.0" />
+    <ProjectReference Include="..\Soz.Core\Soz.Core.csproj" />
+    <ProjectReference Include="..\Soz.Server\Soz.Server.csproj" />
+    <!-- Yeni kapsül ve CLI (soz.exe) ayrı süreçlerdir: derleme sırasını garanti eder ama bütünleştirilmiş kod referansı eklemez. -->
+    <ProjectReference Include="..\Soz.Capsule\Soz.Capsule.csproj"
+                      ReferenceOutputAssembly="false"
+                      SkipGetTargetFrameworkProperties="true"
+                      UndefineProperties="TargetFramework;RuntimeIdentifier;SelfContained" />
+    <ProjectReference Include="..\Soz.Cli\Soz.Cli.csproj"
+                      ReferenceOutputAssembly="false"
+                      SkipGetTargetFrameworkProperties="true"
+                      UndefineProperties="TargetFramework;RuntimeIdentifier;SelfContained" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Kapsül ile kabuk arasındaki satır protokolü tek kaynaktan: kapsül projesinin saf dosyası burada da derlenir. -->
+    <Compile Include="..\Soz.Capsule\Mantik\KabukProtokol.cs" Link="Kapsul\KabukProtokol.cs" />
+  </ItemGroup>
+
+  <Target Name="CopyCapsuleToOutput" AfterTargets="Build">
+    <MSBuild Projects="..\Soz.Capsule\Soz.Capsule.csproj"
+             Targets="Build;GetTargetPath"
+             Properties="Configuration=$(Configuration);SelfContained=$(SelfContained)"
+             RemoveProperties="TargetFramework;RuntimeIdentifier;PublishDir;OutDir">
+      <Output TaskParameter="TargetOutputs" ItemName="_CapsuleTargetPath" />
+    </MSBuild>
+    <PropertyGroup>
+      <_CapsuleOutDir>%(_CapsuleTargetPath.RootDir)%(_CapsuleTargetPath.Directory)</_CapsuleOutDir>
+    </PropertyGroup>
+    <ItemGroup>
+      <_CapsuleOutFiles Include="$(_CapsuleOutDir)**\*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(_CapsuleOutFiles)"
+          DestinationFiles="@(_CapsuleOutFiles->'$(TargetDir)%(RecursiveDir)%(Filename)%(Extension)')"
+          SkipUnchangedFiles="true" />
+    <MSBuild Projects="..\Soz.Cli\Soz.Cli.csproj"
+             Targets="Build;GetTargetPath"
+             Properties="Configuration=$(Configuration)"
+             RemoveProperties="TargetFramework;RuntimeIdentifier;SelfContained;PublishDir;OutDir">
+      <Output TaskParameter="TargetOutputs" ItemName="_CliTargetPath" />
+    </MSBuild>
+    <PropertyGroup>
+      <_CliOutDir>%(_CliTargetPath.RootDir)%(_CliTargetPath.Directory)</_CliOutDir>
+    </PropertyGroup>
+    <ItemGroup>
+      <_CliOutFiles Include="$(_CliOutDir)soz.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(_CliOutFiles)"
+          DestinationFiles="@(_CliOutFiles->'$(TargetDir)%(Filename)%(Extension)')"
+          SkipUnchangedFiles="true" />
+  </Target>
+
+  <Target Name="CopyCapsuleToPublish" AfterTargets="Publish">
+    <MSBuild Projects="..\Soz.Capsule\Soz.Capsule.csproj"
+             Targets="Build;GetTargetPath"
+             Properties="Configuration=$(Configuration);SelfContained=$(SelfContained)"
+             RemoveProperties="TargetFramework;RuntimeIdentifier;PublishDir;OutDir">
+      <Output TaskParameter="TargetOutputs" ItemName="_CapsulePublishTargetPath" />
+    </MSBuild>
+    <PropertyGroup>
+      <_CapsulePubDir>%(_CapsulePublishTargetPath.RootDir)%(_CapsulePublishTargetPath.Directory)</_CapsulePubDir>
+    </PropertyGroup>
+    <ItemGroup>
+      <_CapsulePubFiles Include="$(_CapsulePubDir)**\*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(_CapsulePubFiles)"
+          DestinationFiles="@(_CapsulePubFiles->'$(PublishDir)%(RecursiveDir)%(Filename)%(Extension)')"
+          SkipUnchangedFiles="true" />
+  </Target>
+</Project>

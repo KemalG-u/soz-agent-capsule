@@ -1,0 +1,97 @@
+// u4: onayladığın testlerle verilen sonuç (dört sonuç, "Değişiklik yok", yeni test teklifi, ajanın yazdığı denemenin gücü).
+// Dil: gün hikâyesi, jargon yok. Uzun tire ve noktalı virgül yok. Sunucunun verdiği cümleler aynen gösterilir, burada yalnız etiket ve düğme var.
+export const tr6 = {
+  // "Değişiklik yok": yeşil "Kanıtıyla bitti" değil, ayrı sakin etiket
+  rowNoChange: 'Yardımcı hiçbir dosyayı değiştirmedi',
+  pcNoChangeBody: 'Yardımcı hiçbir dosyayı değiştirmedi. Testler zaten geçiyordu.',
+
+  // (b) kanıtıyla bitti, ama ajan testleri de düzenledi
+  pcTestsEdited: 'Yardımcı testleri de düzenledi. Sonuç senin onayladığın testlerle verildi.',
+  pcTestsEditedMore: 'Yardımcı testlerde ne değiştirdi',
+
+  // (c) ve (d) karar sende
+  pcHeadApprovedFailed: 'Onayladığın testler geçmiyor',
+  pcHeadAgentTests: 'Yardımcının yeni testleri geçmiyor',
+  pcApprovedFailTitle: 'Senin onayladığın ve şimdi geçmeyen testler',
+  pcAgentFailTitle: 'Yardımcının yeni testlerinden geçmeyenler',
+  pcAgentChangeTitle: 'Yardımcı bu testlerde şunu değiştirmiş',
+  pcAgentOwnRun: 'Yardımcının değiştirdiği testlerle yapılan koşu',
+  pcAgentOwnRunNote: 'Bu koşuda yardımcının kendi düzenlediği testler kullanıldı. Sonuç senin onayladığın testlere göre verilir.',
+  decAcceptApproved: 'Yardımcının değişikliğini kabul et',
+  decAcceptAnyway: 'Yine de kabul et',
+  decRejectBack: 'Reddet, yardımcıya geri gönder',
+  decUndo: 'Geri al',
+  decActionsLabel: 'Karar eylemleri',
+  sendBackDraftNamed: 'Onayladığım testler geçmiyor: {l}. Testleri değiştirme, kodu o testlere uyacak şekilde düzelt.',
+  sendBackDraft: 'Onayladığım testlerden bazıları geçmiyor. Testleri değiştirme, kodu o testlere uyacak şekilde düzelt.',
+  sendBackDraftAgent: 'Eklediğin yeni testlerden bazıları geçmiyor. Testleri düzelt ya da koda göre uyarla, sonra yeniden dene.',
+
+  // yeni test teklifi
+  offerLabel: 'Yardımcının eklediği testler',
+  offerYes: 'Evet',
+  offerNo: 'Hayır',
+  offerAdded: 'Testler onayladığın testlere katıldı.',
+  offerDeclined: 'Tamam, bu testler katılmadı.',
+  // u5: ajanın DEĞİŞTİRDİĞİ onaylı testler ayrı teklif, farkı görmeden kabul edilemez
+  offerEditLabel: 'Yardımcının değiştirdiği testler',
+  offerSeeDiff: 'Farkı gör',
+  offerEditYes: 'Değişikliği kabul et',
+  offerEditNo: 'Kabul etme',
+  offerEditHint: 'Kabul düğmesi, yardımcının değiştirdiği satırlara bakınca açılır.',
+  offerUnviewable: 'Bu değişikliği gösteremiyorum, göremediğini kabul edemezsin.',
+  offerDiffTitle: 'Yardımcının testlerde değiştirdiği satırlar',
+  offerSeeFirst: 'Değişikliği görmeden kabul edemezsin. Önce yardımcının değiştirdiği satırlara bak.',
+  offerNoDiff: 'Değişen satırlar alınamadı. Sayfayı yenileyip yeniden dene.',
+  offerEditAccepted: 'Değişiklik onayladığın testlere katıldı.',
+  offerEditDeclined: 'Tamam, onayladığın testler eskisi gibi kaldı.',
+  // yalnız izlenmeyen klasörlere yazan iş
+  rowNoSourceChange: 'Yardımcı yalnız izlenmeyen klasörlere yazdı',
+  pcNoSourceBody: 'Yardımcı yalnız izlenmeyen klasörlere yazdı. Kaynakta değişiklik yok.',
+
+  // ajanın yazdığı deneme: güçlü, zayıf, kabul edilemez
+  sugOk: 'Tamam',
+} as const
+
+export const en6 = {
+  grpNoChange: 'No change',
+  rowNoChange: 'The agent changed no files',
+  pcNoChangeBody: 'The agent changed no files. The tests were already passing.',
+  pcTestsEdited: 'The agent also edited tests. The result was decided by the tests you approved.',
+  pcTestsEditedMore: 'What the agent changed in the tests',
+  pcHeadApprovedFailed: 'Tests you approved are failing',
+  pcHeadAgentTests: 'The agent’s new tests fail',
+  pcApprovedFailTitle: 'Tests you approved that now fail',
+  pcAgentFailTitle: 'New tests from the agent that fail',
+  pcAgentChangeTitle: 'The agent changed this in those tests',
+  pcAgentOwnRun: 'Run with the tests the agent edited',
+  pcAgentOwnRunNote: 'This run used the tests the agent edited. The decision is based on the tests you approved.',
+  decAcceptApproved: 'Accept the agent’s change',
+  decAcceptAnyway: 'Accept anyway',
+  decRejectBack: 'Reject, send back to the agent',
+  decUndo: 'Undo',
+  decActionsLabel: 'Decision actions',
+  decNoteApproved: 'If you accept, the tests the agent changed become the tests you approve from now on, and the job ends as “You approved”. If you reject, the job becomes “Failed” and you can tell the agent what to fix. Undo puts the folder back as it was before the job.',
+  decNoteAgentTests: 'If you accept, the job ends as “You approved”. If you reject, the job becomes “Failed” and you can tell the agent what to fix. Undo puts the folder back as it was before the job.',
+  sendBackDraftNamed: 'The tests I approved are failing: {l}. Do not change the tests, fix the code to match them.',
+  sendBackDraft: 'Some of the tests I approved are failing. Do not change the tests, fix the code to match them.',
+  sendBackDraftAgent: 'Some of the new tests you added fail. Fix them or adjust them to the code, then try again.',
+  offerLabel: 'Tests the agent added',
+  offerYes: 'Yes',
+  offerNo: 'No',
+  offerAdded: 'The tests were added to the tests you approve.',
+  offerDeclined: 'OK, those tests were not added.',
+  offerEditLabel: 'Tests the agent changed',
+  offerSeeDiff: 'See the difference',
+  offerEditYes: 'Accept the change',
+  offerEditNo: 'Do not accept',
+  offerEditHint: 'The accept button opens once you have looked at the lines the agent changed.',
+  offerUnviewable: 'I cannot show this change, so you cannot accept what you cannot see.',
+  offerDiffTitle: 'Lines the agent changed in the tests',
+  offerSeeFirst: 'You cannot accept the change without seeing it. Look at the lines the agent changed first.',
+  offerNoDiff: 'Could not load the changed lines. Reload the page and try again.',
+  offerEditAccepted: 'The change was added to the tests you approve.',
+  offerEditDeclined: 'OK, the tests you approved stay as they were.',
+  rowNoSourceChange: 'The agent wrote only to ignored folders',
+  pcNoSourceBody: 'The agent wrote only to folders that are not watched. No change in the source.',
+  sugOk: 'OK',
+} as const

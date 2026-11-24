@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "id": "setting:ornek.ic-durum",
+      "kind": "setting",
+      "owner": "user",
+      "title": "Örnek ayar",
+      "body": {
+        "schema": {
+          "type": "boolean"
+        },
+        "default": false,
+        "class": "K5",
+        "group": "genel",
+        "card": "Örnek",
+        "order": 1,
+        "control": "toggle"
+      }
+    }
+  ]
+}

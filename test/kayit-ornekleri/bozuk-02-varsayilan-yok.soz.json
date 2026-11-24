@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "id": "setting:ornek.varsayilansiz",
+      "kind": "setting",
+      "owner": "user",
+      "title": "x",
+      "body": {
+        "schema": {
+          "type": "boolean"
+        },
+        "class": "K1",
+        "group": "genel",
+        "card": "Örnek"
+      }
+    }
+  ]
+}

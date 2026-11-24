@@ -1,0 +1,1021 @@
+{
+  "$schema": "https://soz.local/schema/registry-1.json",
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "id": "check-kind:command",
+      "kind": "check-kind",
+      "owner": "fixed",
+      "title": "Komut",
+      "description": "Projede bir komut koşar ve çıkış koduna bakar (\"Testler geçsin\", \"Proje derlensin\"). Test çıktısı sayılırsa kanıt değeri taşır.",
+      "keywords": [
+        "komut",
+        "test",
+        "derleme",
+        "build",
+        "çıkış kodu",
+        "cikis kodu",
+        "command"
+      ],
+      "surfaces": [
+        "panel",
+        "cli"
+      ],
+      "stability": "ground",
+      "since": "0.1",
+      "permissions": [
+        {
+          "cap": "exec",
+          "scope": "projedeki test ve derleme komutları",
+          "why": "Ölçütü koşmak için komutu çalıştırır."
+        }
+      ],
+      "contract": {
+        "discover": "Panelde ölçüt eklerken \"Testler geçsin\" ve \"Proje derlensin\" cümleleri. Komut satırında \"soz checks suggest\" projede bulunan komutu önerir, \"soz checks add --kind command\" elle ekler.",
+        "disable": "Ölçüt kullanıcı açmadan (enabled) hiç çalışmaz. \"soz checks disable <id>\" ya da panelde kapatılır. Tür kendisi kapatılamaz.",
+        "onError": "Komut süresinde bitmezse sonuç \"error\" olur ve süreç ağacı kapatılır. Hiç test koşmayan başarılı çıkış \"unchecked\" sayılır, asla \"geçti\" değil.",
+        "onNewTool": "Ölçüt ajan aracına bağlı değildir. Yeni ajan aracı gelince bu tür aynı çalışır. Yeni proje türü için yalnız komut bulma tarafı genişler."
+      },
+      "body": {
+        "specSchema": {
+          "type": "object",
+          "required": [
+            "cmd"
+          ],
+          "properties": {
+            "cmd": {
+              "type": "string",
+              "minLength": 1
+            },
+            "cwd": {
+              "type": "string"
+            },
+            "expectExit": {
+              "type": "integer",
+              "default": 0
+            },
+            "template": {
+              "type": "string"
+            }
+          }
+        },
+        "templates": [
+          {
+            "id": "tests",
+            "sentence": "Testler geçsin",
+            "autoDetect": true
+          },
+          {
+            "id": "build",
+            "sentence": "Proje derlensin",
+            "autoDetect": true
+          }
+        ],
+        "measure": {
+          "via": "builtin",
+          "name": "command"
+        },
+        "needs": [
+          "folder"
+        ],
+        "strength": "strong",
+        "reportsCount": true
+      }
+    },
+    {
+      "id": "check-kind:file",
+      "kind": "check-kind",
+      "owner": "fixed",
+      "title": "Dosya",
+      "description": "Bir dosyanın var olmasına, en az bu kadar bayt olmasına ya da içinde bir yazı geçmesine bakar.",
+      "keywords": [
+        "dosya",
+        "file",
+        "var mı",
+        "içerik",
+        "icerik",
+        "bayt"
+      ],
+      "surfaces": [
+        "panel",
+        "cli"
+      ],
+      "stability": "ground",
+      "since": "0.1",
+      "permissions": [
+        {
+          "cap": "fs.read",
+          "scope": "proje klasörü",
+          "why": "Dosyanın varlığını ve içeriğini okumak için."
+        }
+      ],
+      "contract": {
+        "discover": "Panelde ölçüt eklerken \"Şu dosya oluşsun\" ve \"Dosyada şu yazı geçsin\" cümleleri. Komut satırında \"soz checks add --kind file --path ...\" ile eklenir.",
+        "disable": "Ölçüt kullanıcı açmadan hiç çalışmaz. \"soz checks disable <id>\" ya da panelde kapatılır. Tür kendisi kapatılamaz.",
+        "onError": "Dosya yoksa ya da yazı geçmiyorsa sonuç \"failed\" olur ve nedeni (ör. \"Dosya yok: dist/index.html\") yazılır. Proje klasörü dışındaki yol şablonda reddedilir.",
+        "onNewTool": "Ölçüt ajan aracına bağlı değildir. Yeni ajan aracı gelince bu tür aynı çalışır."
+      },
+      "body": {
+        "specSchema": {
+          "type": "object",
+          "required": [
+            "path"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "minLength": 1
+            },
+            "exists": {
+              "type": "boolean",
+              "default": true
+            },
+            "minBytes": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "contains": {
+              "type": "string"
+            },
+            "template": {
+              "type": "string"
+            }
+          }
+        },
+        "templates": [
+          {
+            "id": "file-exists",
+            "sentence": "Şu dosya oluşsun",
+            "fields": [
+              {
+                "name": "path",
+                "label": "dosya yolu",
+                "placeholder": "dist/index.html"
+              }
+            ]
+          },
+          {
+            "id": "file-text",
+            "sentence": "Dosyada şu yazı geçsin",
+            "fields": [
+              {
+                "name": "path",
+                "label": "dosya yolu",
+                "placeholder": "README.md"
+              },
+              {
+                "name": "text",
+                "label": "yazı",
+                "placeholder": "Kurulum"
+              }
+            ]
+          }
+        ],
+        "measure": {
+          "via": "builtin",
+          "name": "file"
+        },
+        "needs": [
+          "folder"
+        ],
+        "strength": "weak",
+        "reportsCount": true
+      }
+    },
+    {
+      "id": "check-kind:url",
+      "kind": "check-kind",
+      "owner": "fixed",
+      "title": "Adres",
+      "description": "Bir http/https adresine istek atar. Beklenen durum koduna (varsayılan 200) ve istenirse sayfada geçen yazıya bakar.",
+      "keywords": [
+        "adres",
+        "url",
+        "sayfa",
+        "web",
+        "site",
+        "açılsın",
+        "acilsin"
+      ],
+      "surfaces": [
+        "panel",
+        "cli"
+      ],
+      "stability": "ground",
+      "since": "0.1",
+      "permissions": [
+        {
+          "cap": "net",
+          "scope": "ölçütte yazılı adres",
+          "why": "Sayfanın açıldığını görmek için istek atar."
+        }
+      ],
+      "contract": {
+        "discover": "Panelde ölçüt eklerken \"Şu adres açılsın\" ve \"Sayfada şu yazı görünsün\" cümleleri. Komut satırında \"soz checks add --kind url --url ...\" ile eklenir.",
+        "disable": "Ölçüt kullanıcı açmadan hiç çalışmaz. \"soz checks disable <id>\" ya da panelde kapatılır. Tür kendisi kapatılamaz.",
+        "onError": "Adres açılmazsa ya da durum kodu beklenenden farklıysa sonuç \"failed\" olur ve nedeni yazılır. Ölçüt şablonu yalnız http ve https adreslerini kabul eder.",
+        "onNewTool": "Ölçüt ajan aracına bağlı değildir. Yeni ajan aracı gelince bu tür aynı çalışır."
+      },
+      "body": {
+        "specSchema": {
+          "type": "object",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "minLength": 1
+            },
+            "expectStatus": {
+              "type": "integer",
+              "default": 200
+            },
+            "contains": {
+              "type": "string"
+            },
+            "template": {
+              "type": "string"
+            }
+          }
+        },
+        "templates": [
+          {
+            "id": "url-opens",
+            "sentence": "Şu adres açılsın",
+            "fields": [
+              {
+                "name": "url",
+                "label": "adres",
+                "placeholder": "http://localhost:3000",
+                "default": "http://localhost:3000"
+              }
+            ]
+          },
+          {
+            "id": "page-text",
+            "sentence": "Sayfada şu yazı görünsün",
+            "fields": [
+              {
+                "name": "url",
+                "label": "adres",
+                "placeholder": "http://localhost:3000",
+                "default": "http://localhost:3000"
+              },
+              {
+                "name": "text",
+                "label": "yazı",
+                "placeholder": "Hoş geldin"
+              }
+            ]
+          }
+        ],
+        "measure": {
+          "via": "builtin",
+          "name": "url"
+        },
+        "needs": [
+          "network"
+        ],
+        "strength": "medium",
+        "reportsCount": true
+      }
+    },
+    {
+      "id": "check-kind:screenshot",
+      "kind": "check-kind",
+      "owner": "fixed",
+      "title": "Ekran görüntüsü",
+      "description": "Sayfayı görünmeyen bir Edge penceresinde açıp ekran görüntüsü alır. Kanıt olarak saklanır, görüntünün doğruluğuna insan bakar.",
+      "keywords": [
+        "ekran",
+        "görüntü",
+        "goruntu",
+        "screenshot",
+        "resim",
+        "kanıt",
+        "kanit"
+      ],
+      "surfaces": [
+        "panel",
+        "cli"
+      ],
+      "stability": "ground",
+      "since": "0.1",
+      "permissions": [
+        {
+          "cap": "net",
+          "scope": "ölçütte yazılı adres",
+          "why": "Sayfayı açmak için istek atar."
+        },
+        {
+          "cap": "exec",
+          "scope": "msedge (başsız)",
+          "why": "Ekran görüntüsünü almak için ayrı profille Edge başlatır."
+        }
+      ],
+      "contract": {
+        "discover": "Panelde ölçüt eklerken \"Sayfanın ekran görüntüsünü al\" cümlesi. Komut satırında \"soz checks add --kind screenshot --url ...\" ile eklenir.",
+        "disable": "Ölçüt kullanıcı açmadan hiç çalışmaz. \"soz checks disable <id>\" ya da panelde kapatılır. Tür kendisi kapatılamaz.",
+        "onError": "Sayfa açılmazsa \"failed\", Edge bulunamazsa \"error\" olur (\"Edge (msedge.exe) bulunamadı\"). Kullanıcının açık Edge'ine dokunulmaz, ayrı geçici profil kullanılır.",
+        "onNewTool": "Ölçüt ajan aracına bağlı değildir. Yeni ajan aracı gelince bu tür aynı çalışır. Başka tarayıcı desteği yeni bir ölçer olarak eklenir."
+      },
+      "body": {
+        "specSchema": {
+          "type": "object",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "minLength": 1
+            },
+            "width": {
+              "type": "integer",
+              "minimum": 200,
+              "maximum": 4000,
+              "default": 1280
+            },
+            "height": {
+              "type": "integer",
+              "minimum": 200,
+              "maximum": 4000,
+              "default": 800
+            },
+            "template": {
+              "type": "string"
+            }
+          }
+        },
+        "templates": [
+          {
+            "id": "screenshot",
+            "sentence": "Sayfanın ekran görüntüsünü al",
+            "fields": [
+              {
+                "name": "url",
+                "label": "adres",
+                "placeholder": "http://localhost:3000",
+                "default": "http://localhost:3000"
+              }
+            ]
+          }
+        ],
+        "measure": {
+          "via": "builtin",
+          "name": "screenshot"
+        },
+        "needs": [
+          "network",
+          "human"
+        ],
+        "strength": "weak",
+        "reportsCount": true
+      }
+    },
+    {
+      "id": "check-kind:file-range",
+      "kind": "check-kind",
+      "owner": "fixed",
+      "title": "Dosya ve boyut aralığı",
+      "description": "Bir dosyanın var (ya da yok) olmasına ve boyutunun verilen aralığa uymasına bakar. Boş dosya \"var\" sayılmaz. Dosyanın içini okumaz.",
+      "keywords": [
+        "dosya",
+        "boyut",
+        "boş",
+        "bos",
+        "var mı",
+        "oluşsun",
+        "olussun",
+        "yok"
+      ],
+      "surfaces": [
+        "panel",
+        "cli"
+      ],
+      "stability": "ground",
+      "since": "0.2",
+      "permissions": [
+        {
+          "cap": "fs.read",
+          "scope": "proje klasörü",
+          "why": "Dosyanın varlığını ve boyutunu görmek için. İçeriğini okumaz."
+        }
+      ],
+      "contract": {
+        "discover": "Panelde \"Şu dosya oluşsun ve boş olmasın\" ve \"Şu dosya olmasın\" cümleleri. İş verirken \"Bitti'nin tanımı\" önerisinde yazı, araştırma ve dosya düzeni işleri için çıkar.",
+        "disable": "Ölçüt kullanıcı açmadan hiç çalışmaz. Panelde ya da \"soz checks disable <id>\" ile kapatılır. Tür kendisi kapatılamaz.",
+        "onError": "Dosya yoksa ya da boş/boyutu uygunsuzsa \"kaldı\" olur ve nedeni yazılır. Yol proje klasörünün dışına çıkıyorsa ya da kısayol içeriyorsa \"ölçülemedi\" (error) olur, asla \"geçti\" olmaz.",
+        "onNewTool": "Ölçüt ajan aracına bağlı değildir. Yeni ajan aracı gelince bu tür aynı çalışır."
+      },
+      "body": {
+        "specSchema": {
+          "type": "object",
+          "required": [
+            "path"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "minLength": 1
+            },
+            "exists": {
+              "type": "boolean"
+            },
+            "minBytes": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "maxBytes": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "template": {
+              "type": "string"
+            }
+          }
+        },
+        "templates": [
+          {
+            "id": "file-range",
+            "sentence": "Şu dosya oluşsun ve boş olmasın",
+            "fields": [
+              {
+                "name": "path",
+                "label": "dosya yolu",
+                "placeholder": "rapor/ozet.md"
+              },
+              {
+                "name": "minBytes",
+                "label": "en az bayt",
+                "placeholder": "1",
+                "default": "1"
+              },
+              {
+                "name": "maxBytes",
+                "label": "en çok bayt (boş bırakılabilir)",
+                "placeholder": "",
+                "default": ""
+              }
+            ]
+          },
+          {
+            "id": "file-absent",
+            "sentence": "Şu dosya olmasın",
+            "fields": [
+              {
+                "name": "path",
+                "label": "dosya yolu",
+                "placeholder": "gecici/not.txt"
+              }
+            ]
+          }
+        ],
+        "measure": {
+          "via": "builtin",
+          "name": "file-range"
+        },
+        "needs": [
+          "folder"
+        ],
+        "strength": "weak",
+        "reportsCount": true
+      }
+    },
+    {
+      "id": "check-kind:doc-heading",
+      "kind": "check-kind",
+      "owner": "fixed",
+      "title": "Belgede başlık ya da yazı",
+      "description": "Bir metin belgesinde (md, txt, html, docx) bir başlığın ya da yazının bulunduğuna bakar. Türkçe harf farkı, ayrılmaz boşluk ve kodlama tuzaklarına dayanıklıdır.",
+      "keywords": [
+        "başlık",
+        "baslik",
+        "belge",
+        "doküman",
+        "dokuman",
+        "yazı",
+        "yazi",
+        "docx",
+        "markdown",
+        "rapor"
+      ],
+      "surfaces": [
+        "panel",
+        "cli"
+      ],
+      "stability": "ground",
+      "since": "0.2",
+      "permissions": [
+        {
+          "cap": "fs.read",
+          "scope": "proje klasörü",
+          "why": "Belgenin içindeki başlığı ya da yazıyı aramak için."
+        }
+      ],
+      "contract": {
+        "discover": "Panelde \"Belgede şu başlık olsun\" ve \"Belgede şu yazı geçsin\" cümleleri. Yazı ve araştırma işlerinde \"Bitti'nin tanımı\" önerisinde çıkar.",
+        "disable": "Ölçüt kullanıcı açmadan hiç çalışmaz. Panelde ya da \"soz checks disable <id>\" ile kapatılır. Tür kendisi kapatılamaz.",
+        "onError": "Başlık ya da yazı yoksa \"kaldı\" olur ve belgede bulunan başlıklar yazılır. Dosya ikili, bozuk, şifreli ya da çok büyükse ve aranan bulunamadıysa \"ölçülemedi\" (error) olur, asla \"geçti\" olmaz. UTF-8 olmayan dosyada Windows-1254 varsayıldığı söylenir.",
+        "onNewTool": "Ölçüt ajan aracına bağlı değildir. Yeni ajan aracı gelince bu tür aynı çalışır. Yeni belge biçimi (ör. pdf) yeni bir okuyucu olarak eklenir."
+      },
+      "body": {
+        "specSchema": {
+          "type": "object",
+          "required": [
+            "path"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "minLength": 1
+            },
+            "heading": {
+              "type": "string"
+            },
+            "text": {
+              "type": "string"
+            },
+            "level": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 6
+            },
+            "template": {
+              "type": "string"
+            }
+          }
+        },
+        "templates": [
+          {
+            "id": "doc-heading",
+            "sentence": "Belgede şu başlık olsun",
+            "fields": [
+              {
+                "name": "path",
+                "label": "dosya yolu",
+                "placeholder": "rapor.md"
+              },
+              {
+                "name": "heading",
+                "label": "başlık",
+                "placeholder": "Kaynaklar"
+              }
+            ]
+          },
+          {
+            "id": "doc-text",
+            "sentence": "Belgede şu yazı geçsin",
+            "fields": [
+              {
+                "name": "path",
+                "label": "dosya yolu",
+                "placeholder": "rapor.md"
+              },
+              {
+                "name": "text",
+                "label": "yazı",
+                "placeholder": "Sonuç"
+              }
+            ]
+          }
+        ],
+        "measure": {
+          "via": "builtin",
+          "name": "doc-heading"
+        },
+        "needs": [
+          "folder"
+        ],
+        "strength": "medium",
+        "reportsCount": true
+      }
+    },
+    {
+      "id": "check-kind:diff-summary",
+      "kind": "check-kind",
+      "owner": "fixed",
+      "title": "Fark özeti",
+      "description": "İş başladığından beri hangi dosyaların eklendiğine, değiştiğine ya da silindiğine bakar ve hepsinin beklenen dosya kümesinin içinde kalıp kalmadığını söyler.",
+      "keywords": [
+        "fark",
+        "değişen",
+        "degisen",
+        "dosya düzeni",
+        "dosya duzeni",
+        "yalnız",
+        "yalniz",
+        "silinen",
+        "klasör"
+      ],
+      "surfaces": [
+        "panel",
+        "cli"
+      ],
+      "stability": "ground",
+      "since": "0.2",
+      "permissions": [
+        {
+          "cap": "fs.read",
+          "scope": "proje klasörü",
+          "why": "İş başlarken ve bittiğinde dosya listesini (ad, boyut, zaman) çıkarmak için."
+        },
+        {
+          "cap": "fs.write",
+          "scope": "Söz veri klasörü (iş durumu)",
+          "why": "İş başlarken klasörün listesini işe özel saklamak için."
+        }
+      ],
+      "contract": {
+        "discover": "Panelde \"Yalnız şu dosyalar değişsin\" cümlesi. Dosya düzeni ve yazı işlerinde \"Bitti'nin tanımı\" önerisinde çıkar.",
+        "disable": "Ölçüt kullanıcı açmadan hiç çalışmaz (açık değilse iş başlarken klasör listesi de alınmaz). Panelde ya da \"soz checks disable <id>\" ile kapatılır.",
+        "onError": "Beklenen kümenin dışında dosya değişmişse \"kaldı\" olur ve hangileri yazılır. İş başlarken klasör listesi alınamadıysa ya da çok dosya varsa \"doğrulanamadı\" (unchecked) olur, asla \"geçti\" olmaz.",
+        "onNewTool": "Ölçüt ajan aracına bağlı değildir. Yeni ajan aracı gelince bu tür aynı çalışır. Klasör listesi araç ne olursa olsun iş çalışmaya başladığı anda alınır."
+      },
+      "body": {
+        "specSchema": {
+          "type": "object",
+          "required": [
+            "allowed"
+          ],
+          "properties": {
+            "allowed": {
+              "type": [
+                "array",
+                "string"
+              ]
+            },
+            "requireChange": {
+              "type": "boolean"
+            },
+            "maxChanged": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "template": {
+              "type": "string"
+            }
+          }
+        },
+        "templates": [
+          {
+            "id": "diff-only",
+            "sentence": "Yalnız şu dosyalar değişsin",
+            "fields": [
+              {
+                "name": "allowed",
+                "label": "beklenen dosyalar (virgülle ya da her satıra bir tane)",
+                "placeholder": "rapor.md, notlar/**"
+              }
+            ]
+          }
+        ],
+        "measure": {
+          "via": "builtin",
+          "name": "diff-summary"
+        },
+        "needs": [
+          "folder"
+        ],
+        "strength": "medium",
+        "reportsCount": true
+      }
+    },
+    {
+      "id": "check-kind:local-address",
+      "kind": "check-kind",
+      "owner": "fixed",
+      "title": "Kendi bilgisayarımdaki adres",
+      "description": "Kendi bilgisayarındaki bir adresin (localhost, 127.0.0.1) cevap verdiğine ve istenirse sayfada bir yazının göründüğüne bakar. Kendiliğinden dış ağa çıkmaz.",
+      "keywords": [
+        "adres",
+        "localhost",
+        "yerel",
+        "sayfa",
+        "site",
+        "açılsın",
+        "acilsin",
+        "cevap"
+      ],
+      "surfaces": [
+        "panel",
+        "cli"
+      ],
+      "stability": "ground",
+      "since": "0.2",
+      "permissions": [
+        {
+          "cap": "net",
+          "scope": "yalnız bu bilgisayar (localhost)",
+          "why": "Yerelde çalışan sayfanın cevap verdiğini görmek için istek atar. Dış ağa çıkmaz."
+        }
+      ],
+      "contract": {
+        "discover": "Panelde \"Kendi bilgisayarımdaki adres cevap versin\" cümlesi. Tarayıcı işlerinde \"Bitti'nin tanımı\" önerisinde çıkar.",
+        "disable": "Ölçüt kullanıcı açmadan hiç çalışmaz. Panelde ya da \"soz checks disable <id>\" ile kapatılır. Tür kendisi kapatılamaz.",
+        "onError": "Adres cevap vermezse ya da beklenen durum/yazı yoksa \"kaldı\" olur. Adres bu bilgisayarın dışındaysa ölçüt tanımı reddedilir. Yönlendirme dışarıya gidiyorsa gidilmez ve \"kaldı\" yazılır. Başka sunucu yalnız kişi spec.allowedHost alanına adını bilerek yazarsa denenir.",
+        "onNewTool": "Ölçüt ajan aracına bağlı değildir. Yeni ajan aracı gelince bu tür aynı çalışır."
+      },
+      "body": {
+        "specSchema": {
+          "type": "object",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "minLength": 1
+            },
+            "expectStatus": {
+              "type": "integer",
+              "minimum": 100,
+              "maximum": 599
+            },
+            "contains": {
+              "type": "string"
+            },
+            "allowedHost": {
+              "type": "string"
+            },
+            "template": {
+              "type": "string"
+            }
+          }
+        },
+        "templates": [
+          {
+            "id": "local-up",
+            "sentence": "Kendi bilgisayarımdaki adres cevap versin",
+            "fields": [
+              {
+                "name": "url",
+                "label": "adres",
+                "placeholder": "http://localhost:3000",
+                "default": "http://localhost:3000"
+              },
+              {
+                "name": "text",
+                "label": "sayfada görünecek yazı (boş bırakılabilir)",
+                "placeholder": "",
+                "default": ""
+              }
+            ]
+          }
+        ],
+        "measure": {
+          "via": "builtin",
+          "name": "local-address"
+        },
+        "needs": [
+          "network"
+        ],
+        "strength": "medium",
+        "reportsCount": true
+      }
+    },
+    {
+      "id": "check-kind:table-recon",
+      "kind": "check-kind",
+      "owner": "fixed",
+      "title": "Tablo mutabakatı",
+      "description": "Bir CSV tablosunda satır sayısına, sütun sayısına, bir sütunun toplamına, boş olmaması gereken sütunlara ve tekil sütuna bakar. Türkçe ve İngilizce sayı yazımını okur.",
+      "keywords": [
+        "tablo",
+        "csv",
+        "satır",
+        "satir",
+        "toplam",
+        "sütun",
+        "sutun",
+        "liste",
+        "excel"
+      ],
+      "surfaces": [
+        "panel",
+        "cli"
+      ],
+      "stability": "ground",
+      "since": "0.2",
+      "permissions": [
+        {
+          "cap": "fs.read",
+          "scope": "proje klasörü",
+          "why": "Tablo dosyasını okuyup sayıları saymak için."
+        }
+      ],
+      "contract": {
+        "discover": "Panelde \"Tabloda şu kadar satır olsun\", \"Tablonun bir sütununun toplamı şu olsun\" ve \"Tablonun şu sütunu boş kalmasın\" cümleleri. Tablo işlerinde \"Bitti'nin tanımı\" önerisinde çıkar.",
+        "disable": "Ölçüt kullanıcı açmadan hiç çalışmaz. Panelde ya da \"soz checks disable <id>\" ile kapatılır. Tür kendisi kapatılamaz.",
+        "onError": "Sayı tutmazsa \"kaldı\" olur ve bulunan ile beklenen yazılır. Sayı yazımı belirsizse (1.234 gibi), sütunda sayı olmayan hücre varsa, dosya okunamıyorsa ya da 32 MB'tan büyükse \"ölçülemedi\" (error) olur. Toplanacak sayı hiç yoksa \"doğrulanamadı\" (unchecked) olur. Asla \"geçti\" olmaz.",
+        "onNewTool": "Ölçüt ajan aracına bağlı değildir. Yeni ajan aracı gelince bu tür aynı çalışır. Excel (xlsx) dosyası şimdilik CSV olarak dışa aktarılıp ölçülür. Yeni biçim yeni bir okuyucu olarak eklenir."
+      },
+      "body": {
+        "specSchema": {
+          "type": "object",
+          "required": [
+            "path"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "minLength": 1
+            },
+            "delimiter": {
+              "type": "string"
+            },
+            "hasHeader": {
+              "type": "boolean"
+            },
+            "expectRows": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "minRows": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "maxRows": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "expectColumns": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "notEmpty": {
+              "type": [
+                "array",
+                "string"
+              ]
+            },
+            "sumColumn": {
+              "type": "string"
+            },
+            "expectSum": {
+              "type": "number"
+            },
+            "tolerance": {
+              "type": "number",
+              "minimum": 0
+            },
+            "decimal": {
+              "enum": [
+                ",",
+                "."
+              ]
+            },
+            "uniqueColumn": {
+              "type": "string"
+            },
+            "template": {
+              "type": "string"
+            }
+          }
+        },
+        "templates": [
+          {
+            "id": "table-rows",
+            "sentence": "Tabloda şu kadar satır olsun",
+            "fields": [
+              {
+                "name": "path",
+                "label": "dosya yolu",
+                "placeholder": "liste.csv"
+              },
+              {
+                "name": "rows",
+                "label": "satır sayısı",
+                "placeholder": "120"
+              }
+            ]
+          },
+          {
+            "id": "table-sum",
+            "sentence": "Tablonun bir sütununun toplamı şu olsun",
+            "fields": [
+              {
+                "name": "path",
+                "label": "dosya yolu",
+                "placeholder": "liste.csv"
+              },
+              {
+                "name": "column",
+                "label": "sütun adı",
+                "placeholder": "Tutar"
+              },
+              {
+                "name": "total",
+                "label": "beklenen toplam",
+                "placeholder": "1250,50"
+              }
+            ]
+          },
+          {
+            "id": "table-filled",
+            "sentence": "Tablonun şu sütunu boş kalmasın",
+            "fields": [
+              {
+                "name": "path",
+                "label": "dosya yolu",
+                "placeholder": "liste.csv"
+              },
+              {
+                "name": "column",
+                "label": "sütun adı",
+                "placeholder": "Ad"
+              }
+            ]
+          }
+        ],
+        "measure": {
+          "via": "builtin",
+          "name": "table-recon"
+        },
+        "needs": [
+          "folder"
+        ],
+        "strength": "strong",
+        "reportsCount": true
+      }
+    },
+    {
+      "id": "check-kind:human-checklist",
+      "kind": "check-kind",
+      "owner": "fixed",
+      "title": "Ben bakacağım (onay listesi)",
+      "description": "Kişinin kendi gözüyle bakıp işaretleyeceği maddeler. Bu bir ölçüm değil kabuldür: işaretlenmeden \"geçti\" olmaz ve sonuç \"Sen onayladın\" diye ayrı etiketlenir.",
+      "keywords": [
+        "onay",
+        "bakacağım",
+        "bakacagim",
+        "kontrol",
+        "liste",
+        "elle",
+        "kabul",
+        "ben"
+      ],
+      "surfaces": [
+        "panel",
+        "cli"
+      ],
+      "stability": "ground",
+      "since": "0.2",
+      "permissions": [
+        {
+          "cap": "data",
+          "scope": "Söz olay defteri",
+          "why": "İşaretlediğin maddeleri olay defterine yazmak için."
+        }
+      ],
+      "contract": {
+        "discover": "Panelde \"Ben şunlara bakıp onaylayacağım\" cümlesi. Hiçbir işte öneri listesi boş kalmaz, en kötü durumda bu liste önerilir.",
+        "disable": "Ölçüt kullanıcı açmadan hiç çalışmaz. Panelde ya da \"soz checks disable <id>\" ile kapatılır. Maddeleri yalnız sen işaretlersin: ajan işaretleyemez.",
+        "onError": "İşaretlenmemiş madde varsa sonuç \"senin onayını bekliyor\" olur, asla \"geçti\" olmaz. Ajan işe yeniden başlarsa eski işaretler düşer ve yeniden sorulur. Madde işaretleme isteği ajandan gelirse reddedilir.",
+        "onNewTool": "Ölçüt ajan aracına bağlı değildir. Yeni ajan aracı gelince bu tür aynı çalışır."
+      },
+      "body": {
+        "specSchema": {
+          "type": "object",
+          "required": [
+            "items"
+          ],
+          "properties": {
+            "items": {
+              "type": [
+                "array",
+                "string"
+              ]
+            },
+            "template": {
+              "type": "string"
+            }
+          }
+        },
+        "templates": [
+          {
+            "id": "human-list",
+            "sentence": "Ben şunlara bakıp onaylayacağım",
+            "fields": [
+              {
+                "name": "items",
+                "label": "maddeler (her satıra bir tane)",
+                "placeholder": "Sayfayı açıp denedim"
+              }
+            ]
+          }
+        ],
+        "measure": {
+          "via": "builtin",
+          "name": "human-checklist"
+        },
+        "needs": [
+          "human"
+        ],
+        "strength": "weak",
+        "reportsCount": true
+      }
+    }
+  ]
+}

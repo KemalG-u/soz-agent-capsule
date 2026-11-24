@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "id": "check-kind:ornek-sayisiz",
+      "kind": "check-kind",
+      "owner": "user",
+      "title": "x",
+      "body": {
+        "specSchema": {
+          "type": "object"
+        },
+        "measure": {
+          "via": "builtin",
+          "name": "file"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "id": "reader:ornek",
+      "kind": "reader",
+      "owner": "user",
+      "title": "Örnek okuyucu",
+      "body": {
+        "reads": [
+          "bir klasörün dosya adları ve sayıları"
+        ],
+        "neverReads": [
+          "dosya içerikleri"
+        ],
+        "writes": "registry_suggestion",
+        "network": false
+      }
+    }
+  ]
+}

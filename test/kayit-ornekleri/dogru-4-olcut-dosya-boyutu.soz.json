@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "id": "check-kind:ornek-dosya-boyutu",
+      "kind": "check-kind",
+      "owner": "user",
+      "title": "Dosya en az şu kadar büyük olsun",
+      "keywords": [
+        "dosya",
+        "boyut"
+      ],
+      "body": {
+        "specSchema": {
+          "type": "object",
+          "required": [
+            "path",
+            "minBytes"
+          ],
+          "properties": {
+            "path": {
+              "type": "string"
+            },
+            "minBytes": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        "templates": [
+          {
+            "id": "dosya-boyutu",
+            "sentence": "Dosya en az şu kadar bayt olsun",
+            "fields": [
+              {
+                "name": "path",
+                "label": "dosya yolu"
+              },
+              {
+                "name": "minBytes",
+                "label": "bayt",
+                "default": 1
+              }
+            ]
+          }
+        ],
+        "measure": {
+          "via": "builtin",
+          "name": "file"
+        },
+        "needs": [
+          "folder"
+        ],
+        "strength": "weak",
+        "reportsCount": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "id": "hologram:ornek",
+      "kind": "hologram",
+      "owner": "user",
+      "title": "x",
+      "body": {}
+    }
+  ]
+}

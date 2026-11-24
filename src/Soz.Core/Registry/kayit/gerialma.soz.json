@@ -1,0 +1,477 @@
+{
+  "$schema": "https://soz.local/schema/registry-1.json",
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "id": "setting:restore.enabled",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Geri alma açık",
+      "description": "Açıkken ajan çalışmadan önce klasörün anlık görüntüsü alınır, kartta tek tıkla geri alınır. Kapalıyken görüntü alınmaz, her iş \"koruma yok\" ile çalışır.",
+      "keywords": [
+        "geri alma",
+        "yedek",
+        "görüntü",
+        "goruntu",
+        "koruma",
+        "undo"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Veri ve gizlilik bölümünde \"Geri alma\" kartında bulunur.",
+        "disable": "Kapatılabilir: kapatınca görüntü alınmaz ve her iş \"koruma yok\" yazar. Varsayılan açık. Eski görüntüler yerinde kalır, silinmez.",
+        "onError": "Açık ya da kapalı olmayan değer kaydedilmez ve eski değer kalır. Görüntü alınamazsa ajan yine çalışır, kartta \"korumasız\" ve nedeni yazar.",
+        "onNewTool": "Geri alma ajana değil klasöre bakar. Yeni ajan aracı gelince bu ayar değişmez, her aracın işine aynı uygulanır."
+      },
+      "body": {
+        "schema": {
+          "type": "boolean"
+        },
+        "default": true,
+        "class": "K3",
+        "scopes": [
+          "global"
+        ],
+        "group": "veri-gizlilik",
+        "card": "Geri alma",
+        "order": 1,
+        "control": "toggle",
+        "restart": "next-run"
+      }
+    },
+    {
+      "id": "setting:restore.max-copy-mb",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Kopyalanacak en büyük dosya",
+      "description": "Bundan büyük dosyanın kopyası alınmaz, yalnız parmak izi tutulur (koruma \"sınırlı\" olur).",
+      "keywords": [
+        "geri alma",
+        "boyut",
+        "dosya",
+        "büyük",
+        "buyuk",
+        "sınır"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Veri ve gizlilik bölümünde \"Geri alma\" kartında bulunur.",
+        "disable": "Kapatılmaz. Büyük değer diski daha çok doldurur, varsayılan 1024 MB.",
+        "onError": "1 ile 102400 arası tam sayı değilse kaydedilmez: \"setting:restore.max-copy-mb: 1 ile 102400 arası tam sayı olmalı\" der. Eski değer kalır.",
+        "onNewTool": "Geri alma ajana değil klasöre bakar. Yeni ajan aracı gelince bu ayar değişmez, her aracın işine aynı uygulanır."
+      },
+      "body": {
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 102400
+        },
+        "default": 1024,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "veri-gizlilik",
+        "card": "Geri alma",
+        "order": 2,
+        "control": "number",
+        "unit": "MB",
+        "restart": "next-run",
+        "clampOnRead": true
+      }
+    },
+    {
+      "id": "setting:restore.max-files",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Görüntü alınacak en çok dosya",
+      "description": "Bundan çok dosyalı klasörde görüntü alınmaz (koruma \"yok\" olur, ajan yine çalışır).",
+      "keywords": [
+        "geri alma",
+        "dosya sayısı",
+        "sınır"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Veri ve gizlilik bölümünde \"Geri alma\" kartında bulunur.",
+        "disable": "Kapatılmaz. Varsayılan 300000 dosya.",
+        "onError": "1000 ile 5000000 arası tam sayı değilse kaydedilmez ve eski değer kalır.",
+        "onNewTool": "Geri alma ajana değil klasöre bakar. Yeni ajan aracı gelince bu ayar değişmez, her aracın işine aynı uygulanır."
+      },
+      "body": {
+        "schema": {
+          "type": "integer",
+          "minimum": 1000,
+          "maximum": 5000000
+        },
+        "default": 300000,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "veri-gizlilik",
+        "card": "Geri alma",
+        "order": 3,
+        "control": "number",
+        "unit": "dosya",
+        "restart": "next-run",
+        "clampOnRead": true
+      }
+    },
+    {
+      "id": "setting:restore.parallel",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Görüntü alırken paralel iş",
+      "description": "Dosya okuma ve yazma aynı anda kaç işlem koluyla yapılır. Yavaş diskte düşük tutmak bilgisayarı rahatlatır.",
+      "keywords": [
+        "geri alma",
+        "paralel",
+        "hız",
+        "disk"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Veri ve gizlilik bölümünde \"Geri alma\" kartında bulunur.",
+        "disable": "Kapatılmaz. Varsayılan 4.",
+        "onError": "1 ile 32 arası tam sayı değilse kaydedilmez ve eski değer kalır.",
+        "onNewTool": "Geri alma ajana değil klasöre bakar. Yeni ajan aracı gelince bu ayar değişmez, her aracın işine aynı uygulanır."
+      },
+      "body": {
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 32
+        },
+        "default": 4,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "veri-gizlilik",
+        "card": "Geri alma",
+        "order": 4,
+        "control": "number",
+        "unit": "iş",
+        "restart": "next-run",
+        "clampOnRead": true
+      }
+    },
+    {
+      "id": "setting:restore.keep-accepted-days",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Kabul edilen işin görüntüsü kaç gün kalır",
+      "description": "Kabul edilen işlerin görüntüleri bu kadar gün sonra temizlenir.",
+      "keywords": [
+        "geri alma",
+        "saklama",
+        "gün",
+        "temizlik"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Veri ve gizlilik bölümünde \"Saklama ve disk\" kartında bulunur.",
+        "disable": "Kapatılmaz. Varsayılan 7 gün.",
+        "onError": "1 ile 3650 arası tam sayı değilse kaydedilmez ve eski değer kalır.",
+        "onNewTool": "Geri alma ajana değil klasöre bakar. Yeni ajan aracı gelince bu ayar değişmez, her aracın işine aynı uygulanır."
+      },
+      "body": {
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3650
+        },
+        "default": 7,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "veri-gizlilik",
+        "card": "Saklama ve disk",
+        "order": 1,
+        "control": "number",
+        "unit": "gün",
+        "restart": "next-run",
+        "clampOnRead": true
+      }
+    },
+    {
+      "id": "setting:restore.keep-last-points",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Her projede kalan son nokta",
+      "description": "Her projede en az bu kadar son görüntü, süresi dolsa bile saklanır.",
+      "keywords": [
+        "geri alma",
+        "saklama",
+        "nokta",
+        "son"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Veri ve gizlilik bölümünde \"Saklama ve disk\" kartında bulunur.",
+        "disable": "Kapatılmaz. Varsayılan 5.",
+        "onError": "1 ile 1000 arası tam sayı değilse kaydedilmez ve eski değer kalır.",
+        "onNewTool": "Geri alma ajana değil klasöre bakar. Yeni ajan aracı gelince bu ayar değişmez, her aracın işine aynı uygulanır."
+      },
+      "body": {
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000
+        },
+        "default": 5,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "veri-gizlilik",
+        "card": "Saklama ve disk",
+        "order": 2,
+        "control": "number",
+        "unit": "nokta",
+        "restart": "next-run",
+        "clampOnRead": true
+      }
+    },
+    {
+      "id": "setting:restore.undo-point-days",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Geri alma noktası kaç gün kalır",
+      "description": "\"Geri almadan önce\" noktaları ve uygulanmış geri almaların noktaları bu kadar gün saklanır (geri almayı geri alma penceresi).",
+      "keywords": [
+        "geri alma",
+        "saklama",
+        "gün",
+        "geri almayı geri al"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Veri ve gizlilik bölümünde \"Saklama ve disk\" kartında bulunur.",
+        "disable": "Kapatılmaz. Varsayılan 30 gün.",
+        "onError": "1 ile 3650 arası tam sayı değilse kaydedilmez ve eski değer kalır.",
+        "onNewTool": "Geri alma ajana değil klasöre bakar. Yeni ajan aracı gelince bu ayar değişmez, her aracın işine aynı uygulanır."
+      },
+      "body": {
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3650
+        },
+        "default": 30,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "veri-gizlilik",
+        "card": "Saklama ve disk",
+        "order": 3,
+        "control": "number",
+        "unit": "gün",
+        "restart": "next-run",
+        "clampOnRead": true
+      }
+    },
+    {
+      "id": "setting:restore.global-budget-gb",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Geri alma için ayrılan en çok disk",
+      "description": "Bütün projelerin görüntüleri birlikte bu kadar yer tutabilir. Aşılınca en eskiler temizlenir.",
+      "keywords": [
+        "geri alma",
+        "disk",
+        "bütçe",
+        "butce",
+        "alan"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Veri ve gizlilik bölümünde \"Saklama ve disk\" kartında bulunur.",
+        "disable": "Kapatılmaz. Varsayılan 30 GB.",
+        "onError": "1 ile 10240 arası tam sayı değilse kaydedilmez ve eski değer kalır.",
+        "onNewTool": "Geri alma ajana değil klasöre bakar. Yeni ajan aracı gelince bu ayar değişmez, her aracın işine aynı uygulanır."
+      },
+      "body": {
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10240
+        },
+        "default": 30,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "veri-gizlilik",
+        "card": "Saklama ve disk",
+        "order": 4,
+        "control": "number",
+        "unit": "GB",
+        "restart": "next-run",
+        "clampOnRead": true
+      }
+    },
+    {
+      "id": "setting:restore.min-project-budget-gb",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Her projeye ayrılan en az disk",
+      "description": "Küçük projelere de en az bu kadar yer ayrılır.",
+      "keywords": [
+        "geri alma",
+        "disk",
+        "proje",
+        "bütçe"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Veri ve gizlilik bölümünde \"Saklama ve disk\" kartında bulunur.",
+        "disable": "Kapatılmaz. Varsayılan 2 GB.",
+        "onError": "1 ile 1024 arası tam sayı değilse kaydedilmez ve eski değer kalır.",
+        "onNewTool": "Geri alma ajana değil klasöre bakar. Yeni ajan aracı gelince bu ayar değişmez, her aracın işine aynı uygulanır."
+      },
+      "body": {
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1024
+        },
+        "default": 2,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "veri-gizlilik",
+        "card": "Saklama ve disk",
+        "order": 5,
+        "control": "number",
+        "unit": "GB",
+        "restart": "next-run",
+        "clampOnRead": true
+      }
+    },
+    {
+      "id": "setting:restore.project-budget-factor",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Proje boyutunun kaç katı kadar disk ayrılsın",
+      "description": "Bir projeye ayrılan geri alma diski, proje boyutunun bu katı kadardır (en az yukarıdaki alt sınır).",
+      "keywords": [
+        "geri alma",
+        "disk",
+        "proje",
+        "katsayı"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Veri ve gizlilik bölümünde \"Saklama ve disk\" kartında bulunur.",
+        "disable": "Kapatılmaz. Varsayılan 2.",
+        "onError": "1 ile 20 arası sayı değilse kaydedilmez ve eski değer kalır.",
+        "onNewTool": "Geri alma ajana değil klasöre bakar. Yeni ajan aracı gelince bu ayar değişmez, her aracın işine aynı uygulanır."
+      },
+      "body": {
+        "schema": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 20
+        },
+        "default": 2,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "veri-gizlilik",
+        "card": "Saklama ve disk",
+        "order": 6,
+        "control": "number",
+        "restart": "next-run",
+        "clampOnRead": true
+      }
+    },
+    {
+      "id": "setting:restore.disk-free-factor",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Boş diskin en çok ne kadarı kullanılsın",
+      "description": "Boş disk, tahmini yeni boyutun bu katından azsa görüntü alınmaz (disk dolmasın diye).",
+      "keywords": [
+        "geri alma",
+        "disk",
+        "boş alan",
+        "güvenlik"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Veri ve gizlilik bölümünde \"Saklama ve disk\" kartında bulunur.",
+        "disable": "Kapatılmaz. Varsayılan 3.",
+        "onError": "1 ile 20 arası sayı değilse kaydedilmez ve eski değer kalır.",
+        "onNewTool": "Geri alma ajana değil klasöre bakar. Yeni ajan aracı gelince bu ayar değişmez, her aracın işine aynı uygulanır."
+      },
+      "body": {
+        "schema": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 20
+        },
+        "default": 3,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "veri-gizlilik",
+        "card": "Saklama ve disk",
+        "order": 7,
+        "control": "number",
+        "restart": "next-run",
+        "clampOnRead": true
+      }
+    }
+  ]
+}

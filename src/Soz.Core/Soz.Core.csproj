@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite">
+      <Version>10.0.15</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <!-- .tr./.en. kültür eki sanılıp uydu derlemeye gitmesin -->
+    <EmbeddedResource Include="Extract\patterns.tr.json" LogicalName="Soz.Core.patterns.tr.json" WithCulture="false" />
+    <EmbeddedResource Include="Extract\patterns.en.json" LogicalName="Soz.Core.patterns.en.json" WithCulture="false" />
+    <!-- Tek kayıt defteri: şema (elle yazılır, kaynak odur) ve sabit (fixed) kayıt dosyaları. Adlar: Soz.Core.kayit.<dosya> -->
+    <EmbeddedResource Include="Registry\schema\registry-1.schema.json" LogicalName="Soz.Core.registry-1.schema.json" WithCulture="false" />
+    <EmbeddedResource Include="Registry\kayit\*.soz.json" LogicalName="Soz.Core.kayit.%(Filename)%(Extension)" WithCulture="false" />
+    <EmbeddedResource Include="Sessions\Ozet\deneme-komutlari.json" LogicalName="Soz.Core.deneme-komutlari.json" WithCulture="false" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="Soz.Core.Tests" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,643 @@
+{
+  "_not": "Kalıplar katlanmış metne (Türkçe küçük harf + ç→c, ğ→g, ı→i, ö→o, ş→s, ü→u) uygulanır; \"raw\": true olanlar yalnız küçük harfe çevrilmiş özgün metne. Tür: rule|ban|decision|preference|correction|durable (kalıcılık işareti: olumsuz cümlede ban'a, değilse rule'a eklenir).",
+  "language": "tr",
+  "patterns": [
+    {
+      "type": "durable",
+      "w": 0.55,
+      "re": "\\bbundan (boyle|sonra|itibaren)\\b"
+    },
+    {
+      "type": "durable",
+      "w": 0.5,
+      "re": "\\bher \\w+(den|dan|ten|tan) sonra\\b"
+    },
+    {
+      "type": "durable",
+      "w": 0.5,
+      "re": "\\bher zaman\\b"
+    },
+    {
+      "type": "durable",
+      "w": 0.5,
+      "re": "\\bdaima\\b"
+    },
+    {
+      "type": "durable",
+      "w": 0.5,
+      "re": "\\bher (seferinde|defasinda|oturumda|projede|iste|teslimde|adimda|cevapta|yanitta|mesajda|turda|raporda|degisiklikte|dosyada|committe|ajanda|brifte|gorevde)\\b"
+    },
+    {
+      "type": "durable",
+      "w": 0.45,
+      "re": "\\bhicbir (zaman|sekilde|kosulda|durumda|surette)\\b"
+    },
+    {
+      "type": "durable",
+      "w": 0.3,
+      "re": "\\bkesinlikle\\b"
+    },
+    {
+      "type": "durable",
+      "w": 0.25,
+      "re": "\\bhep\\b"
+    },
+    {
+      "type": "durable",
+      "w": 0.2,
+      "re": "\\bartik\\b"
+    },
+    {
+      "type": "durable",
+      "w": 0.3,
+      "re": "\\bbir daha\\b(?! (soyluyorum|soyleyeyim|bak|dene|kontrol))"
+    },
+    {
+      "type": "rule",
+      "w": 0.4,
+      "re": "\\bkural(i|im|imiz|dir|imdir|lar)?\\b"
+    },
+    {
+      "type": "rule",
+      "w": 0.65,
+      "re": "\\bbu (bir )?kural(dir)?\\b"
+    },
+    {
+      "type": "rule",
+      "w": 0.5,
+      "re": "\\bkalici (kural|karar|ilke)\\b"
+    },
+    {
+      "type": "rule",
+      "w": 0.45,
+      "re": "\\bunutma(yin|yiniz)?\\b"
+    },
+    {
+      "type": "rule",
+      "w": 0.5,
+      "re": "\\bmutlaka\\b"
+    },
+    {
+      "type": "rule",
+      "w": 0.5,
+      "re": "\\bsart(tir)?\\b"
+    },
+    {
+      "type": "rule",
+      "w": 0.35,
+      "re": "\\w{2,}(mali|meli)(sin|siniz|yiz|dir|sin)?\\b"
+    },
+    {
+      "type": "rule",
+      "w": 0.35,
+      "re": "\\w{2,}(mak|mek) zorunda(sin|siniz|yiz)?\\b"
+    },
+    {
+      "type": "rule",
+      "w": 0.3,
+      "re": "\\w{2,}(ilacak|ulacak|inacak|unacak|ilecek|ulecek|inecek|unecek)\\b"
+    },
+    {
+      "type": "rule",
+      "w": 0.4,
+      "re": "\\bstandart(imiz)? (olsun|bu|budur)\\b"
+    },
+    {
+      "type": "rule",
+      "w": 0.35,
+      "re": "\\b(aklinda tut|aklinda olsun|bunu bil)\\b"
+    },
+    {
+      "type": "ban",
+      "w": 0.5,
+      "re": "\\basla\\b"
+    },
+    {
+      "type": "ban",
+      "w": 0.45,
+      "re": "\\bsakın\\b",
+      "raw": true
+    },
+    {
+      "type": "ban",
+      "w": 0.5,
+      "re": "\\byasak(tir|lanmistir|li)?\\b"
+    },
+    {
+      "type": "ban",
+      "w": 0.55,
+      "re": "\\bistemiyorum\\b"
+    },
+    {
+      "type": "ban",
+      "w": 0.4,
+      "re": "\\w{3,}(masin|mesin)\\b"
+    },
+    {
+      "type": "ban",
+      "w": 0.55,
+      "re": "\\w{2,}(mayin|meyin|mayiniz|meyiniz)\\b"
+    },
+    {
+      "type": "ban",
+      "w": 0.45,
+      "re": "\\w{2,}(mamali|memeli)(sin|siniz|yiz|dir)?\\b"
+    },
+    {
+      "type": "ban",
+      "w": 0.45,
+      "re": "\\w{2,}(mayacaksin|meyeceksin|mayacaksiniz|meyeceksiniz|mayacagiz|meyecegiz)\\b"
+    },
+    {
+      "type": "ban",
+      "w": 0.35,
+      "re": "\\b(kabul edilmez|kabul etmiyorum|olmaz)\\b"
+    },
+    {
+      "type": "decision",
+      "w": 0.65,
+      "re": "\\bkarar (verdim|verdik|aldim|aldik|kildim|kildik|verildi)\\b"
+    },
+    {
+      "type": "decision",
+      "w": 0.6,
+      "re": "\\bkarar(im|imiz)\\b"
+    },
+    {
+      "type": "decision",
+      "w": 0.6,
+      "re": "\\b\\w+ (ile|la|le|yla|yle) (gidelim|devam edelim|ilerleyelim|gidiyoruz)\\b"
+    },
+    {
+      "type": "decision",
+      "w": 0.5,
+      "re": "\\b(sectim|sectik|secildi|secimim)\\b"
+    },
+    {
+      "type": "decision",
+      "w": 0.3,
+      "re": "\\b(onunla|bununla|sunla) (ilerleyelim|devam edelim|gidelim)\\b"
+    },
+    {
+      "type": "decision",
+      "w": 0.4,
+      "re": "\\bvarsayilan\\b"
+    },
+    {
+      "type": "decision",
+      "w": 0.35,
+      "re": "\\w{2,}(acagiz|ecegiz)\\b"
+    },
+    {
+      "type": "decision",
+      "w": 0.35,
+      "re": "\\bolsun([.!,;]|$)"
+    },
+    {
+      "type": "decision",
+      "w": 0.25,
+      "re": "\\bolacak[.!]*$"
+    },
+    {
+      "type": "decision",
+      "w": 0.45,
+      "re": "\\bkesinlesti\\b"
+    },
+    {
+      "type": "decision",
+      "w": 0.45,
+      "re": "\\bbu (sekilde|yolla|haliyle) (kalsin|devam)\\b"
+    },
+    {
+      "type": "decision",
+      "w": 0.4,
+      "re": "\\bvazgectim\\b"
+    },
+    {
+      "type": "decision",
+      "w": 0.2,
+      "re": "\\b(kullanalim|gidelim)\\b"
+    },
+    {
+      "type": "preference",
+      "w": 0.6,
+      "re": "\\btercih (ederim|ediyorum|ettim|edelim|edilsin)\\b"
+    },
+    {
+      "type": "preference",
+      "w": 0.65,
+      "re": "\\btercih(im|imiz)\\b"
+    },
+    {
+      "type": "preference",
+      "w": 0.6,
+      "re": "\\bisterim\\b"
+    },
+    {
+      "type": "preference",
+      "w": 0.2,
+      "re": "\\bistiyorum\\b"
+    },
+    {
+      "type": "preference",
+      "w": 0.45,
+      "re": "\\bhosuma (gidiyor|gitti|gider)\\b"
+    },
+    {
+      "type": "preference",
+      "w": 0.35,
+      "re": "\\b(severim|seviyorum)\\b"
+    },
+    {
+      "type": "preference",
+      "w": 0.5,
+      "re": "\\b(sevmiyorum|sevmem|hoslanmiyorum)\\b"
+    },
+    {
+      "type": "preference",
+      "w": 0.5,
+      "re": "\\bbence\\b.*\\bdaha (iyi|guzel|dogru|mantikli|uygun)\\b"
+    },
+    {
+      "type": "preference",
+      "w": 0.45,
+      "re": "\\bdaha cok (seviyorum|begeniyorum)\\b"
+    },
+    {
+      "type": "correction",
+      "w": 0.6,
+      "re": "\\b(demistim|soylemistim|belirtmistim|yazmistim|anlatmistim)\\b"
+    },
+    {
+      "type": "correction",
+      "w": 0.6,
+      "re": "\\bkac (kere|kez|defa|sefer|kere daha)\\b"
+    },
+    {
+      "type": "correction",
+      "w": 0.6,
+      "re": "\\btekrar (soyluyorum|ediyorum|hatirlatiyorum)\\b"
+    },
+    {
+      "type": "correction",
+      "w": 0.5,
+      "re": "\\bbir daha (soyluyorum|soyleyeyim)\\b"
+    },
+    {
+      "type": "correction",
+      "w": 0.6,
+      "re": "\\b(unuttun|unutmussun|unutuyorsun)\\b"
+    },
+    {
+      "type": "correction",
+      "w": 0.5,
+      "re": "\\bdefalarca\\b"
+    },
+    {
+      "type": "correction",
+      "w": 0.25,
+      "re": "\\b(dedim|soyledim)\\b"
+    },
+    {
+      "type": "correction",
+      "w": 0.15,
+      "re": "\\byine\\b(?! de\\b)"
+    },
+    {
+      "type": "correction",
+      "w": 0.1,
+      "re": "\\bhala\\b"
+    }
+  ],
+  "penalties": [
+    {
+      "w": 0.3,
+      "re": "\\b(calismiyor|calismadi|olmadi|olmamis|bozuk|bozuldu|hata veriyor|acilmiyor|gorunmuyor|takildi|cokuyor|coktu|yapmamissin|bitmedi)\\b"
+    },
+    {
+      "w": 0.2,
+      "re": "\\b(belki|galiba|sanirim|herhalde|olabilir|muhtemelen)\\b"
+    },
+    {
+      "w": 0.2,
+      "re": "\\b(diyorsun|dedin|diyor|soyluyorsun|soyledin|yazmissin)\\b"
+    },
+    {
+      "w": 0.15,
+      "re": "\\w+(rsan|rsen|rsaniz|rseniz)\\b"
+    },
+    {
+      "w": 0.1,
+      "re": "\\b(simdi|su an|su anda|bugun|bu aksam|yarin|hemen)\\b"
+    },
+    {
+      "w": 0.2,
+      "re": "\\b(yine de|her ne kadar)\\b"
+    },
+    {
+      "w": 0.3,
+      "re": "\\w{2,}(madin|medin|madiniz|mediniz|mamissin|memissin)\\b"
+    },
+    {
+      "w": 0.3,
+      "re": "\\b(sacmal\\w*|salak\\w*|ugrastir\\w*|aptal\\w*)\\b"
+    }
+  ],
+  "imperativeVerbs": [
+    "yaz",
+    "kullan",
+    "yap",
+    "sor",
+    "koy",
+    "ekle",
+    "sil",
+    "oku",
+    "calistir",
+    "goster",
+    "soyle",
+    "ver",
+    "al",
+    "bak",
+    "bitir",
+    "kaydet",
+    "anlat",
+    "duzelt",
+    "degistir",
+    "gonder",
+    "ac",
+    "kapat",
+    "tut",
+    "birak",
+    "basla",
+    "dur",
+    "uygula",
+    "kur",
+    "dogrula",
+    "yukle",
+    "indir",
+    "guncelle",
+    "hatirla",
+    "sakla",
+    "izle",
+    "belirt",
+    "ozetle",
+    "cevir",
+    "sec",
+    "kopyala",
+    "kontrol et",
+    "devam et",
+    "test et",
+    "not et",
+    "takip et",
+    "cevap ver",
+    "rapor et",
+    "teyit et",
+    "dikkat et",
+    "kayit tut"
+  ],
+  "negImperativeExclusions": [
+    "uygulama",
+    "guncelleme",
+    "duzenleme",
+    "gelistirme",
+    "yukleme",
+    "indirme",
+    "okuma",
+    "deneme",
+    "cozme",
+    "toplama",
+    "planlama",
+    "sikistirma",
+    "yapilandirma",
+    "dogrulama",
+    "cevirme",
+    "arama",
+    "tarama",
+    "kayma",
+    "tamamlama",
+    "ayarlama",
+    "olcme",
+    "kurma",
+    "baglama",
+    "dondurma",
+    "tasarlama",
+    "bildirme",
+    "yonetme",
+    "kodlama",
+    "isleme",
+    "silme islemi",
+    "tema",
+    "sema",
+    "firma",
+    "kamera",
+    "forma",
+    "karma",
+    "drama",
+    "lama",
+    "puma",
+    "derme",
+    "unutma",
+    "acma",
+    "kapatma islemi",
+    "yazma islemi",
+    "anlama",
+    "dinleme",
+    "izleme",
+    "yedekleme",
+    "paylasma",
+    "eslestirme",
+    "siralama",
+    "filtreleme",
+    "sinirlama",
+    "olusturma",
+    "yayinlama",
+    "baslatma",
+    "durdurma",
+    "aktarma",
+    "kaydirma",
+    "surukleme",
+    "tiklama",
+    "dikte",
+    "gecme",
+    "eleme",
+    "kirma",
+    "ayirma",
+    "sarma",
+    "koma",
+    "sima",
+    "rama",
+    "isme",
+    "dama",
+    "algoritma",
+    "karizma",
+    "dogma",
+    "pijama",
+    "prizma",
+    "figma",
+    "sigma"
+  ],
+  "questionRe": "(\\?|\\bacaba\\b|\\bm[iu](s[iu]n|y[iu]z|s[iu]n[iu]z|d[iu]r|yd[iu]|ym[iu]s)?\\b[^a-z]*(\\w+[^a-z]*){0,2}$|\\bne dersin\\b|\\bsence\\b|\\bne diyorsun\\b)",
+  "resourceNouns": [
+    "klasor",
+    "dosya",
+    "disk",
+    "surec",
+    "exe",
+    "kayit",
+    "anahtar",
+    "secret",
+    "sifre",
+    "parola",
+    "ayar",
+    "branch",
+    "komut",
+    "servis",
+    "sunucu",
+    "veritabani",
+    "kurulum",
+    "paket",
+    "terminal"
+  ],
+  "functionWords": [
+    "ve",
+    "veya",
+    "ya",
+    "da",
+    "de",
+    "ki",
+    "bu",
+    "su",
+    "o",
+    "bir",
+    "icin",
+    "ile",
+    "gibi",
+    "mi",
+    "mu",
+    "ne",
+    "the",
+    "a",
+    "an",
+    "and",
+    "or",
+    "to",
+    "of",
+    "is",
+    "it"
+  ],
+  "stopwords": [
+    "ve",
+    "veya",
+    "ya",
+    "da",
+    "de",
+    "ki",
+    "bu",
+    "su",
+    "o",
+    "bir",
+    "icin",
+    "ile",
+    "gibi",
+    "kadar",
+    "daha",
+    "cok",
+    "en",
+    "ama",
+    "fakat",
+    "ne",
+    "mi",
+    "mu",
+    "ben",
+    "sen",
+    "biz",
+    "siz",
+    "onlar",
+    "bunu",
+    "sunu",
+    "onu",
+    "buna",
+    "suna",
+    "ona",
+    "bunlari",
+    "seyi",
+    "sey",
+    "olarak",
+    "olan",
+    "her",
+    "zaman",
+    "hep",
+    "artik",
+    "bundan",
+    "sonra",
+    "boyle",
+    "itibaren",
+    "asla",
+    "hicbir",
+    "kesinlikle",
+    "lutfen",
+    "tamam",
+    "evet",
+    "hayir",
+    "yani",
+    "iste",
+    "simdi",
+    "once",
+    "sonra",
+    "unutma",
+    "mutlaka",
+    "kac",
+    "kere",
+    "kez",
+    "defa",
+    "dedim",
+    "soyledim",
+    "demistim",
+    "soylemistim",
+    "tekrar",
+    "soyluyorum",
+    "yine",
+    "hala",
+    "bence",
+    "gerek",
+    "var",
+    "yok",
+    "degil",
+    "kural",
+    "kurali",
+    "karar",
+    "kararim",
+    "sakin",
+    "daima",
+    "seferinde",
+    "hep",
+    "bir",
+    "daha",
+    "olsun"
+  ],
+  "nounDeterminers": [
+    "bir",
+    "iki",
+    "uc",
+    "dort",
+    "bes",
+    "bu",
+    "su",
+    "her",
+    "kucuk",
+    "buyuk",
+    "yeni",
+    "eski",
+    "ilk",
+    "son",
+    "tek",
+    "cift",
+    "hizli",
+    "yavas",
+    "uzun",
+    "kisa",
+    "otomatik",
+    "manuel",
+    "o"
+  ]
+}

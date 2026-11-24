@@ -1,0 +1,164 @@
+{
+  "$schema": "https://soz.local/schema/registry-1.json",
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "id": "setting:attention.daily-signals",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": {
+        "tr": "Günlük istem dışı işaret",
+        "en": "Unprompted signals per day"
+      },
+      "description": "Sen bir şey yapmıyorken kapsülün seni uyandırma hakkı: günde en çok bu kadar. Fazlası sessizce listeye girer, uyarı vermez. Sen bir şey denerken çıkan engel bu sayıya girmez, yerinde gösterilir.",
+      "keywords": [
+        "dikkat",
+        "bütçe",
+        "butce",
+        "uyarı",
+        "uyari",
+        "işaret",
+        "isaret",
+        "sıra bende",
+        "sira bende",
+        "bildirim"
+      ],
+      "surfaces": [
+        "panel",
+        "capsule"
+      ],
+      "stability": "ground",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Kapsül ve bildirim grubunda \"Günlük uyarı hakkı\" kartında bulunur. \"Sıra bende\" listesi kaç işaretin harcandığını da söyler.",
+        "disable": "0 yazılırsa kapsül seni hiç uyandırmaz, işler yine listede görünür. Varsayılan 3. Gün yerel gece yarısında sıfırlanır.",
+        "onError": "0 ile 20 arası tam sayı değilse kaydedilmez: \"attentionDailySignals: 0 ile 20 arası tam sayı olmalı\" der, eski değer kalır. Sayaç okunamazsa uyarı verilmez, liste yine çalışır.",
+        "onNewTool": "Sayaç hangi ajan aracının işi olursa olsun aynıdır. Yeni araç gelince değişmez, o aracın soruları da aynı günlük hakkı paylaşır."
+      },
+      "body": {
+        "schema": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 20
+        },
+        "default": 3,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "kapsul-bildirim",
+        "card": "Günlük uyarı hakkı",
+        "order": 1,
+        "control": "number",
+        "unit": "işaret",
+        "restart": "none",
+        "legacyKey": "attentionDailySignals",
+        "clampOnRead": true
+      }
+    },
+    {
+      "id": "setting:attention.done-hours",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": {
+        "tr": "Biten iş listede kalma süresi",
+        "en": "How long a finished job stays listed"
+      },
+      "description": "Kanıtıyla biten bir iş, sen \"gördüm\" demesen de bu kadar saat sonra \"Sıra bende\" listesinden kendiliğinden düşer.",
+      "keywords": [
+        "biten",
+        "bitti",
+        "süre",
+        "sure",
+        "liste",
+        "sıra bende",
+        "sira bende",
+        "gördüm",
+        "gordum"
+      ],
+      "surfaces": [
+        "panel",
+        "capsule"
+      ],
+      "stability": "ground",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Kapsül ve bildirim grubunda \"Dikkat bütçesi\" kartında \"Biten iş listede kalma süresi\" alanında bulunur.",
+        "disable": "Kapatılmaz. Küçük değer işi çabuk listeden düşürür, varsayılan 24 saat. İş listeden düşse de iş kartında ve geçmişte durur, hiçbir şey silinmez.",
+        "onError": "1 ile 168 arası tam sayı değilse kaydedilmez: \"attentionDoneHours: 1 ile 168 arası tam sayı olmalı\" der. Veritabanında eskiden kalmış sınır dışı bir değer okunurken sınıra çekilir.",
+        "onNewTool": "Ajan aracından bağımsızdır. Yeni araç gelince değişmez, bitiş hükmü Söz'ün kendi ölçümünden gelir."
+      },
+      "body": {
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 168
+        },
+        "default": 24,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "kapsul-bildirim",
+        "card": "Dikkat bütçesi",
+        "order": 2,
+        "control": "number",
+        "unit": "saat",
+        "restart": "none",
+        "legacyKey": "attentionDoneHours",
+        "clampOnRead": true
+      }
+    },
+    {
+      "id": "setting:capsule.kind",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": {
+        "tr": "Kapsül sürümü",
+        "en": "Capsule version"
+      },
+      "description": "Ekrandaki kapsülün hangisi olacağı: yeni (ayrı küçük program, boştayken silikleşir ve uykuya yatar) ya da eski (masaüstü programının içindeki). Yeni kapsül bulunamazsa ya da çökerse eski açılır. Uygulama açılırken okunur.",
+      "keywords": [
+        "kapsül",
+        "kapsul",
+        "yeni",
+        "eski",
+        "uyku",
+        "sürüm",
+        "surum"
+      ],
+      "surfaces": [
+        "panel",
+        "capsule"
+      ],
+      "stability": "ground",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Kapsül ve bildirim grubunda \"Kapsül\" kartında \"Kapsül sürümü\" seçiminde bulunur.",
+        "disable": "Kapatılacak bir şey değil. \"eski\" seçilirse masaüstü programının içindeki kapsül kullanılır, varsayılan \"yeni\". Değişiklik için uygulamayı yeniden açmak gerekir.",
+        "onError": "yeni ve eski dışındaki değer kaydedilmez: \"capsuleKind: yeni ya da eski olmalı\" der, eski değer kalır. Yeni kapsül programı bulunamazsa ya da başlamazsa kapsül yine görünür, eski kapsül açılır ve günlüğe bir satır yazılır.",
+        "onNewTool": "Ajan aracından bağımsızdır. Yeni araç gelince değişmez."
+      },
+      "body": {
+        "schema": {
+          "type": "string",
+          "enum": [
+            "yeni",
+            "eski"
+          ]
+        },
+        "default": "yeni",
+        "class": "K1",
+        "scopes": [
+          "global"
+        ],
+        "group": "kapsul-bildirim",
+        "card": "Kapsül",
+        "order": 1,
+        "control": "select",
+        "restart": "app",
+        "legacyKey": "capsuleKind"
+      }
+    }
+  ]
+}

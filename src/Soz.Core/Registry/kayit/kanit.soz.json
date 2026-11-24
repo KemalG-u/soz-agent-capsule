@@ -1,0 +1,137 @@
+{
+  "$schema": "https://soz.local/schema/registry-1.json",
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "id": "setting:proof.auto-approve-new-tests",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Ajanın yeni testlerini kendiliğinden onayla",
+      "description": "Açıkken iş kanıtıyla bitince ajanın YENİ eklediği test dosyaları senin onayını beklemeden onaylı testlere katılır. Kapalıyken (varsayılan) her seferinde \"Bunları da onaylı testlere katayım mı?\" diye sorulur.",
+      "keywords": [
+        "kanıt",
+        "kanit",
+        "test",
+        "onaylı",
+        "onayli",
+        "yeni test"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Veri ve gizlilik bölümünde \"Kanıt kontrolü\" kartında bulunur.",
+        "disable": "Varsayılan kapalı. Açmak, ajanın yazdığı testlerin yargıç olmasına senin onayın olmadan izin verir. Kapalı kalması güvenlidir.",
+        "onError": "Açık ya da kapalı olmayan değer kaydedilmez ve eski değer kalır.",
+        "onNewTool": "Kanıt kontrolü ajana değil klasöre bakar. Yeni ajan aracı gelince bu ayar değişmez."
+      },
+      "body": {
+        "schema": {
+          "type": "boolean"
+        },
+        "default": false,
+        "class": "K3",
+        "scopes": [
+          "global"
+        ],
+        "group": "veri-gizlilik",
+        "card": "Kanıt kontrolü",
+        "order": 1,
+        "control": "toggle",
+        "restart": "next-run"
+      }
+    },
+    {
+      "id": "setting:proof.verdict-run-seconds",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Onayladığın testleri yeniden çalıştırma süresi",
+      "description": "İş bitince Söz, ajanın yeni kodunu senin onayladığın testlerle bir kez daha dener. Bu deneme bu süreden uzun sürerse sonucu \"Kanıt sayamam\" diye yazar, sessizce eski yola dönmez.",
+      "keywords": [
+        "kanıt",
+        "kanit",
+        "süre",
+        "sure",
+        "ikinci koşu",
+        "hüküm"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Veri ve gizlilik bölümünde \"Kanıt kontrolü\" kartında bulunur.",
+        "disable": "Kapatılmaz. Varsayılan 300 saniye.",
+        "onError": "10 ile 3600 arası tam sayı değilse kaydedilmez ve eski değer kalır.",
+        "onNewTool": "Kanıt kontrolü ajana değil klasöre bakar. Yeni ajan aracı gelince bu ayar değişmez."
+      },
+      "body": {
+        "schema": {
+          "type": "integer",
+          "minimum": 10,
+          "maximum": 3600
+        },
+        "default": 300,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "veri-gizlilik",
+        "card": "Kanıt kontrolü",
+        "order": 2,
+        "control": "number",
+        "unit": "sn",
+        "restart": "next-run",
+        "clampOnRead": true
+      }
+    },
+    {
+      "id": "setting:proof.verdict-copy-max-mb",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Yeniden deneme için kopyanın en büyük boyutu",
+      "description": "Onayladığın testleri yeniden denemek için Söz klasörün ayrı bir kopyasını yapar. node_modules gibi bağımlılık klasörleri kopyalanmaz, olduğu yerden kullanılır. Kopya bu boyutu aşarsa sonuç \"Kanıt sayamam\" olur.",
+      "keywords": [
+        "kanıt",
+        "kanit",
+        "geçici kopya",
+        "gecici kopya",
+        "boyut",
+        "hüküm"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Veri ve gizlilik bölümünde \"Kanıt kontrolü\" kartında bulunur.",
+        "disable": "Kapatılmaz. Varsayılan 512 MB.",
+        "onError": "16 ile 20480 arası tam sayı değilse kaydedilmez ve eski değer kalır.",
+        "onNewTool": "Kanıt kontrolü ajana değil klasöre bakar. Yeni ajan aracı gelince bu ayar değişmez."
+      },
+      "body": {
+        "schema": {
+          "type": "integer",
+          "minimum": 16,
+          "maximum": 20480
+        },
+        "default": 512,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "veri-gizlilik",
+        "card": "Kanıt kontrolü",
+        "order": 3,
+        "control": "number",
+        "unit": "MB",
+        "restart": "next-run",
+        "clampOnRead": true
+      }
+    }
+  ]
+}

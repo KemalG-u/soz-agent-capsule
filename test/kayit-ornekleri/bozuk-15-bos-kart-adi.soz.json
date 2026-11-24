@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "id": "setting:ornek.kart",
+      "kind": "setting",
+      "owner": "user",
+      "title": "Örnek ayar",
+      "body": {
+        "schema": {
+          "type": "boolean"
+        },
+        "default": false,
+        "class": "K1",
+        "group": "genel",
+        "card": "",
+        "order": 1,
+        "control": "toggle"
+      }
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+# Sentetik etiketli cümleler (gerçek kayıtlardan KOPYALANMADI; ölçümdeki gürültü türlerini taklit eder).
+# etiket<TAB>cümle — etiket: rule | ban | decision | preference | correction | none
+rule	Bundan sonra her zaman Türkçe yaz, raporları da Türkçe ver.
+rule	Her teslimde önce testleri çalıştır, sonra bana rapor et.
+rule	Her zaman önce iş listesine yaz, sonra işe başla.
+rule	Unutma, ağır kurulumlar E diskine yapılacak.
+rule	Raporun başında mutlaka sonucu yaz.
+rule	Her oturumda canlı deftere kısa bir satır ekle.
+rule	Kanıt göstermeden bitti deme, bu bir kural.
+rule	Her projede önce durum dosyasını okumalısın.
+rule	Artık her değişiklikten sonra derlemeyi kontrol et.
+rule	Commit mesajları her zaman İngilizce olsun.
+rule	Always run the tests before you say it is done.
+rule	From now on, write the summary first and the details after.
+rule	Make sure every report includes the exact command output.
+rule	Remember to clean up temporary files at the end of each task.
+rule	Bundan böyle açıklamaları gerçek sayılı küçük bir örnekle yap.
+rule	Her cevapta önce sonucu söyle, ayrıntıyı sonra ver.
+ban	KarincaAI.exe dosyasını asla çalıştırma.
+ban	Kullanıcının claude klasörüne hiçbir zaman yazma.
+ban	Bir daha benden rutin onay isteme, kararı sen ver.
+ban	Gerçek kayıtların içeriğini rapora kesinlikle kopyalama.
+ban	C diskine ağır kurulum yapmayın.
+ban	Başka oturumun süreçlerini asla öldürmemelisin.
+ban	Arayüzde doksanlar görünümü istemiyorum.
+ban	Sakın gizli anahtar değerlerini terminale yazma.
+ban	Never push to the main branch without asking me.
+ban	Do not add new dependencies without telling me.
+ban	Hiçbir koşulda üretim veritabanını silme.
+ban	Arayüz ajanının klasörüne dokunma.
+ban	Testlerde gerçek kullanıcı verisini kullanma.
+ban	Ajan brifine keyfi tur sınırı koyma.
+decision	Karar verdim: arayüz Svelte ile yazılacak.
+decision	Veritabanı olarak SQLite ile devam edelim.
+decision	Kararım şu, varsayılan port 49300 olacak.
+decision	Bu projede Codex yerine Claude kullanacağız, karar verdik.
+decision	Tamam, ikinci tasarımı seçtim, onunla ilerleyelim.
+decision	We decided to ship the Windows version first.
+decision	Let's go with the portable data folder for this release.
+decision	Varsayılan dil Türkçe olsun, İngilizce ikinci dil.
+preference	Kısa ve sade cümleleri tercih ederim.
+preference	Açıklamalarda gerçek sayılı örnek görmek isterim.
+preference	Bence koyu tema daha iyi duruyor.
+preference	Tercihim sakin ve zarif bir tasarımdan yana.
+preference	I prefer plain Turkish over technical jargon.
+preference	I'd rather have fewer but correct suggestions.
+preference	Uzun tabloları sevmiyorum, kısa liste daha iyi.
+correction	Kaç kere söyledim, raporları Türkçe yaz.
+correction	Bunu daha önce söylemiştim, dosyaları C diskine koyma.
+correction	Tekrar söylüyorum, kanıt olmadan bitti deme.
+correction	Yine unuttun, önce iş listesine yazacaktın.
+correction	I told you, never run the real executable.
+correction	Demiştim, alt ajan dosyalarını okuma.
+correction	I already said this, keep the answers short.
+correction	Defalarca söyledim, bilgisayarın fişini çekme.
+none	Hâlâ çalışmıyor, yine aynı hata çıktı.
+none	Yine de bir bakalım, belki düzelir.
+none	Hala bekliyor musun?
+none	Bu dosyayı aç ve içindeki hatayı düzelt.
+none	Şimdi testleri çalıştır.
+none	Raporu okudum, güzel olmuş.
+none	Dün akşam uygulamayı yeniden kurdum.
+none	Ne durumdayız, toparla.
+none	Bu uygulama çok yavaş açılıyor.
+none	Yeni güncellemeden sonra tema bozuldu.
+none	Sıkıştırmadan sonra bağlam kayboldu galiba.
+none	Diğer terminalde ne oldu, kontrol et.
+none	Hangisi daha iyi sence?
+none	Bunu yapmanı istiyorum, hemen başla.
+none	Ajan bitti dedi ama dosya yoktu.
+none	Bu kural dosyası nerede duruyor?
+none	Tamam devam et.
+none	Evet, onaylıyorum.
+none	Dosyayı masaüstüne kopyala.
+none	Testler geçti mi kontrol eder misin?
+none	Bugün çok yoruldum, yarın devam ederiz.
+none	Önce bu hatayı anlamam lazım.
+none	Yazılım güncellemesi bitti, şimdi yeniden başlat.
+none	Galiba bellek doldu, o yüzden kapandı.
+none	Sen bunu dün de söylemiştin ama olmadı.
+none	Codex terminalinde hala bekleyen bir iş var.
+none	Bu ekran görüntüsünde menü kayıyor.
+none	Kullanıcı arayüzü için birkaç taslak hazırla.
+none	Bir daha bak, belki gözden kaçmıştır.
+none	Her şey yolunda görünüyor.
+none	Artık çalışıyor, teşekkürler.
+none	The build failed again after the update.
+none	Can you check the logs?
+none	Please open the settings page.
+none	I think the problem is in the parser.
+none	This looks good to me.
+none	Run the tests now.
+none	Hep aynı yerde takılıyor.
+none	Kesinlikle harika bir iş çıkardın.
+none	Uygulama açılırken beyaz ekran geliyor.
+none	Bu iş bitince bana haber ver.
+none	Kuralı okudum ama anlamadım.
+none	Yarın sabah toplantı var, raporu hazırla.
+none	Dosya silme işlemi uzun sürdü.
+none	Burada bir deneme yapalım.
+none	Haftalık rapor yine gecikti.
+none	Bence bu hata ağdan kaynaklanıyor.
+none	Neden yine aynı yere döndük, anlamadım.
+none	Kaç dosya kaldı, bir bakar mısın?
+none	Bu sefer olmuş gibi duruyor.
+none	Her neyse, sonra konuşuruz.
+none	Ekranda yine o pencere açıldı.
+none	Ajan hâlâ cevap vermedi, takıldı mı acaba?
+none	Raporun ilk kısmını beğendim ama sonu karışık.
+none	Yarım saattir bekliyorum.
+none	Dikte tuşuna basınca kayıt başlıyor.
+none	Tema ayarlarını kontrol et ve bana anlat.
+none	Kurulum bitti, şimdi neyi deneyelim?
+# Gerçek veride görülen gürültü biçimlerinden türetilmiş sentetik örnekler (içerik kopyalanmadı)
+none	Bu dosya hâlâ açılmıyor, kaç defa denedin bunu.
+none	Rapor hazır, onayınızı bekliyor.: Defalarca söylemiştim zaten.
+none	│ │ Sunucu, depo ve yedek silme adımları.
+none	Bölüm başlığını da unutma yani.
+none	Görseldeki çizim çok eski duruyor, kesinlikle bu olmaz.
+none	Ekrandaki iki küçük bekleme penceresi kapanmıyor.
+none	Bunu yedi kişiye çıkaralım, ne dersin sence.
+none	Dün söylediğim programı hâlâ açmadın, uğraştırıyorsun beni.
+ban	Bundan sonra onay sorma, gerekçeli kararı sen ver.
+decision	Kokpit ile dikteyi birleştirme kararım kesin.
+rule	Rapor bitti mi.: Bundan sonra her raporun başına sonucu yaz.

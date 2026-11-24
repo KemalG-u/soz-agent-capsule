@@ -1,0 +1,1650 @@
+{
+  "$schema": "https://soz.local/schema/registry-1.json",
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "id": "setting:ui.language",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": {
+        "tr": "Dil",
+        "en": "Language"
+      },
+      "description": "Arayüzün ve masaüstü pencerelerinin dili: Türkçe ya da İngilizce.",
+      "keywords": [
+        "dil",
+        "language",
+        "türkçe",
+        "ingilizce",
+        "turkce"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "ground",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Görünüm kartında \"Dil\" seçiminde bulunur.",
+        "disable": "Kapatılacak bir şey değil. \"tr\" ya da \"en\" seçilir, varsayılan \"tr\".",
+        "onError": "tr ve en dışında bir değer kaydedilmez, \"language: tr ya da en olmalı\" der. Eski değer kalır. Panel hemen değişir, masaüstü pencere metinleri uygulama açılırken okunur.",
+        "onNewTool": "Hangi ajan aracının kullanıldığından bağımsızdır. Yeni araç gelince değişmez."
+      },
+      "body": {
+        "schema": {
+          "type": "string",
+          "enum": [
+            "tr",
+            "en"
+          ]
+        },
+        "default": "tr",
+        "class": "K1",
+        "scopes": [
+          "global"
+        ],
+        "group": "gorunum-ses",
+        "card": "Görünüm",
+        "order": 1,
+        "control": "select",
+        "restart": "app",
+        "legacyKey": "language"
+      }
+    },
+    {
+      "id": "setting:ui.theme",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": {
+        "tr": "Tema",
+        "en": "Theme"
+      },
+      "description": "Açık, koyu ya da sistemi izle. Panel hemen değişir. Kapsül ve tepsi rengi uygulama açılırken okunur.",
+      "keywords": [
+        "tema",
+        "koyu",
+        "açık",
+        "acik",
+        "karanlık",
+        "dark",
+        "light",
+        "renk"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "ground",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Görünüm kartında \"Tema\" seçiminde bulunur.",
+        "disable": "\"system\" seçilirse Windows temasını izler. Varsayılan odur, istenirse \"light\" ya da \"dark\" seçilir.",
+        "onError": "system, light ya da dark dışındaki değer kaydedilmez, \"theme: system, light ya da dark olmalı\" der.",
+        "onNewTool": "Ajan aracından bağımsızdır. Yeni araç gelince değişmez."
+      },
+      "body": {
+        "schema": {
+          "type": "string",
+          "enum": [
+            "system",
+            "light",
+            "dark"
+          ]
+        },
+        "default": "system",
+        "class": "K1",
+        "scopes": [
+          "global"
+        ],
+        "group": "gorunum-ses",
+        "card": "Görünüm",
+        "order": 2,
+        "control": "select",
+        "restart": "app",
+        "legacyKey": "theme"
+      }
+    },
+    {
+      "id": "setting:ui.theme-family",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": {
+        "tr": "Görünüm tarzı",
+        "en": "Theme style"
+      },
+      "description": "Sayfanın görsel dokusu ve renk ailesi: cam, terminal, mat, ton, düz ya da sıcak. Seçtiğin anda hemen uygulanır.",
+      "keywords": [
+        "tema",
+        "gorunum",
+        "görünüm",
+        "cam",
+        "terminal",
+        "mat",
+        "ton",
+        "duz",
+        "sicak",
+        "renk"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "ground",
+      "since": "0.2",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Görünüm kartında \"Görünüm tarzı\" seçiminde bulunur.",
+        "disable": "Varsayılan \"cam\" seçilince ilk görünüme dönülür. Değişiklik anında yansır, yeniden başlatma gerekmez.",
+        "onError": "Tanımlı altı seçenek dışındaki değer kaydedilmez ve eski değer korunur.",
+        "onNewTool": "Ajan aracından bağımsızdır. Yeni araç gelince değişmez."
+      },
+      "body": {
+        "schema": {
+          "type": "string",
+          "enum": [
+            "cam",
+            "terminal",
+            "mat",
+            "ton",
+            "duz",
+            "sicak"
+          ]
+        },
+        "default": "cam",
+        "class": "K1",
+        "scopes": [
+          "global"
+        ],
+        "group": "gorunum-ses",
+        "card": "Görünüm",
+        "order": 3,
+        "control": "select",
+        "restart": "none",
+        "legacyKey": "themeFamily"
+      }
+    },
+    {
+      "id": "setting:ui.nav-tabs",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": {
+        "tr": "Üst menü sekmeleri",
+        "en": "Navigation tabs"
+      },
+      "description": "Üst menüde hangi sayfaların hangi sırayla görüneceği. Virgülle ayrılmış sayfa adları olarak saklanır ve hemen uygulanır.",
+      "keywords": [
+        "sekme",
+        "menü",
+        "menu",
+        "gezinti",
+        "sayfalar",
+        "nav"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "ground",
+      "since": "0.2",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Görünüm kartında \"Üst menü sekmeleri\" alanında bulunur.",
+        "disable": "Varsayılan \"suan,projeler,ayarlar\" yazılınca ilk düzene dönülür.",
+        "onError": "Boş ya da çok uzun değer kaydedilmez ve eski değer korunur.",
+        "onNewTool": "Ajan aracından bağımsızdır. Yeni araç gelince değişmez."
+      },
+      "body": {
+        "schema": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "default": "suan,projeler,ayarlar",
+        "class": "K1",
+        "scopes": [
+          "global"
+        ],
+        "group": "gorunum-ses",
+        "card": "Görünüm",
+        "order": 4,
+        "control": "text",
+        "restart": "none",
+        "legacyKey": "navTabs"
+      }
+    },
+    {
+      "id": "setting:agents.default",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Varsayılan ajan",
+      "description": "Yeni işte seçili gelen yardımcı araç (claude, codex, hermes, opencode ya da antigravity). İş başına değiştirilebilir.",
+      "keywords": [
+        "ajan",
+        "varsayılan",
+        "varsayilan",
+        "claude",
+        "codex",
+        "hermes",
+        "opencode",
+        "antigravity",
+        "araç",
+        "arac"
+      ],
+      "surfaces": [
+        "panel",
+        "cli"
+      ],
+      "stability": "ground",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Ajan araçları bölümünde. Komut satırında \"soz agents\" hangisinin varsayılan olduğunu gösterir.",
+        "disable": "Kapatılmaz. \"claude\" yazınca ilk varsayılana dönülür. Bir işe ajan verilirse (--agent) bu ayar yok sayılır.",
+        "onError": "Bilinmeyen ajan adı kaydedilmez ve geçerli ajan listesi gösterilir. Boş değer de kabul edilmez.",
+        "onNewTool": "Kayıt defterine eklenen her açık yardımcı araç bu ayarın geçerli seçeneklerine kendiliğinden katılır."
+      },
+      "body": {
+        "schema": {
+          "type": "string"
+        },
+        "default": "claude",
+        "class": "K1",
+        "scopes": [
+          "global"
+        ],
+        "group": "genel",
+        "card": "Başlangıç",
+        "order": 1,
+        "control": "select",
+        "restart": "none",
+        "validators": [
+          "agent.id"
+        ],
+        "legacyKey": "defaultAgent"
+      }
+    },
+    {
+      "id": "setting:hotkey.packet",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Paket kısayolu",
+      "description": "Kuralları ve yasakları panoya kopyalayan (bağlam paketi) genel kısayol. Varsayılan Ctrl+Alt+K.",
+      "keywords": [
+        "kısayol",
+        "kisayol",
+        "hotkey",
+        "paket",
+        "klavye",
+        "kopyala"
+      ],
+      "stability": "ground",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında görünmez. Söz'ün kendi ayar çağrısıyla, \"hotkeyPacket\" adıyla değiştirilir.",
+        "disable": "Boş bırakılamaz. Varsayılan \"Ctrl+Alt+K\" yazılınca eski kısayola dönülür. Kısayol uygulama açılırken kaydedilir, değişiklik için yeniden başlatmak gerekir.",
+        "onError": "Boş ya da 40 karakterden uzun metin kaydedilmez: \"hotkeyPacket: kısayol metni olmalı (ör. Ctrl+Alt+J)\" der. Başka program aynı kısayolu tutuyorsa uygulama sistem tepsisinde uyarı gösterir.",
+        "onNewTool": "Kısayol hangi ajan aracı kullanılırsa kullanılsın aynıdır. Yeni araç gelince değişmez."
+      },
+      "body": {
+        "schema": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40
+        },
+        "default": "Ctrl+Alt+K",
+        "class": "K1",
+        "scopes": [
+          "global"
+        ],
+        "group": "kapsul-bildirim",
+        "card": "Kısayollar",
+        "order": 1,
+        "control": "shortcut",
+        "restart": "app",
+        "legacyKey": "hotkeyPacket"
+      }
+    },
+    {
+      "id": "setting:hotkey.new-job",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Yeni iş kısayolu",
+      "description": "Her yerden yeni iş penceresini açan genel kısayol. Varsayılan Ctrl+Alt+J. AltGr çakışırsa Ctrl+Shift+Space'e düşer.",
+      "keywords": [
+        "kısayol",
+        "kisayol",
+        "hotkey",
+        "yeni iş",
+        "yeni is",
+        "klavye"
+      ],
+      "stability": "ground",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında görünmez. Söz'ün kendi ayar çağrısıyla, \"hotkeyNewJob\" adıyla değiştirilir.",
+        "disable": "Boş bırakılamaz. Varsayılan \"Ctrl+Alt+J\" yazılınca eski kısayola dönülür. Uygulama açılırken kaydedilir, değişiklik için yeniden başlatmak gerekir.",
+        "onError": "Boş ya da 40 karakterden uzun metin kaydedilmez: \"hotkeyNewJob: kısayol metni olmalı (ör. Ctrl+Alt+J)\" der. Kısayol alınamazsa Ctrl+Shift+Space denenir ve neden günlüğe yazılır.",
+        "onNewTool": "Ajan aracından bağımsızdır. Yeni araç gelince değişmez."
+      },
+      "body": {
+        "schema": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40
+        },
+        "default": "Ctrl+Alt+J",
+        "class": "K1",
+        "scopes": [
+          "global"
+        ],
+        "group": "kapsul-bildirim",
+        "card": "Kısayollar",
+        "order": 2,
+        "control": "shortcut",
+        "restart": "app",
+        "legacyKey": "hotkeyNewJob"
+      }
+    },
+    {
+      "id": "setting:agents.claude.path",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Claude yolu",
+      "description": "Claude Code programının dosya yolu. Boşsa bilgisayarda claude adıyla bulunan program kullanılır.",
+      "keywords": [
+        "claude",
+        "yol",
+        "exe",
+        "konum",
+        "path"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, \"Claude ve işler\" bölümünde Claude yolu alanında bulunur.",
+        "disable": "Alanı boşaltınca (null) PATH üzerindeki \"claude\" kullanılır. Bu varsayılandır.",
+        "onError": "Yol verilip dosya yoksa kaydedilmez: \"claudePath: bu yolda dosya yok. Claude'un .exe dosyasının yolunu ver.\" der. Tırnak ve | < > & karakterleri de reddedilir. Bu ayar bir programı başlattığı için korumayı etkileyen bir ayardır: bir dosyadan gelen değer sen onaylayana kadar etkin olmaz.",
+        "onNewTool": "Her ajan aracının kendi yol ayarı var (bugün claudePath ve codexPath). Yeni araç gelince onun yol ayarı ayrıca yazılmalı, bu ayar yalnız Claude içindir."
+      },
+      "body": {
+        "schema": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "default": null,
+        "class": "K4",
+        "scopes": [
+          "global"
+        ],
+        "group": "arac-ajan",
+        "card": "Ajan araçları",
+        "order": 1,
+        "control": "path-file",
+        "restart": "none",
+        "validators": [
+          "path.exists"
+        ],
+        "legacyKey": "claudePath",
+        "securityGate": {
+          "restrictive": "false-wins"
+        }
+      }
+    },
+    {
+      "id": "setting:agents.codex.path",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Codex yolu",
+      "description": "Codex programının dosya yolu. Boşsa bilgisayarda codex adıyla bulunan program kullanılır.",
+      "keywords": [
+        "codex",
+        "yol",
+        "exe",
+        "konum",
+        "path"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, \"Ajan araçları\" bölümünde Codex yolu alanında bulunur.",
+        "disable": "Alanı boşaltınca (null) PATH üzerindeki \"codex\" kullanılır. Bu varsayılandır.",
+        "onError": "Yol verilip dosya yoksa kaydedilmez: \"codexPath: bu yolda dosya yok. Codex'in .exe dosyasının yolunu ver.\" der. Tırnak ve | < > & karakterleri de reddedilir. Bu ayar bir programı başlattığı için korumayı etkileyen bir ayardır: bir dosyadan gelen değer sen onaylayana kadar etkin olmaz.",
+        "onNewTool": "Her ajan aracının kendi yol ayarı var. Yeni araç gelince onun yol ayarı ayrıca yazılmalı, bu ayar yalnız Codex içindir."
+      },
+      "body": {
+        "schema": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "default": null,
+        "class": "K4",
+        "scopes": [
+          "global"
+        ],
+        "group": "arac-ajan",
+        "card": "Ajan araçları",
+        "order": 2,
+        "control": "path-file",
+        "restart": "none",
+        "validators": [
+          "path.exists"
+        ],
+        "legacyKey": "codexPath",
+        "securityGate": {
+          "restrictive": "false-wins"
+        }
+      }
+    },
+    {
+      "id": "setting:run.model",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Claude'un kullanacağı yapay zekâ adı",
+      "description": "Söz Claude'u başlatırken kullanılacak yapay zekâ adı. Boşsa Claude'da seçili olan kullanılır.",
+      "keywords": [
+        "model",
+        "claude",
+        "opus",
+        "sonnet",
+        "çalıştırıcı"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında görünmez. Söz'ün kendi ayar çağrısıyla, \"runnerModel\" adıyla değiştirilir.",
+        "disable": "Boş bırakınca (varsayılan) Claude kendi varsayılan modelini seçer. Bir işe model verilirse (--model) bu ayar yok sayılır. Değişiklik bir sonraki başlatmada geçer.",
+        "onError": "Harf, rakam ve . _ : - [ ] dışındaki karakter ya da 64 karakterden uzun ad kaydedilmez: \"Model adı geçersiz. Yalnız harf, rakam ve . _ : - [ ] kullanılabilir (en çok 64 karakter).\" der.",
+        "onNewTool": "Yalnız Claude'a verilir. Codex bu ayarı kullanmaz (Claude model adı Codex'te geçersiz olur). Yeni araç gelince kendi model ayarı gerekir."
+      },
+      "body": {
+        "schema": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "default": "",
+        "class": "K3",
+        "scopes": [
+          "global"
+        ],
+        "group": "arac-ajan",
+        "card": "Ajan araçları",
+        "order": 3,
+        "control": "text",
+        "restart": "next-run",
+        "validators": [
+          "model.name"
+        ],
+        "legacyKey": "runnerModel"
+      }
+    },
+    {
+      "id": "setting:run.allowed-tools",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Ajanın kullanabileceği araçlar",
+      "description": "Söz Claude'u başlatırken --allowedTools bayrağına verilen araç listesi (virgülle ayrılmış). Korumayı etkileyen bir ayardır: hangi araçların izinli olduğunu belirler.",
+      "keywords": [
+        "izin",
+        "araçlar",
+        "araclar",
+        "allowedtools",
+        "claude",
+        "bayrak"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında görünmez. Söz'ün kendi ayar çağrısıyla, \"runnerAllowedTools\" adıyla değiştirilir.",
+        "disable": "Boş bırakılırsa varsayılan liste \"Read,Edit,Write,MultiEdit,Glob,Grep,Bash\" kullanılır. O metni yazınca eski davranışa dönülür. Salt okunur işlerde bu liste yok sayılır (yalnız Read, Glob, Grep).",
+        "onError": "Doğrulama yalnız metin olup olmadığına bakar. Liste içeriği denetlenmez, yanlış araç adı Claude tarafında sessizce işe yaramaz. Korumayı etkileyen bir ayardır: ileride bir kip, proje ya da dosya başka bir liste verirse sonuç ortak araçlar olur (en dar liste kazanır). Dosyadan gelen değer kişi onaylayana kadar öneri kalır. Bugün tek bir genel değer var. Değişiklik bir sonraki başlatmada geçer.",
+        "onNewTool": "Yalnız Claude'un --allowedTools bayrağına gider. Codex bu listeyi kullanmaz (çalışma alanını kendi korumasıyla sınırlar). Yeni araç gelince kendi izin listesi gerekir."
+      },
+      "body": {
+        "schema": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "default": "Read,Edit,Write,MultiEdit,Glob,Grep,Bash",
+        "class": "K4",
+        "scopes": [
+          "global"
+        ],
+        "group": "arac-ajan",
+        "card": "Ajan araçları",
+        "order": 4,
+        "control": "text",
+        "restart": "next-run",
+        "legacyKey": "runnerAllowedTools",
+        "securityGate": {
+          "restrictive": "intersection-wins"
+        },
+        "modeSettable": false
+      }
+    },
+    {
+      "id": "setting:run.max-parallel",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Aynı anda en çok iş",
+      "description": "Aynı anda çalışabilen ajan işi sayısı. Fazlası sıraya girer. Sınır genişleyince sıradaki işler başlar.",
+      "keywords": [
+        "paralel",
+        "eşzamanlı",
+        "eszamanli",
+        "aynı anda",
+        "iş sayısı",
+        "sıra"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, \"Claude ve işler\" bölümünde \"Aynı anda en çok iş\" alanında bulunur.",
+        "disable": "Kapatılmaz. 1 yazılırsa işler tek tek çalışır, varsayılan 3. Değer artınca sıradaki işler hemen başlar.",
+        "onError": "1 ile 6 arası tam sayı değilse kaydedilmez: \"maxParallelRuns: 1 ile 6 arası tam sayı olmalı\" der. Veritabanında eskiden kalmış sınır dışı bir değer okunurken sınıra çekilir.",
+        "onNewTool": "Sınır araca göre değil toplam çalışan işe uygulanır. Yeni ajan aracı gelince aynı sınırı paylaşır."
+      },
+      "body": {
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 6
+        },
+        "default": 3,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "arac-ajan",
+        "card": "Çalıştırma",
+        "order": 1,
+        "control": "number",
+        "unit": "iş",
+        "restart": "none",
+        "effects": [
+          "queue.pump"
+        ],
+        "legacyKey": "maxParallelRuns",
+        "clampOnRead": true
+      }
+    },
+    {
+      "id": "setting:run.max-minutes",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Bir iş en çok kaç dakika",
+      "description": "Söz'ün başlattığı ajan bu süreyi aşarsa durdurulur. İş \"Bu işe devam et\" ile sürdürülebilir.",
+      "keywords": [
+        "süre",
+        "sure",
+        "zaman aşımı",
+        "zaman asimi",
+        "dakika",
+        "timeout"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında görünmez. Söz'ün kendi ayar çağrısıyla, \"runnerMaxMinutes\" adıyla değiştirilir.",
+        "disable": "Kapatılamaz ama uzatılabilir (en çok 1440 dk = 24 saat). Varsayılan 90 yazılınca eski davranışa dönülür. Değişiklik bir sonraki başlatmada geçer.",
+        "onError": "1 ile 1440 arası tam sayı değilse kaydedilmez: \"runnerMaxMinutes: 1 ile 1440 arası tam sayı olmalı\" der. Süre dolunca iş \"Süre doldu (90 dk), ajan durduruldu\" notuyla kalır. Veritabanında eskiden kalmış sınır dışı bir değer okunurken sınıra çekilir.",
+        "onNewTool": "Süre ajan aracına bakmadan her ajan işine uygulanır. Yeni araç gelince aynı süre geçer."
+      },
+      "body": {
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1440
+        },
+        "default": 90,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "arac-ajan",
+        "card": "Çalıştırma",
+        "order": 2,
+        "control": "number",
+        "unit": "dk",
+        "restart": "next-run",
+        "legacyKey": "runnerMaxMinutes",
+        "clampOnRead": true
+      }
+    },
+    {
+      "id": "setting:run.baseline",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Başlamadan önce ölçüt turu",
+      "description": "Ajan başlamadan önce açık ölçütler bir kez koşulur (başlangıç ölçümü). \"önce neydi\" kanıtı böyle kalır.",
+      "keywords": [
+        "başlangıç",
+        "baslangic",
+        "ölçüm",
+        "olcum",
+        "baseline",
+        "önce"
+      ],
+      "stability": "ground",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında görünmez. Söz'ün kendi ayar çağrısıyla, \"baselineRun\" adıyla değiştirilir.",
+        "disable": "\"false\" yapılırsa ajan başlamadan ölçüt koşulmaz (iş daha çabuk başlar, \"önceki durum\" kanıtı olmaz). \"true\" varsayılandır.",
+        "onError": "true/false dışındaki değer kaydedilmez: \"baselineRun: true/false olmalı\" der.",
+        "onNewTool": "Ölçütler ajan aracından bağımsız Söz tarafından koşulur. Yeni araç gelince aynı kural uygulanır."
+      },
+      "body": {
+        "schema": {
+          "type": "boolean"
+        },
+        "default": true,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "arac-ajan",
+        "card": "Çalıştırma",
+        "order": 3,
+        "control": "toggle",
+        "restart": "next-run",
+        "legacyKey": "baselineRun"
+      }
+    },
+    {
+      "id": "setting:hooks.fast-mode",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Hızlı terminal desteği",
+      "description": "Açıkken Söz çalışırken terminaldeki Claude her adımda Söz'e neredeyse hiç beklemeden haber verir. Söz'ü düzgün kapatınca eski yönteme döner. Söz çökerse ya da zorla kapanırsa Claude penceresinde bir uyarı notu çıkabilir, işin kendisi durmaz. Kapalıyken (varsayılan) her adım biraz daha yavaştır ama Söz kapalıyken de hiçbir uyarı çıkmaz.",
+      "keywords": [
+        "terminal",
+        "destek",
+        "hızlı",
+        "hizli",
+        "claude",
+        "kanca",
+        "http",
+        "yavaş",
+        "yavas",
+        "gecikme"
+      ],
+      "stability": "ground",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Ajan araçları bölümünde Terminal desteği kartında bulunur.",
+        "disable": "Kapatmak için aynı anahtar kapatılır. Varsayılan zaten kapalıdır (\"false\"). Kapanınca terminal desteği hemen eski yönteme döner.",
+        "onError": "true/false dışındaki değer kaydedilmez: \"hooksFastMode: true/false olmalı\" der.",
+        "onNewTool": "Yalnız Claude Code terminal desteğini etkiler. Yeni araç gelince bu kapı değişmez."
+      },
+      "body": {
+        "schema": {
+          "type": "boolean"
+        },
+        "default": false,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "arac-ajan",
+        "card": "Terminal desteği",
+        "order": 1,
+        "control": "toggle",
+        "restart": "none",
+        "legacyKey": "hooksFastMode"
+      }
+    },
+    {
+      "id": "setting:session.waiting-stale-hours",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Eski sayma süresi",
+      "description": "Bir oturum son hareketten bu kadar saat sonra \"eski\" sayılır ve varsayılan listelerden düşer.",
+      "keywords": [
+        "eski",
+        "stale",
+        "oturum",
+        "saat"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Eşikler bölümünde \"Eski sayma süresi (saat)\" alanında bulunur.",
+        "disable": "Kapatılmaz. Büyük bir değer eski oturumları daha uzun gösterir, varsayılan 24 saat.",
+        "onError": "Sıfır ya da negatif sayı ve sayı olmayan değer kaydedilmez: \"waitingStaleHours: pozitif sayı olmalı\" der.",
+        "onNewTool": "Eşik Claude ve Codex oturumlarına aynı uygulanır. Yeni araç gelince aynı eşiği kullanır."
+      },
+      "body": {
+        "schema": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "default": 24,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "arac-ajan",
+        "card": "Oturum durumu",
+        "order": 1,
+        "control": "number",
+        "unit": "saat",
+        "restart": "none",
+        "legacyKey": "waitingStaleHours"
+      }
+    },
+    {
+      "id": "setting:session.stalled-minutes",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Takılma süresi",
+      "description": "Çalışan görünen oturum bu kadar dakika hiç hareket etmezse \"takıldı\" sayılır.",
+      "keywords": [
+        "takıldı",
+        "takildi",
+        "stalled",
+        "sessiz",
+        "dakika"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Eşikler bölümünde \"Takılma süresi (dakika)\" alanında bulunur.",
+        "disable": "Kapatılmaz. Büyük değer geç uyarır, varsayılan 5 dakika.",
+        "onError": "Sıfır ya da negatif sayı ve sayı olmayan değer kaydedilmez: \"stalledMinutes: pozitif sayı olmalı\" der.",
+        "onNewTool": "Eşik her ajan aracının oturumuna aynı uygulanır. Yeni araç gelince aynı eşiği kullanır."
+      },
+      "body": {
+        "schema": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "default": 5,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "arac-ajan",
+        "card": "Oturum durumu",
+        "order": 2,
+        "control": "number",
+        "unit": "dk",
+        "restart": "none",
+        "legacyKey": "stalledMinutes"
+      }
+    },
+    {
+      "id": "setting:session.working-seconds",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "\"Çalışıyor\" süresi",
+      "description": "(Kullanım dışı) Çalışıyor sayma eşiği, saniye. Değer saklanır ama bugünkü durum hesabı onu kullanmaz. Değiştirmek hiçbir şeyi etkilemez.",
+      "keywords": [
+        "çalışıyor",
+        "calisiyor",
+        "working",
+        "saniye"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında görünmez. Söz'ün kendi ayar çağrısıyla, \"workingSeconds\" adıyla değiştirilir.",
+        "disable": "Kapatılmaz ve silinmez (eski kayıtlar bozulmasın) ama hiçbir şeyi etkilemez: durum hesabı bu değeri kullanmıyor. Kullanım dışıdır. Varsayılan 90 saniye.",
+        "onError": "Sıfır ya da negatif sayı ve sayı olmayan değer kaydedilmez: \"workingSeconds: pozitif sayı olmalı\" der.",
+        "onNewTool": "Eşik ajan aracından bağımsız tanımlıdır. Yeni araç gelince değişmez."
+      },
+      "body": {
+        "schema": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "default": 90,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "arac-ajan",
+        "card": "Oturum durumu",
+        "order": 3,
+        "control": "number",
+        "unit": "sn",
+        "restart": "none",
+        "legacyKey": "workingSeconds"
+      },
+      "state": "deprecated",
+      "deprecated": {
+        "since": "0.1.0",
+        "message": "Hiçbir kod bu eşiği okumuyor: durum hesabı onu kullanmaz (yalnız eşik kaydına kopyalanır). Ayar eski veritabanları bozulmasın diye silinmedi."
+      }
+    },
+    {
+      "id": "setting:session.idle-minutes",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Boşta sayma süresi",
+      "description": "Hiç olayı olmayan açık oturum bu kadar dakika sonra \"boşta\" sayılır.",
+      "keywords": [
+        "boşta",
+        "bosta",
+        "idle",
+        "dakika"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında görünmez. Söz'ün kendi ayar çağrısıyla, \"idleMinutes\" adıyla değiştirilir.",
+        "disable": "Kapatılmaz. Büyük değer oturumu daha uzun \"çalışıyor\" gösterir, varsayılan 30 dakika.",
+        "onError": "Sıfır ya da negatif sayı ve sayı olmayan değer kaydedilmez: \"idleMinutes: pozitif sayı olmalı\" der.",
+        "onNewTool": "Eşik her ajan aracının oturumuna aynı uygulanır. Yeni araç gelince aynı eşiği kullanır."
+      },
+      "body": {
+        "schema": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "default": 30,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "arac-ajan",
+        "card": "Oturum durumu",
+        "order": 4,
+        "control": "number",
+        "unit": "dk",
+        "restart": "none",
+        "legacyKey": "idleMinutes"
+      }
+    },
+    {
+      "id": "setting:gate.budget-seconds",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Kanıt kapısı süresi",
+      "description": "Bir kanıt turunda ölçütlere verilen toplam süre (10 ile 3600 saniye).",
+      "keywords": [
+        "kapı",
+        "kapi",
+        "kanıt",
+        "kanit",
+        "süre",
+        "sure",
+        "bütçe",
+        "butce",
+        "gate"
+      ],
+      "stability": "ground",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında görünmez. Söz'ün kendi ayar çağrısıyla, \"gateBudgetSeconds\" adıyla değiştirilir.",
+        "disable": "Kapatılmaz (kapıyı \"soz gate on|off\" yönetir). Uzatılabilir, varsayılan 300 sn. Değişiklik bir sonraki kanıt turunda geçer.",
+        "onError": "Tam sayı olmayan (300,5 gibi) ya da 10 ile 3600 arasında olmayan değer kaydedilmez: \"gateBudgetSeconds: 10 ile 3600 arası tam sayı olmalı\" der. Veritabanında eskiden kalmış küçük bir değer (1-9 gibi) okunurken 10'a çekilir.",
+        "onNewTool": "Süre ajan aracına bakmaz, her aracın işine uygulanır. Yeni araç gelince aynı bütçe geçer."
+      },
+      "body": {
+        "schema": {
+          "type": "integer",
+          "minimum": 10,
+          "maximum": 3600
+        },
+        "default": 300,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "kural-kanit",
+        "card": "Kanıt kapısı",
+        "order": 1,
+        "control": "number",
+        "unit": "sn",
+        "restart": "next-run",
+        "legacyKey": "gateBudgetSeconds",
+        "clampOnRead": true
+      }
+    },
+    {
+      "id": "setting:gate.max-attempts",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Kapının en çok deneme sayısı",
+      "description": "Ölçütler kalınca ajan en çok kaç kez geri yollanır (1 ile 20 arası).",
+      "keywords": [
+        "deneme",
+        "tur",
+        "kapı",
+        "kapi",
+        "tekrar",
+        "gate",
+        "sınır"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında görünmez. Söz'ün kendi ayar çağrısıyla, \"gateMaxAttempts\" adıyla değiştirilir.",
+        "disable": "Kapatılmaz. 1 yazılırsa ajan geri yollanmaz, varsayılan 3. Değişiklik bir sonraki kanıt turunda geçer.",
+        "onError": "Tam sayı olmayan (2,5 gibi) ya da 1 ile 20 arasında olmayan değer kaydedilmez: \"gateMaxAttempts: 1 ile 20 arası tam sayı olmalı\" der. Veritabanında eskiden kalmış büyük bir değer okunurken 20'ye çekilir.",
+        "onNewTool": "Sayı her ajan aracı için aynıdır. Yeni araç gelince aynı deneme sınırı geçer."
+      },
+      "body": {
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 20
+        },
+        "default": 3,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "kural-kanit",
+        "card": "Kanıt kapısı",
+        "order": 2,
+        "control": "number",
+        "unit": "deneme",
+        "restart": "next-run",
+        "legacyKey": "gateMaxAttempts",
+        "clampOnRead": true
+      }
+    },
+    {
+      "id": "setting:export.allow-real-project-writes",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Gerçek projelere yazma",
+      "description": "Kapalıyken Söz yalnız deneme projesine dosya yazar (kural dosyası dışa aktarma). Açık kalması bilinçli karardır.",
+      "keywords": [
+        "yazma",
+        "izin",
+        "dışa aktar",
+        "disa aktar",
+        "export",
+        "gerçek proje",
+        "güvenlik"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "ground",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, \"Gerçek projelere yazma\" bölümünde. Açarken onay ister.",
+        "disable": "Kapatmak için aynı yerde kapatılır. Varsayılan zaten kapalıdır (\"false\"). Kapalıyken dışa aktarma deneme projesi dışında \"export.denied\" yanıtıyla durur.",
+        "onError": "true/false dışındaki değer kaydedilmez: \"allowRealProjectWrites: true/false olmalı\" der. Kapalıyken yazma denemesi 409 ile reddedilir.",
+        "onNewTool": "Yazma yetkisi ajan aracına bakmaz, Söz'ün kendi dışa aktarımı içindir. Yeni araç gelince aynı kapı uygulanır."
+      },
+      "body": {
+        "schema": {
+          "type": "boolean"
+        },
+        "default": false,
+        "class": "K4",
+        "scopes": [
+          "global"
+        ],
+        "group": "kural-kanit",
+        "card": "Korumayı etkileyen ayarlar",
+        "order": 1,
+        "control": "toggle",
+        "restart": "none",
+        "securityGate": {
+          "restrictive": "false-wins"
+        },
+        "legacyKey": "allowRealProjectWrites"
+      }
+    },
+    {
+      "id": "setting:extract.threshold",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Öneri için en düşük puan",
+      "description": "Konuşmalardan kural, yasak ve karar önerisi çıkarırken en düşük güven puanı (0 ile 1 arası). Yüksek değer daha az ama daha emin öneri verir.",
+      "keywords": [
+        "eşik",
+        "esik",
+        "öneri",
+        "oneri",
+        "karar",
+        "güven",
+        "guven",
+        "threshold"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Eşikler bölümünde \"Öneri eşiği\" alanında bulunur.",
+        "disable": "Kapatılmaz. Varsayılan 0,60 yazılınca eski davranışa dönülür. Yeni eşik bir sonraki içe aktarmada uygulanır.",
+        "onError": "0 ile 1 arası sayı değilse kaydedilmez: \"extractThreshold: 0 ile 1 arası sayı olmalı\" der.",
+        "onNewTool": "Eşik hangi ajan aracından gelirse gelsin aynı kural tabanlı çıkarıcıya uygulanır. Yeni araç gelince değişmez."
+      },
+      "body": {
+        "schema": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "default": 0.6,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "proje",
+        "card": "Karar çıkarma",
+        "order": 1,
+        "control": "slider",
+        "restart": "none",
+        "legacyKey": "extractThreshold"
+      }
+    },
+    {
+      "id": "setting:extract.repeat-threshold",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Tekrar benzerliği",
+      "description": "İki cümle bu kadar benziyorsa \"aynı şeyi yine söyledin\" kümesine girer (0-1).",
+      "keywords": [
+        "tekrar",
+        "benzerlik",
+        "küme",
+        "kume",
+        "yine",
+        "repeat"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Eşikler bölümünde \"Tekrar benzerliği\" alanında bulunur.",
+        "disable": "Kapatılmaz. Varsayılan 0,55 yazılınca eski davranışa dönülür. Yeni eşik bir sonraki içe aktarmada uygulanır.",
+        "onError": "0 ile 1 arası sayı değilse kaydedilmez: \"repeatThreshold: 0 ile 1 arası sayı olmalı\" der.",
+        "onNewTool": "Eşik tüm ajan araçlarının konuşmalarına aynı uygulanır. Yeni araç gelince değişmez."
+      },
+      "body": {
+        "schema": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "default": 0.55,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "proje",
+        "card": "Karar çıkarma",
+        "order": 2,
+        "control": "slider",
+        "restart": "none",
+        "legacyKey": "repeatThreshold"
+      }
+    },
+    {
+      "id": "setting:packet.budget",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Paket sınırı",
+      "description": "Ajana verilen bağlam paketinin en çok kaç karakter olacağı. Sığmayan satırlar paketten düşer.",
+      "keywords": [
+        "paket",
+        "sınır",
+        "sinir",
+        "karakter",
+        "bağlam",
+        "baglam",
+        "bütçe"
+      ],
+      "surfaces": [
+        "panel",
+        "cli"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Eşikler bölümünde \"Paket sınırı (karakter)\" alanında. Komut satırında \"soz packet --budget\" ile tek seferlik verilir.",
+        "disable": "Kapatılmaz. Varsayılan 2000 karakter. Panel 200-20000 arasını kabul eder.",
+        "onError": "Sıfır, negatif ya da tam sayı olmayan değer kaydedilmez: \"packetBudget: pozitif tam sayı olmalı\" der.",
+        "onNewTool": "Paket her ajan aracı için aynı biçimde üretilir. Yeni araç gelince değişmez."
+      },
+      "body": {
+        "schema": {
+          "type": "integer",
+          "exclusiveMinimum": 0
+        },
+        "default": 2000,
+        "class": "K2",
+        "scopes": [
+          "global"
+        ],
+        "group": "proje",
+        "card": "Karar çıkarma",
+        "order": 3,
+        "control": "number",
+        "unit": "karakter",
+        "restart": "none",
+        "legacyKey": "packetBudget"
+      }
+    },
+    {
+      "id": "setting:sources.claude-root",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Claude kayıt klasörü",
+      "description": "Claude Code oturum kayıtlarının (projects) klasörü. Boşsa kendiliğinden bulunur (CLAUDE_CONFIG_DIR, sonra kullanıcı klasörü\\.claude\\projects).",
+      "keywords": [
+        "kaynak",
+        "claude",
+        "kayıt",
+        "kayit",
+        "klasör",
+        "klasor",
+        "oturum",
+        "projects"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Kaynaklar bölümünde Claude kaynağı alanında bulunur.",
+        "disable": "Alanı boşaltınca (null) kendiliğinden bulunur. Varsayılan budur. Yeni klasör bir sonraki içe aktarmada okunur.",
+        "onError": "Metin (en çok 1024 karakter) ya da boş olmalı. Başka türdeki ya da daha uzun değer kaydedilmez: \"claudeRoot: en çok 1024 karakterlik metin olmalı\" der. Yolun var olup olmadığına kaydederken bakılmaz. Yanlış yolda o aracın kayıtları bulunamaz ve Kaynaklar listesi bunu gösterir. Veritabanında eskiden kalmış uygunsuz bir değer okunurken varsayılana (boş) düşer.",
+        "onNewTool": "Her ajan aracının kendi kaynak klasörü ayarı var (claudeRoot, codexRoot). Yeni araç gelince onun kaynak ayarı ayrıca yazılmalı."
+      },
+      "body": {
+        "schema": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 1024
+        },
+        "default": null,
+        "class": "K3",
+        "scopes": [
+          "global"
+        ],
+        "group": "veri-gizlilik",
+        "card": "Kayıt konumları",
+        "order": 1,
+        "control": "path-folder",
+        "restart": "none",
+        "legacyKey": "claudeRoot"
+      }
+    },
+    {
+      "id": "setting:sources.codex-root",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Codex kayıt klasörü",
+      "description": "Codex oturum kayıtlarının (sessions) klasörü. Boşsa kendiliğinden bulunur (CODEX_HOME, sonra kullanıcı klasörü\\.codex\\sessions).",
+      "keywords": [
+        "kaynak",
+        "codex",
+        "kayıt",
+        "kayit",
+        "klasör",
+        "klasor",
+        "oturum",
+        "sessions"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Kaynaklar bölümünde Codex kaynağı alanında bulunur.",
+        "disable": "Alanı boşaltınca (null) kendiliğinden bulunur. Varsayılan budur. Yeni klasör bir sonraki içe aktarmada okunur.",
+        "onError": "Metin (en çok 1024 karakter) ya da boş olmalı. Başka türdeki ya da daha uzun değer kaydedilmez: \"codexRoot: en çok 1024 karakterlik metin olmalı\" der. Yolun var olup olmadığına kaydederken bakılmaz. Yanlış yolda o aracın kayıtları bulunamaz ve Kaynaklar listesi bunu gösterir. Veritabanında eskiden kalmış uygunsuz bir değer okunurken varsayılana (boş) düşer.",
+        "onNewTool": "Her ajan aracının kendi kaynak klasörü ayarı var. Yeni araç gelince onun kaynak ayarı ayrıca yazılmalı."
+      },
+      "body": {
+        "schema": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 1024
+        },
+        "default": null,
+        "class": "K3",
+        "scopes": [
+          "global"
+        ],
+        "group": "veri-gizlilik",
+        "card": "Kayıt konumları",
+        "order": 2,
+        "control": "path-folder",
+        "restart": "none",
+        "legacyKey": "codexRoot"
+      }
+    },
+    {
+      "id": "setting:explain.enabled",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Sade anlat",
+      "description": "Açıkken bir oturumun son ajan cevabı, sade Türkçe anlatım için ayarlı komuta (varsayılan claude) gönderilir. Kapalıyken hiçbir metin dışarı çıkmaz.",
+      "keywords": [
+        "sade anlat",
+        "açıkla",
+        "acikla",
+        "explain",
+        "gizlilik",
+        "yapay zeka"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, \"Sade anlat\" bölümünde bulunur.",
+        "disable": "Kapatmak için aynı anahtar kapatılır. Varsayılan zaten kapalıdır (\"false\") ve kapalıyken \"explain.disabled\" mesajı gösterilir.",
+        "onError": "true/false dışındaki değer kaydedilmez: \"explainEnabled: true/false olmalı\" der.",
+        "onNewTool": "Anlatımı hangi komutun yaptığını explainCommand belirler. Yeni araç gelince bu anahtar değişmez, yalnız komut ayarı değiştirilir."
+      },
+      "body": {
+        "schema": {
+          "type": "boolean"
+        },
+        "default": false,
+        "class": "K4",
+        "scopes": [
+          "global"
+        ],
+        "group": "veri-gizlilik",
+        "card": "Yapay zekâ yardımı",
+        "order": 1,
+        "control": "toggle",
+        "restart": "none",
+        "securityGate": {
+          "restrictive": "false-wins"
+        },
+        "legacyKey": "explainEnabled"
+      }
+    },
+    {
+      "id": "setting:explain.command",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Sade anlat komutu",
+      "description": "\"Sade anlat\" açıkken çalıştırılan komut. Varsayılan \"claude\". Bu ayar bir program çalıştırdığı için korumayı etkileyen bir ayardır: boş bırakılırsa hiçbir program çalıştırılmaz (en kısıtlayıcı kazanır). Bir kayıt dosyasından gelen değer yalnız öneridir, kişi onaylayana kadar kullanılmaz.",
+      "keywords": [
+        "sade anlat",
+        "komut",
+        "claude",
+        "explain"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında görünmez. Söz'ün kendi ayar çağrısıyla, \"explainCommand\" adıyla değiştirilir.",
+        "disable": "Varsayılan \"claude\" yazınca eski davranışa dönülür. Asıl kapatma explainEnabled anahtarıdır.",
+        "onError": "Metin olmalı ve en çok 2000 karakter olabilir. Başka tür ya da daha uzun değer kaydedilmez: \"explainCommand: en çok 2000 karakterlik metin olmalı\" der. Komutun var olup olmadığına kaydederken bakılmaz. Komut bulunamazsa anlatım \"komut çalıştırılamadı\" hatasıyla biter, başka bir şey bozulmaz. Veritabanında eskiden kalmış uygunsuz bir değer okunurken varsayılana (\"claude\") düşer.",
+        "onNewTool": "Komut sabit bir araç adı değildir. Yeni ajan aracı geldiğinde onun komutu buraya yazılabilir."
+      },
+      "body": {
+        "schema": {
+          "type": "string",
+          "maxLength": 2000
+        },
+        "default": "claude",
+        "class": "K4",
+        "scopes": [
+          "global"
+        ],
+        "group": "veri-gizlilik",
+        "card": "Yapay zekâ yardımı",
+        "order": 2,
+        "control": "text",
+        "restart": "none",
+        "securityGate": {
+          "restrictive": "false-wins"
+        },
+        "legacyKey": "explainCommand"
+      }
+    },
+    {
+      "id": "setting:judge.claude-enabled",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "İkinci görüş için Claude",
+      "description": "Açıkken \"iş bitti mi, kanıt gösteriyor mu, soru soruyor mu, kalıcı kural mı\" gibi evet/hayır soruları ayarlı komuta (claude) sorulur. Cevap gelmezse kural tabanlı denetim karar verir. Bağlam metni kayda yazılmaz.",
+      "keywords": [
+        "hakem",
+        "judge",
+        "claude",
+        "karar",
+        "gizlilik"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, İkinci görüş bölümünde bulunur.",
+        "disable": "Kapatmak için aynı anahtar kapatılır. Varsayılan zaten kapalıdır (\"false\") ve kapalıyken yalnız kural tabanlı denetim çalışır.",
+        "onError": "true/false dışındaki değer kaydedilmez: \"judgeClaudeEnabled: true/false olmalı\" der. Komut çalışmazsa kural tabanlı denetim yedek olarak karar verir. Her karar kayda yazılır.",
+        "onNewTool": "İkinci görüş komutu judgeCommand ile seçilir. Yeni araç gelince bu anahtar değişmez, yalnız komut ayarı değiştirilir."
+      },
+      "body": {
+        "schema": {
+          "type": "boolean"
+        },
+        "default": false,
+        "class": "K4",
+        "scopes": [
+          "global"
+        ],
+        "group": "veri-gizlilik",
+        "card": "Yapay zekâ yardımı",
+        "order": 3,
+        "control": "toggle",
+        "restart": "none",
+        "securityGate": {
+          "restrictive": "false-wins"
+        },
+        "legacyKey": "judgeClaudeEnabled"
+      }
+    },
+    {
+      "id": "setting:judge.command",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "İkinci görüş komutu",
+      "description": "İkinci görüş açıkken çalıştırılan komut. Varsayılan \"claude\". Bu ayar bir program çalıştırdığı için korumayı etkileyen bir ayardır: boş bırakılırsa hiçbir program çalıştırılmaz (en kısıtlayıcı kazanır). Bir kayıt dosyasından gelen değer yalnız öneridir, kişi onaylayana kadar kullanılmaz.",
+      "keywords": [
+        "hakem",
+        "komut",
+        "judge",
+        "claude"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında görünmez. Söz'ün kendi ayar çağrısıyla, \"judgeCommand\" adıyla değiştirilir.",
+        "disable": "Varsayılan \"claude\" yazınca eski davranışa dönülür. Asıl kapatma judgeClaudeEnabled anahtarıdır.",
+        "onError": "Metin olmalı ve en çok 2000 karakter olabilir. Başka tür ya da daha uzun değer kaydedilmez: \"judgeCommand: en çok 2000 karakterlik metin olmalı\" der. Komutun var olup olmadığına kaydederken bakılmaz. Komut çalışmazsa kural tabanlı denetim yedek olarak devreye girer. Veritabanında eskiden kalmış uygunsuz bir değer okunurken varsayılana (\"claude\") düşer.",
+        "onNewTool": "Komut sabit bir araç adı değildir. Yeni ajan aracı geldiğinde onun komutu buraya yazılabilir."
+      },
+      "body": {
+        "schema": {
+          "type": "string",
+          "maxLength": 2000
+        },
+        "default": "claude",
+        "class": "K4",
+        "scopes": [
+          "global"
+        ],
+        "group": "veri-gizlilik",
+        "card": "Yapay zekâ yardımı",
+        "order": 4,
+        "control": "text",
+        "restart": "none",
+        "securityGate": {
+          "restrictive": "false-wins"
+        },
+        "legacyKey": "judgeCommand"
+      }
+    },
+    {
+      "id": "setting:phone.lan-enabled",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Telefondan erişim",
+      "description": "Açıkken Söz yerel ağda dinler ve telefon sayfası açılır. Kapalıyken yerel ağda hiçbir dinleme yoktur.",
+      "keywords": [
+        "telefon",
+        "ağ",
+        "ag",
+        "lan",
+        "wifi",
+        "uzaktan",
+        "erişim",
+        "erisim"
+      ],
+      "surfaces": [
+        "panel",
+        "phone"
+      ],
+      "stability": "ground",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Telefon bölümünde bulunur.",
+        "disable": "Kapatmak için aynı anahtar kapatılır. Varsayılan zaten kapalıdır (\"false\"). Kapanınca yerel ağ dinlemesi hemen durur (phone.apply).",
+        "onError": "true/false dışındaki değer kaydedilmez: \"lanEnabled: true/false olmalı\" der.",
+        "onNewTool": "Telefon sayfası ajan aracından bağımsız Söz'ün kendi sayfasıdır. Yeni araç gelince bu kapı değişmez."
+      },
+      "body": {
+        "schema": {
+          "type": "boolean"
+        },
+        "default": false,
+        "class": "K4",
+        "scopes": [
+          "global"
+        ],
+        "group": "veri-gizlilik",
+        "card": "Telefon ve ağ",
+        "order": 1,
+        "control": "toggle",
+        "restart": "none",
+        "securityGate": {
+          "restrictive": "false-wins"
+        },
+        "effects": [
+          "phone.apply"
+        ],
+        "legacyKey": "lanEnabled"
+      }
+    },
+    {
+      "id": "setting:dictation.path",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Dikte programı yolu",
+      "description": "Sesle yazma programının yolu. Boşsa kendiliğinden bulunur. Kapsülden dikte başlatmak için kullanılır.",
+      "keywords": [
+        "dikte",
+        "ses",
+        "mikrofon",
+        "konuşma",
+        "konusma",
+        "yol"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, \"Dikte köprüsü\" bölümünde bulunur.",
+        "disable": "Alanı boşaltınca (null) kendiliğinden bulunur. Varsayılan budur. Değişiklik hemen geçer.",
+        "onError": "Metin (en çok 1024 karakter) ya da boş olmalı. Aksi hâlde kaydedilmez: \"dictationPath: en çok 1024 karakterlik metin olmalı\" der. Yol var mı diye kaydederken bakılmaz. Yanlış yolda dikte başlamaz ve uygulama kısa uyarı verir. Eski uygunsuz değer varsayılana düşer. Program başlattığı için korumayı etkileyen bir ayardır: dosyadan gelen değer sen onaylayana kadar etkin olmaz.",
+        "onNewTool": "Dikte programı ajan aracından bağımsızdır. Yeni araç gelince değişmez."
+      },
+      "body": {
+        "schema": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 1024
+        },
+        "default": null,
+        "class": "K4",
+        "scopes": [
+          "global"
+        ],
+        "group": "gelismis",
+        "card": "Dikte köprüsü",
+        "order": 1,
+        "control": "path-file",
+        "restart": "none",
+        "legacyKey": "dictationPath",
+        "securityGate": {
+          "restrictive": "false-wins"
+        }
+      }
+    },
+    {
+      "id": "setting:usage.prices",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Fiyat tablosu",
+      "description": "Her yapay zekânın 1 milyon kullanım birimi için fiyatı, dolar olarak: gelen, giden, önbellekten okunan ve önbelleğe yazılan birimler ayrı yazılır. Fiyatlar Ayarlar sayfasındaki Fiyat tablosu bölümünden girilir. Boşsa fiyat uydurulmaz, tutar gösterilmez.",
+      "keywords": [
+        "fiyat",
+        "harcama",
+        "maliyet",
+        "token",
+        "dolar",
+        "usd",
+        "ücret"
+      ],
+      "surfaces": [
+        "panel",
+        "cli"
+      ],
+      "stability": "ground",
+      "since": "0.1",
+      "contract": {
+        "discover": "Ayarlar sayfasında, Fiyatlar bölümünde. Komut satırında \"soz usage\" tutarları bu tabloyla hesaplar.",
+        "disable": "Tabloyu boşaltınca (null) fiyat hesabı yapılmaz, yalnız token sayıları görünür. Bu varsayılandır.",
+        "onError": "Nesne olmayan değer ya da negatif fiyat kaydedilmez: \"prices.model.input: sıfır ya da pozitif sayı olmalı\" gibi hangi alanın yanlış olduğunu söyler.",
+        "onNewTool": "Yeni ajan aracı ya da model gelince tabloya yeni bir model satırı eklenir. Ayar yapısı değişmez, bilinmeyen model için fiyat uydurulmaz."
+      },
+      "body": {
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "default": null,
+        "class": "K1",
+        "scopes": [
+          "global"
+        ],
+        "group": "gelismis",
+        "card": "Harcama",
+        "order": 1,
+        "control": "json",
+        "restart": "none",
+        "validators": [
+          "prices"
+        ],
+        "legacyKey": "prices"
+      }
+    },
+    {
+      "id": "setting:capsule.x",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Kapsül yatay konumu",
+      "description": "Kapsülün ekrandaki son yatay konumu. Uygulama kendisi yazar. Kişi görmez.",
+      "keywords": [
+        "kapsül",
+        "kapsul",
+        "konum",
+        "x"
+      ],
+      "stability": "ground",
+      "since": "0.1",
+      "contract": {
+        "discover": "Sayfada görünmez. Kapsülü sürükleyince uygulama kendisi yazar (iç durum).",
+        "disable": "Silinirse kapsül varsayılan köşede açılır. Değerin elle temizlenmesi gerekmez.",
+        "onError": "Tam sayı (-100000 ile 100000 arası) ya da boş olmalı. Başka değer kaydedilmez: \"capsuleX: -100000 ile 100000 arası tam sayı olmalı (boş da olabilir)\" der. Veritabanında eskiden kalmış uygunsuz bir değer okunurken varsayılana (boş) düşer. Uygulama da sayıya çevrilemeyen değeri yok sayıp varsayılan konumu kullanır.",
+        "onNewTool": "Kapsül ajan aracından bağımsızdır. Yeni araç gelince değişmez."
+      },
+      "body": {
+        "schema": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": -100000,
+          "maximum": 100000
+        },
+        "default": null,
+        "class": "K5",
+        "scopes": [
+          "global"
+        ],
+        "group": null,
+        "order": 1,
+        "control": "number",
+        "unit": "px",
+        "restart": "capsule",
+        "legacyKey": "capsuleX"
+      }
+    },
+    {
+      "id": "setting:capsule.y",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Kapsül dikey konumu",
+      "description": "Kapsülün ekrandaki son dikey konumu. Uygulama kendisi yazar. Kişi görmez.",
+      "keywords": [
+        "kapsül",
+        "kapsul",
+        "konum",
+        "y"
+      ],
+      "stability": "ground",
+      "since": "0.1",
+      "contract": {
+        "discover": "Sayfada görünmez. Kapsülü sürükleyince uygulama kendisi yazar (iç durum).",
+        "disable": "Silinirse kapsül varsayılan köşede açılır. Değerin elle temizlenmesi gerekmez.",
+        "onError": "Tam sayı (-100000 ile 100000 arası) ya da boş olmalı. Başka değer kaydedilmez: \"capsuleY: -100000 ile 100000 arası tam sayı olmalı (boş da olabilir)\" der. Veritabanında eskiden kalmış uygunsuz bir değer okunurken varsayılana (boş) düşer. Uygulama da sayıya çevrilemeyen değeri yok sayıp varsayılan konumu kullanır.",
+        "onNewTool": "Kapsül ajan aracından bağımsızdır. Yeni araç gelince değişmez."
+      },
+      "body": {
+        "schema": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": -100000,
+          "maximum": 100000
+        },
+        "default": null,
+        "class": "K5",
+        "scopes": [
+          "global"
+        ],
+        "group": null,
+        "order": 2,
+        "control": "number",
+        "unit": "px",
+        "restart": "capsule",
+        "legacyKey": "capsuleY"
+      }
+    }
+  ]
+}

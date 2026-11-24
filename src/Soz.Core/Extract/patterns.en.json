@@ -1,0 +1,289 @@
+{
+  "_not": "English patterns, applied to lower-cased folded text.",
+  "language": "en",
+  "patterns": [
+    {
+      "type": "durable",
+      "w": 0.5,
+      "re": "\\balways\\b"
+    },
+    {
+      "type": "durable",
+      "w": 0.55,
+      "re": "\\bfrom now on\\b"
+    },
+    {
+      "type": "durable",
+      "w": 0.45,
+      "re": "\\bgoing forward\\b"
+    },
+    {
+      "type": "durable",
+      "w": 0.45,
+      "re": "\\bevery (time|session|project|single time|commit|change|report)\\b"
+    },
+    {
+      "type": "durable",
+      "w": 0.4,
+      "re": "\\bunder no circumstances\\b"
+    },
+    {
+      "type": "rule",
+      "w": 0.4,
+      "re": "\\bmake sure\\b"
+    },
+    {
+      "type": "rule",
+      "w": 0.6,
+      "re": "\\bremember to\\b"
+    },
+    {
+      "type": "rule",
+      "w": 0.3,
+      "re": "\\b(you )?must\\b"
+    },
+    {
+      "type": "rule",
+      "w": 0.5,
+      "re": "\\b(the|my|our) rule is\\b"
+    },
+    {
+      "type": "rule",
+      "w": 0.45,
+      "re": "\\bas a rule\\b"
+    },
+    {
+      "type": "rule",
+      "w": 0.4,
+      "re": "\\bdon'?t forget\\b"
+    },
+    {
+      "type": "ban",
+      "w": 0.5,
+      "re": "\\bnever\\b"
+    },
+    {
+      "type": "ban",
+      "w": 0.35,
+      "re": "(^|[.;,!] *|\\bplease )don'?t\\b"
+    },
+    {
+      "type": "ban",
+      "w": 0.4,
+      "re": "(^|[.;,!] *|\\bplease )do not\\b"
+    },
+    {
+      "type": "ban",
+      "w": 0.35,
+      "re": "\\bstop \\w+ing\\b"
+    },
+    {
+      "type": "ban",
+      "w": 0.35,
+      "re": "\\bavoid\\b"
+    },
+    {
+      "type": "ban",
+      "w": 0.35,
+      "re": "\\bno more\\b"
+    },
+    {
+      "type": "ban",
+      "w": 0.45,
+      "re": "\\bnot allowed\\b"
+    },
+    {
+      "type": "ban",
+      "w": 0.4,
+      "re": "\\bi don'?t want\\b"
+    },
+    {
+      "type": "decision",
+      "w": 0.3,
+      "re": "\\b(we will|we'll)\\b"
+    },
+    {
+      "type": "decision",
+      "w": 0.45,
+      "re": "\\blet'?s (use|go with|stick with|keep)\\b"
+    },
+    {
+      "type": "decision",
+      "w": 0.35,
+      "re": "\\bgo with\\b"
+    },
+    {
+      "type": "decision",
+      "w": 0.65,
+      "re": "\\b(we|i) (have )?decided\\b"
+    },
+    {
+      "type": "decision",
+      "w": 0.5,
+      "re": "\\b(we're|we are|i'm|i am) going with\\b"
+    },
+    {
+      "type": "decision",
+      "w": 0.55,
+      "re": "\\bthe decision is\\b"
+    },
+    {
+      "type": "preference",
+      "w": 0.6,
+      "re": "\\bi prefer\\b"
+    },
+    {
+      "type": "preference",
+      "w": 0.4,
+      "re": "\\bprefer\\b"
+    },
+    {
+      "type": "preference",
+      "w": 0.35,
+      "re": "\\bi (really )?like\\b"
+    },
+    {
+      "type": "preference",
+      "w": 0.65,
+      "re": "\\bi'?d rather\\b"
+    },
+    {
+      "type": "preference",
+      "w": 0.2,
+      "re": "\\bi want\\b"
+    },
+    {
+      "type": "correction",
+      "w": 0.6,
+      "re": "\\bi (already )?told you\\b"
+    },
+    {
+      "type": "correction",
+      "w": 0.6,
+      "re": "\\bi already (said|asked)\\b"
+    },
+    {
+      "type": "correction",
+      "w": 0.55,
+      "re": "\\bhow many times\\b"
+    },
+    {
+      "type": "correction",
+      "w": 0.45,
+      "re": "\\bas i said\\b"
+    },
+    {
+      "type": "correction",
+      "w": 0.45,
+      "re": "\\byou forgot\\b"
+    },
+    {
+      "type": "correction",
+      "w": 0.15,
+      "re": "\\bagain\\b"
+    }
+  ],
+  "penalties": [
+    {
+      "w": 0.3,
+      "re": "\\b(doesn'?t work|not working|is broken|still broken|still fails|failed|crashes|crashed)\\b"
+    },
+    {
+      "w": 0.2,
+      "re": "\\b(maybe|perhaps|i think|probably|might)\\b"
+    },
+    {
+      "w": 0.2,
+      "re": "\\byou said\\b"
+    },
+    {
+      "w": 0.15,
+      "re": "\\bif you\\b"
+    },
+    {
+      "w": 0.1,
+      "re": "(?<!from )\\b(now|today|right now|tonight|tomorrow)\\b(?! on\\b)"
+    }
+  ],
+  "imperativeVerbs": [
+    "use",
+    "write",
+    "run",
+    "check",
+    "keep",
+    "add",
+    "remove",
+    "ask",
+    "put",
+    "make",
+    "answer",
+    "reply",
+    "commit",
+    "test",
+    "verify",
+    "show",
+    "explain",
+    "respond",
+    "document",
+    "log",
+    "report"
+  ],
+  "negImperativeExclusions": [],
+  "questionRe": "(\\?|^(?!do not\\b|don'?t\\b)(do|does|did|can|could|would|should|is|are|was|were|will|what|why|how|when|where|which|who)\\b)",
+  "resourceNouns": [
+    "branch",
+    "folder",
+    "file",
+    "database",
+    "secret",
+    "key",
+    "password",
+    "server",
+    "production",
+    "dependency",
+    "dependencies",
+    "executable"
+  ],
+  "functionWords": [],
+  "stopwords": [
+    "the",
+    "a",
+    "an",
+    "and",
+    "or",
+    "to",
+    "of",
+    "in",
+    "on",
+    "for",
+    "with",
+    "is",
+    "are",
+    "be",
+    "it",
+    "this",
+    "that",
+    "i",
+    "you",
+    "we",
+    "please",
+    "always",
+    "never",
+    "from",
+    "now",
+    "on",
+    "every",
+    "time",
+    "don't",
+    "dont",
+    "do",
+    "not",
+    "make",
+    "sure",
+    "again",
+    "told",
+    "rule",
+    "prefer",
+    "use"
+  ]
+}

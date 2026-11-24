@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 2,
+  "entries": [
+    {
+      "id": "setting:ornek.gelecek",
+      "kind": "setting",
+      "owner": "user",
+      "title": "Örnek ayar",
+      "body": {
+        "schema": {
+          "type": "boolean"
+        },
+        "default": false,
+        "class": "K1",
+        "group": "genel",
+        "card": "Örnek",
+        "order": 1,
+        "control": "toggle"
+      }
+    }
+  ]
+}

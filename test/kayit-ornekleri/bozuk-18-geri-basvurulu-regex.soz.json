@@ -1,0 +1,7 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    { "id": "setting:ornek.kalip", "kind": "setting", "owner": "user", "title": "Desteklenmeyen kalıp",
+      "body": { "schema": { "type": "string", "pattern": "^(a)\\1$" }, "default": "aa", "class": "K1", "group": "genel", "card": "Örnek", "order": 1, "control": "text" } }
+  ]
+}

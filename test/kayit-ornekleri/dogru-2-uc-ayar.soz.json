@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "id": "setting:ornek.gurultu",
+      "kind": "setting",
+      "owner": "user",
+      "title": "Örnek ayar",
+      "body": {
+        "schema": {
+          "type": "boolean"
+        },
+        "default": false,
+        "class": "K1",
+        "group": "genel",
+        "card": "Ses",
+        "order": 1,
+        "control": "toggle"
+      }
+    },
+    {
+      "id": "setting:ornek.sure",
+      "kind": "setting",
+      "owner": "user",
+      "title": "Örnek ayar",
+      "body": {
+        "schema": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 60
+        },
+        "default": 5,
+        "class": "K2",
+        "group": "genel",
+        "card": "Örnek",
+        "order": 2,
+        "control": "number",
+        "unit": "dk"
+      }
+    },
+    {
+      "id": "setting:ornek.klasor",
+      "kind": "setting",
+      "owner": "user",
+      "title": "Örnek ayar",
+      "body": {
+        "schema": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "default": null,
+        "class": "K3",
+        "group": "genel",
+        "card": "Örnek",
+        "order": 3,
+        "control": "path-folder"
+      }
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "id": "setting:ornek.sistem",
+      "kind": "setting",
+      "owner": "system",
+      "title": "Örnek ayar",
+      "body": {
+        "schema": {
+          "type": "boolean"
+        },
+        "default": false,
+        "class": "K1",
+        "group": "genel",
+        "card": "Örnek",
+        "order": 1,
+        "control": "toggle"
+      },
+      "state": "enabled"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "surum": 1,
+  "aciklama": "Deneme (test) komutu tanıma kuralları. Komut && || ; | ve satır sonundan parçalara bölünür; her parça ayrı denenir. Sıra önemlidir: parçaya uyan İLK kural kazanır ve özette yalnız onun 'ad' alanı görünür (komutun kendisi, argümanları ve olası parolalar hiçbir yere çıkmaz). Yeni araç: bir satır ekle. 'desen' .NET düzenli ifadesidir, büyük küçük harf farkı gözetilmez. 'degil' (isteğe bağlı) uyarsa kural atlanır. 'okuyucuKomutlar': parçanın ilk sözcüğü bunlardan biriyse (ör. grep pytest dosya.txt) o parça deneme sayılmaz.",
+  "okuyucuKomutlar": [ "cat", "grep", "egrep", "rg", "head", "tail", "sed", "awk", "echo", "printf", "ls", "dir", "find", "type", "less", "more", "wc", "git", "which", "where", "get-content", "select-string", "gc", "sls", "write-host", "write-output", "code", "notepad", "jq", "sort", "uniq", "cut", "tee", "test", "[" ],
+  "kurallar": [
+    { "ad": "playwright test", "desen": "\\bplaywright(?:\\.cmd)?\\s+test\\b" },
+    { "ad": "vitest", "desen": "\\bvitest\\b", "degil": "\\bvitest\\s+(?:init|--version|-v)\\b" },
+    { "ad": "jest", "desen": "(?<![\\w.-])jest\\b(?!\\.)", "degil": "\\bjest\\s+--(?:init|version)\\b" },
+    { "ad": "mocha", "desen": "(?<![\\w.-])mocha\\b(?!\\.)" },
+    { "ad": "node --test", "desen": "\\bnode(?:\\.exe)?[\"']?\\s+(?:--[\\w-]+(?:=\\S+)?\\s+)*--test\\b" },
+    { "ad": "npm test", "desen": "\\bnpm(?:\\.cmd)?\\s+(?:run\\s+|run-script\\s+)?(?:test|t|tst)(?![\\w-])|\\bnpm(?:\\.cmd)?\\s+run\\s+test[:\\w-]*|\\bnpm(?:\\.cmd)?\\s+(?:run\\s+)?(?:e2e|test:e2e)\\b" },
+    { "ad": "pnpm test", "desen": "\\bpnpm(?:\\.cmd)?\\s+(?:run\\s+)?test[:\\w-]*\\b" },
+    { "ad": "yarn test", "desen": "\\byarn(?:\\.cmd)?\\s+(?:run\\s+)?test[:\\w-]*\\b" },
+    { "ad": "bun test", "desen": "\\bbun\\s+(?:run\\s+)?test\\b" },
+    { "ad": "deno test", "desen": "\\bdeno\\s+test\\b" },
+    { "ad": "dotnet test", "desen": "\\bdotnet(?:\\.exe)?[\"']?\\s+test\\b|\\bdotnet(?:\\.exe)?[\"']?\\s+vstest\\b" },
+    { "ad": "pytest", "desen": "(?<![\\w.-])(?:py\\.test|pytest)\\b(?!\\.ini)|\\bpython[\\d.]*(?:\\.exe)?\\s+-m\\s+pytest\\b|\\bpy\\s+-m\\s+pytest\\b" },
+    { "ad": "unittest", "desen": "\\bpython[\\d.]*(?:\\.exe)?\\s+-m\\s+unittest\\b" },
+    { "ad": "go test", "desen": "\\bgo(?:\\.exe)?\\s+test\\b" },
+    { "ad": "cargo test", "desen": "\\bcargo\\s+(?:test|nextest)\\b" },
+    { "ad": "maven test", "desen": "\\bmvnw?(?:\\.cmd)?\\s+(?:[\\w:-]+\\s+)*(?:test|verify)\\b" },
+    { "ad": "gradle test", "desen": "\\bgradlew?(?:\\.bat)?\\s+(?:[\\w:-]+\\s+)*test\\b" },
+    { "ad": "phpunit", "desen": "\\bphpunit\\b|\\bphp\\s+artisan\\s+test\\b" },
+    { "ad": "rspec", "desen": "(?<![\\w.-])rspec\\b(?!\\.)" },
+    { "ad": "ctest", "desen": "(?<![\\w.-])ctest\\b" },
+    { "ad": "tox", "desen": "(?:^|[\\s;&|(])tox(?:\\s|$)" },
+    { "ad": "flutter test", "desen": "\\bflutter\\s+test\\b" },
+    { "ad": "swift test", "desen": "\\bswift\\s+test\\b" },
+    { "ad": "make test", "desen": "\\bmake\\s+(?:test|check)\\b" },
+    { "ad": "Pester", "desen": "\\bInvoke-Pester\\b" }
+  ]
+}

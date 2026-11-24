@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Çok süreçli testler için küçük yardımcı süreç (xUnit içinden başlatılır). Paket eklemez, yalnız Soz.Core'a bakar. -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <RootNamespace>Soz.Core.Tests.Yardimci</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Soz.Core\Soz.Core.csproj" />
+  </ItemGroup>
+</Project>

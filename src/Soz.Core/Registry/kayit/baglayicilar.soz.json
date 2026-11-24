@@ -1,0 +1,598 @@
+{
+  "$schema": "https://soz.local/schema/registry-1.json",
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "id": "connector:claude",
+      "kind": "connector",
+      "owner": "fixed",
+      "title": "Claude Code",
+      "description": "Claude Code: Söz arka planda başlatır, terminal desteği ile bekçi ve kanıt kapısı araya girer, oturum kayıtlarını okur.",
+      "keywords": [
+        "claude",
+        "anthropic",
+        "ajan",
+        "bağlayıcı",
+        "baglayici"
+      ],
+      "surfaces": [
+        "panel",
+        "cli",
+        "capsule"
+      ],
+      "stability": "ground",
+      "since": "0.1",
+      "permissions": [
+        {
+          "cap": "exec",
+          "scope": "claude",
+          "why": "Ajanı arka planda başlatmak için."
+        },
+        {
+          "cap": "fs.read",
+          "scope": "Claude oturum kayıtları (projects)",
+          "why": "Konuşma ve iş geçmişini okumak için."
+        }
+      ],
+      "contract": {
+        "discover": "Komut satırında \"soz agents\" ve panelde Ajan araçları bölümü bulunan ajanları, sürümlerini ve yeteneklerini gösterir.",
+        "disable": "Kapatılamaz ama kullanılmak zorunda da değildir: varsayılan ajanı (agents.default) codex yapınca ya da işe --agent verince Claude başlatılmaz. Yolu bulunamazsa \"Claude Code bulunamadı\" der.",
+        "onError": "Giriş yapılmamışsa \"Claude Code'a giriş yapılmamış görünüyor\" ya da limit dolduysa kullanım sınırı cümlesini gösterir. İş asla \"geçti\" sayılmaz.",
+        "onNewTool": "Yeni ajan aracı kendi araç kaydıyla gelir (bir kayıt dosyası ve oturum kayıtlarını okuyan bir parça). Claude kaydı ve ayarları değişmez. Ajan listesi, bulma yolları ve oturum kayıt klasörü bu kayıttan okunur."
+      },
+      "body": {
+        "depth": [
+          "observe",
+          "run",
+          "intercept"
+        ],
+        "detect": {
+          "commands": [
+            "claude"
+          ],
+          "versionArgs": [
+            "--version"
+          ],
+          "pathSetting": "setting:agents.claude.path"
+        },
+        "launch": {
+          "protocol": "dialect",
+          "dialect": "claude-stream-json",
+          "command": "claude",
+          "args": [
+            "-p",
+            "--output-format",
+            "stream-json",
+            "--verbose"
+          ],
+          "stripEnv": [
+            "ANTHROPIC_*",
+            "ANTHROPIC_API_KEY",
+            "ANTHROPIC_AUTH_TOKEN",
+            "ANTHROPIC_BASE_URL",
+            "CLAUDE_API_KEY",
+            "CLAUDE_CODE_USE_BEDROCK",
+            "CLAUDE_CODE_USE_VERTEX",
+            "CLAUDE_CODE_USE_FOUNDRY"
+          ]
+        },
+        "capabilities": {
+          "headless": true,
+          "eventStream": true,
+          "resume": true,
+          "stop": true,
+          "beforeTool": "native-hook",
+          "turnEnd": "native-hook",
+          "ask": "resume-reply",
+          "cost": "dollars"
+        },
+        "history": {
+          "reader": "claude-jsonl",
+          "rootSetting": "setting:sources.claude-root",
+          "rootEnv": [
+            "CLAUDE_CONFIG_DIR"
+          ],
+          "envNeedsSubdir": true,
+          "defaultRoot": "%USERPROFILE%\\.claude",
+          "subdir": "projects"
+        }
+      }
+    },
+    {
+      "id": "connector:codex",
+      "kind": "connector",
+      "owner": "fixed",
+      "title": "Codex",
+      "description": "Codex: Söz Codex'i arka planda başlatır. Çalışma alanı Windows korumasıyla sınırlanır ve iş bittiğinde kanıt kontrolü otomatik çalışır.",
+      "keywords": [
+        "codex",
+        "openai",
+        "ajan",
+        "bağlayıcı",
+        "baglayici"
+      ],
+      "surfaces": [
+        "panel",
+        "cli",
+        "capsule"
+      ],
+      "stability": "ground",
+      "since": "0.1",
+      "permissions": [
+        {
+          "cap": "exec",
+          "scope": "codex",
+          "why": "Ajanı arka planda başlatmak için."
+        },
+        {
+          "cap": "fs.read",
+          "scope": "Codex oturum kayıtları (sessions)",
+          "why": "Konuşma ve iş geçmişini okumak için."
+        }
+      ],
+      "contract": {
+        "discover": "Komut satırında \"soz agents\" ve panelde Ajan araçları bölümü bulunan ajanları, sürümlerini ve yeteneklerini gösterir.",
+        "disable": "Kapatılamaz ama kullanılmak zorunda da değildir: varsayılan ajan claude kalırsa ve işe --agent codex verilmezse Codex başlatılmaz. Yolu bulunamazsa \"Codex bulunamadı\" der.",
+        "onError": "Giriş yapılmamışsa ya da kullanım sınırı dolduysa sade neden cümlesini gösterir. Windows çalışma alanı koruması yönetici onayı isterse çağrı başına \"unelevated\" kipi kullanılır. İş asla \"geçti\" sayılmaz.",
+        "onNewTool": "Yeni ajan aracı kendi araç kaydıyla gelir (bir kayıt dosyası ve oturum kayıtlarını okuyan bir parça). Codex kaydı ve ayarları değişmez. Ajan listesi, bulma yolları ve oturum kayıt klasörü bu kayıttan okunur."
+      },
+      "body": {
+        "depth": [
+          "observe",
+          "run"
+        ],
+        "detect": {
+          "commands": [
+            "codex"
+          ],
+          "versionArgs": [
+            "--version"
+          ],
+          "pathSetting": "setting:agents.codex.path"
+        },
+        "launch": {
+          "protocol": "dialect",
+          "dialect": "codex-exec-json",
+          "command": "codex",
+          "args": [
+            "exec",
+            "--json",
+            "--skip-git-repo-check"
+          ],
+          "stripEnv": [
+            "OPENAI_*",
+            "AZURE_OPENAI_*",
+            "CODEX_API_KEY"
+          ]
+        },
+        "capabilities": {
+          "headless": true,
+          "eventStream": true,
+          "resume": true,
+          "stop": true,
+          "beforeTool": "os-sandbox",
+          "turnEnd": "outer-loop",
+          "ask": "resume-reply",
+          "cost": "tokens"
+        },
+        "history": {
+          "reader": "codex-rollout",
+          "rootSetting": "setting:sources.codex-root",
+          "rootEnv": [
+            "CODEX_HOME"
+          ],
+          "userEnv": true,
+          "defaultRoot": "%USERPROFILE%\\.codex",
+          "subdir": "sessions"
+        }
+      }
+    },
+    {
+      "id": "connector:hermes",
+      "kind": "connector",
+      "owner": "fixed",
+      "state": "enabled",
+      "title": "Hermes Agent",
+      "description": "Hermes Agent: Söz işi Hermes'i arka planda başlatır ve oturum kayıtlarını yalnız okuyarak izler. Komut komut ön onay yoktur ve Durdur yalnız izlemeyi keser. Geri alma noktası ve iş sonu kanıt kontrolü Söz tarafında otomatik çalışır.",
+      "keywords": [
+        "hermes",
+        "ajan",
+        "bağlayıcı",
+        "baglayici",
+        "gözle"
+      ],
+      "surfaces": [
+        "panel",
+        "cli"
+      ],
+      "stability": "scaffold",
+      "since": "0.2",
+      "permissions": [
+        {
+          "cap": "exec",
+          "scope": "hermes",
+          "why": "Ajanı arka planda başlatmak için."
+        },
+        {
+          "cap": "fs.read",
+          "scope": "Hermes oturum veritabanı (state.db) ve runtime\\active_sessions.json",
+          "why": "Oturumları ve canlılığı salt okunur görmek için."
+        }
+      ],
+      "contract": {
+        "discover": "Kurulu bulunduğunda doğrudan açık gelir, komut satırında \"soz agents\" ve panelde Ajan araçları bölümünde listelenir. Hermes kurulu değilse \"bulunamadı\" der ve hata saymaz.",
+        "disable": "Varsayılan olarak açık gelir. İstediğinde Ayarlar sayfasından ya da Tanışma ekranından kapatabilirsin. Kapatıldığında hem okuma hem iş başlatma durur. Çalıştırma yolu ayarı (agents.hermes.path) bir programı başlattığı için korumayı etkileyen bir ayardır.",
+        "onError": "Giriş ya da sağlayıcı ayarı eksikse, kullanım sınırı dolduysa ya da Hermes bir işlem için onay isteyip arka planda sürdüremediyse sade neden cümlesini gösterir. İş asla \"geçti\" sayılmaz. Kanıt kontrolü kalırsa ajan aynı oturuma geri yollanır. Hermes veritabanının sürümünü tanımıyorsa \"tanımadığım sürüm, okumadım\" der.",
+        "onNewTool": "Başka bir araç aynı yoldan gelir: bir kayıt dosyası ve ona uyan küçük bir yazılım parçası. Hermes kaydı değişmez."
+      },
+      "body": {
+        "depth": [
+          "observe",
+          "run"
+        ],
+        "detect": {
+          "commands": [
+            "hermes"
+          ],
+          "versionArgs": [
+            "--version"
+          ],
+          "pathSetting": "setting:agents.hermes.path"
+        },
+        "launch": {
+          "protocol": "dialect",
+          "dialect": "hermes-chat-stream-json",
+          "command": "hermes",
+          "args": [
+            "chat",
+            "--format",
+            "stream-json",
+            "--query-file",
+            "-"
+          ]
+        },
+        "capabilities": {
+          "headless": true,
+          "eventStream": true,
+          "resume": true,
+          "stop": false,
+          "beforeTool": "none",
+          "turnEnd": "outer-loop",
+          "ask": "resume-reply",
+          "cost": "tokens"
+        },
+        "history": {
+          "reader": "hermes-state",
+          "rootEnv": [
+            "HERMES_HOME"
+          ],
+          "userEnv": true,
+          "defaultRoot": "%USERPROFILE%\\.hermes"
+        },
+        "registry": {
+          "id": "hermes"
+        }
+      }
+    },
+    {
+      "id": "connector:opencode",
+      "kind": "connector",
+      "owner": "fixed",
+      "state": "enabled",
+      "title": "OpenCode",
+      "description": "OpenCode: Söz işi OpenCode'u arka planda başlatır ve oturum kayıtlarını yalnız okuyarak izler. Arka planda çalışırken komut komut ön onay sormaz. Geri alma noktası ve iş sonu kanıt kontrolü Söz tarafında otomatik çalışır.",
+      "keywords": [
+        "opencode",
+        "ajan",
+        "bağlayıcı",
+        "baglayici",
+        "gözle"
+      ],
+      "surfaces": [
+        "panel",
+        "cli"
+      ],
+      "stability": "scaffold",
+      "since": "0.2",
+      "permissions": [
+        {
+          "cap": "exec",
+          "scope": "opencode",
+          "why": "Ajanı arka planda başlatmak için."
+        },
+        {
+          "cap": "fs.read",
+          "scope": "OpenCode oturum veritabanı (opencode.db)",
+          "why": "Oturumları salt okunur görmek için."
+        }
+      ],
+      "contract": {
+        "discover": "Kurulu bulunduğunda doğrudan açık gelir, komut satırında \"soz agents\" ve panelde Ajan araçları bölümünde listelenir. OpenCode kurulu değilse \"bulunamadı\" der ve hata saymaz.",
+        "disable": "Varsayılan olarak açık gelir. İstediğinde Ayarlar sayfasından ya da Tanışma ekranından kapatabilirsin. Kapatıldığında hem okuma hem iş başlatma durur. Çalıştırma yolu ayarı (agents.opencode.path) bir programı başlattığı için korumayı etkileyen bir ayardır.",
+        "onError": "Giriş ya da sağlayıcı ayarı eksikse, kullanım sınırı dolduysa ya da OpenCode hata olayı verip 1 ile çıktıysa sade neden cümlesini gösterir. İş asla \"geçti\" sayılmaz. Kanıt kontrolü kalırsa ajan aynı oturuma geri yollanır. Veritabanının düzenini tanımıyorsa \"tanımadığım sürüm, okumadım\" der.",
+        "onNewTool": "Başka bir araç aynı yoldan gelir: bir kayıt dosyası ve ona uyan küçük bir yazılım parçası. OpenCode kaydı değişmez."
+      },
+      "body": {
+        "depth": [
+          "observe",
+          "run"
+        ],
+        "detect": {
+          "commands": [
+            "opencode"
+          ],
+          "versionArgs": [
+            "--version"
+          ],
+          "pathSetting": "setting:agents.opencode.path"
+        },
+        "launch": {
+          "protocol": "dialect",
+          "dialect": "opencode-run-json",
+          "command": "opencode",
+          "args": [
+            "run",
+            "--format",
+            "json"
+          ]
+        },
+        "capabilities": {
+          "headless": true,
+          "eventStream": true,
+          "resume": true,
+          "stop": true,
+          "beforeTool": "none",
+          "turnEnd": "outer-loop",
+          "ask": "resume-reply",
+          "cost": "dollars"
+        },
+        "history": {
+          "reader": "opencode-db",
+          "rootEnv": [
+            "OPENCODE_DATA_DIR"
+          ],
+          "defaultRoot": "%USERPROFILE%\\.local\\share\\opencode"
+        },
+        "registry": {
+          "id": "opencode"
+        }
+      }
+    },
+    {
+      "id": "connector:antigravity",
+      "kind": "connector",
+      "owner": "fixed",
+      "state": "enabled",
+      "title": "Antigravity",
+      "description": "Antigravity: Söz işi Antigravity komut satırı aracını (agy) arka planda başlatır ve Antigravity oturum özetlerini salt okunur izler. Geri alma noktası ve iş sonu kanıt kontrolü Söz tarafında otomatik çalışır.",
+      "keywords": [
+        "antigravity",
+        "agy",
+        "gemini",
+        "ajan",
+        "bağlayıcı",
+        "baglayici"
+      ],
+      "surfaces": [
+        "panel",
+        "cli",
+        "capsule"
+      ],
+      "stability": "scaffold",
+      "since": "0.2",
+      "permissions": [
+        {
+          "cap": "exec",
+          "scope": "agy",
+          "why": "Antigravity komut satırı aracını arka planda başlatmak için."
+        },
+        {
+          "cap": "fs.read",
+          "scope": "Antigravity oturum özeti veritabanı (conversation_summaries.db)",
+          "why": "Çalışma klasörlerini ve oturum özetlerini salt okunur görmek için."
+        }
+      ],
+      "contract": {
+        "discover": "Kurulu bulunduğunda doğrudan açık gelir, komut satırında \"soz agents\" ve panelde Ajan araçları bölümünde listelenir. Antigravity kurulu değilse \"bulunamadı\" der ve hata saymaz.",
+        "disable": "Varsayılan olarak açık gelir. İstediğinde Ayarlar sayfasından kapatabilirsin. Kapatıldığında iş başlatma ve okuma durur. Çalıştırma yolu ayarı (agents.antigravity.path) bir programı başlattığı için korumayı etkileyen bir ayardır.",
+        "onError": "Giriş yapılmamışsa, kullanım sınırı dolduysa ya da agy programı bulunamazsa sade Türkçe neden cümlesini gösterir ve arka planda boşuna işlem başlatmaz. İş asla \"geçti\" sayılmaz.",
+        "onNewTool": "Başka bir yardımcı araç aynı kayıt düzeniyle eklenir. Antigravity kaydı ve ayarları değişmez."
+      },
+      "body": {
+        "depth": [
+          "observe",
+          "run"
+        ],
+        "detect": {
+          "commands": [
+            "agy"
+          ],
+          "versionArgs": [
+            "--version"
+          ],
+          "pathSetting": "setting:agents.antigravity.path"
+        },
+        "launch": {
+          "protocol": "dialect",
+          "dialect": "antigravity-stream-json",
+          "command": "agy",
+          "args": [
+            "-p",
+            "--output-format",
+            "stream-json",
+            "--mode",
+            "auto"
+          ]
+        },
+        "capabilities": {
+          "headless": true,
+          "eventStream": true,
+          "resume": true,
+          "stop": true,
+          "beforeTool": "none",
+          "turnEnd": "outer-loop",
+          "ask": "resume-reply",
+          "cost": "tokens"
+        },
+        "history": {
+          "reader": "antigravity-db",
+          "defaultRoot": "%USERPROFILE%\\.gemini\\antigravity"
+        },
+        "registry": {
+          "id": "antigravity"
+        }
+      }
+    },
+    {
+      "id": "setting:agents.hermes.path",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Hermes yolu",
+      "description": "Hermes programının dosya yolu. Boşsa bilgisayarda hermes adıyla bulunan program kullanılır.",
+      "keywords": [
+        "hermes",
+        "yol",
+        "exe",
+        "konum",
+        "path"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.2",
+      "contract": {
+        "discover": "Ayarlar sayfasında, \"Ajan araçları\" bölümünde Hermes yolu alanında bulunur.",
+        "disable": "Alanı boşaltınca (null) bilinen klasörlerdeki ya da PATH üzerindeki \"hermes\" kullanılır. Bu varsayılandır.",
+        "onError": "Yol verilip dosya yoksa kaydedilmez: \"hermesPath: bu yolda dosya yok. Programın .exe dosyasının yolunu ver.\" der. Tırnak ve | < > & karakterleri de reddedilir. Bu ayar bir programı başlattığı için korumayı etkileyen bir ayardır: bir dosyadan gelen değer sen onaylayana kadar etkin olmaz.",
+        "onNewTool": "Her ajan aracının kendi yol ayarı var. Yeni araç gelince onun yol ayarı ayrıca yazılmalı, bu ayar yalnız Hermes içindir."
+      },
+      "body": {
+        "schema": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "default": null,
+        "class": "K4",
+        "scopes": [
+          "global"
+        ],
+        "group": "arac-ajan",
+        "card": "Ajan araçları",
+        "order": 5,
+        "control": "path-file",
+        "restart": "none",
+        "validators": [
+          "path.exists"
+        ],
+        "legacyKey": "hermesPath",
+        "securityGate": {
+          "restrictive": "false-wins"
+        }
+      }
+    },
+    {
+      "id": "setting:agents.opencode.path",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "OpenCode yolu",
+      "description": "OpenCode programının dosya yolu. Boşsa bilgisayarda opencode adıyla bulunan program kullanılır.",
+      "keywords": [
+        "opencode",
+        "yol",
+        "exe",
+        "konum",
+        "path"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.2",
+      "contract": {
+        "discover": "Ayarlar sayfasında, \"Ajan araçları\" bölümünde OpenCode yolu alanında bulunur.",
+        "disable": "Alanı boşaltınca (null) PATH üzerindeki \"opencode\" kullanılır. Bu varsayılandır.",
+        "onError": "Yol verilip dosya yoksa kaydedilmez: \"opencodePath: bu yolda dosya yok. Programın .exe dosyasının yolunu ver.\" der. Tırnak ve | < > & karakterleri de reddedilir. Bu ayar bir programı başlattığı için korumayı etkileyen bir ayardır: bir dosyadan gelen değer sen onaylayana kadar etkin olmaz.",
+        "onNewTool": "Her ajan aracının kendi yol ayarı var. Yeni araç gelince onun yol ayarı ayrıca yazılmalı, bu ayar yalnız OpenCode içindir."
+      },
+      "body": {
+        "schema": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "default": null,
+        "class": "K4",
+        "scopes": [
+          "global"
+        ],
+        "group": "arac-ajan",
+        "card": "Ajan araçları",
+        "order": 6,
+        "control": "path-file",
+        "restart": "none",
+        "validators": [
+          "path.exists"
+        ],
+        "legacyKey": "opencodePath",
+        "securityGate": {
+          "restrictive": "false-wins"
+        }
+      }
+    },
+    {
+      "id": "setting:agents.antigravity.path",
+      "kind": "setting",
+      "owner": "fixed",
+      "title": "Antigravity yolu",
+      "description": "Antigravity (agy) programının dosya yolu. Boşsa bilgisayarda agy adıyla bulunan program kullanılır.",
+      "keywords": [
+        "antigravity",
+        "agy",
+        "yol",
+        "exe",
+        "konum",
+        "path"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "scaffold",
+      "since": "0.2",
+      "contract": {
+        "discover": "Ayarlar sayfasında, \"Ajan araçları\" bölümünde Antigravity yolu alanında bulunur.",
+        "disable": "Alanı boşaltınca (null) bilinen klasörlerdeki ya da PATH üzerindeki \"agy\" kullanılır. Bu varsayılandır.",
+        "onError": "Yol verilip dosya yoksa kaydedilmez: \"antigravityPath: bu yolda dosya yok. Programın .exe dosyasının yolunu ver.\" der. Tırnak ve | < > & karakterleri de reddedilir. Bu ayar bir programı başlattığı için korumayı etkileyen bir ayardır: bir dosyadan gelen değer sen onaylayana kadar etkin olmaz.",
+        "onNewTool": "Her ajan aracının kendi yol ayarı var. Yeni araç gelince onun yol ayarı ayrıca yazılmalı, bu ayar yalnız Antigravity içindir."
+      },
+      "body": {
+        "schema": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "default": null,
+        "class": "K4",
+        "scopes": [
+          "global"
+        ],
+        "group": "arac-ajan",
+        "card": "Ajan araçları",
+        "order": 7,
+        "control": "path-file",
+        "restart": "none",
+        "validators": [
+          "path.exists"
+        ],
+        "legacyKey": "antigravityPath",
+        "securityGate": {
+          "restrictive": "false-wins"
+        }
+      }
+    }
+  ]
+}

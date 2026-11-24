@@ -1,0 +1,6 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    { "id": "setting:ornek.a", "id": "setting:ornek.b", "kind": "setting", "owner": "user", "title": "Aynı alan iki kez", "body": { "schema": { "type": "boolean" }, "default": false, "class": "K1", "group": "genel", "card": "Örnek", "order": 1, "control": "toggle" } }
+  ]
+}

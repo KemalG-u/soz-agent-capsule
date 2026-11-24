@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "id": "setting:ornek.izinli",
+      "kind": "setting",
+      "owner": "user",
+      "title": "Örnek ayar",
+      "body": {
+        "schema": {
+          "type": "boolean"
+        },
+        "default": false,
+        "class": "K1",
+        "group": "genel",
+        "card": "Örnek",
+        "order": 1,
+        "control": "toggle"
+      },
+      "permissions": [
+        {
+          "cap": "net",
+          "scope": "x"
+        }
+      ]
+    }
+  ]
+}

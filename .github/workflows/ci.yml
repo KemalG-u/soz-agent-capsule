@@ -1,0 +1,29 @@
+# CI: build and run the .NET tests on every push and pull request.
+# Least privilege: read-only token; third-party actions pinned to full commit SHAs (version in the comment).
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: windows-latest
+    env:
+      DOTNET_NOLOGO: "1"
+      DOTNET_CLI_TELEMETRY_OPTOUT: "1"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@0f4a354dd5547a28c70b7853dbd95d5b67886e73 # v6.1.0
+        with:
+          global-json-file: global.json
+      - name: Build
+        run: dotnet build Soz.sln --configuration Release
+      - name: Test
+        run: dotnet test Soz.sln --configuration Release --no-build

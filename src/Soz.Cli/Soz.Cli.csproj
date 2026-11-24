@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>soz</AssemblyName>
+    <AssemblyTitle>Söz Komut Satırı ve Kanca</AssemblyTitle>
+    <Product>Söz</Product>
+    <Company>Oluk</Company>
+    <Description>Söz komut satırı ve hızlı yerel kanca aracı</Description>
+    <Copyright>Copyright (c) 2026 Oluk</Copyright>
+    <ApplicationManifest>..\Soz.Shell\app.manifest</ApplicationManifest>
+    <ApplicationIcon>..\Soz.Shell\Assets\soz.ico</ApplicationIcon>
+    <RootNamespace>Soz.Cli</RootNamespace>
+    <!-- Kanca soğuk başlangıcı: yayında (RID verilince) Söz derlemeleri önceden derlenir; ölçüm test\kanca-sure.mjs ile (pre-tool-use 130 → 110 ms). -->
+    <PublishReadyToRun Condition="'$(RuntimeIdentifier)' != ''">true</PublishReadyToRun>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Soz.Core\Soz.Core.csproj" />
+    <ProjectReference Include="..\Soz.Server\Soz.Server.csproj" />
+  </ItemGroup>
+</Project>

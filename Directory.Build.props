@@ -1,0 +1,10 @@
+<Project>
+  <PropertyGroup>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <!-- Ürün sürümünün TEK kaynağı: Core (SozInfo.Version), CLI, Server, Shell ve Capsule hepsi bunu görür. Paketleme (Velopack) bu sürümle yapılır. -->
+    <Version>0.3.6</Version>
+  </PropertyGroup>
+</Project>

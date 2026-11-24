@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "id": "setting:ornek.kapisiz",
+      "kind": "setting",
+      "owner": "user",
+      "title": "Örnek ayar",
+      "body": {
+        "schema": {
+          "type": "boolean"
+        },
+        "default": false,
+        "class": "K4",
+        "group": "kural-kanit",
+        "card": "Örnek",
+        "order": 1,
+        "control": "toggle"
+      }
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "id": "guard-template:ornek",
+      "kind": "guard-template",
+      "owner": "user",
+      "title": "Örnek bekçi şablonu",
+      "body": {
+        "rules": []
+      }
+    },
+    {
+      "id": "theme:ornek",
+      "kind": "theme",
+      "owner": "user",
+      "title": "Örnek tema",
+      "body": {
+        "modes": [
+          "light",
+          "dark"
+        ]
+      }
+    },
+    {
+      "id": "capsule-behavior:ornek",
+      "kind": "capsule-behavior",
+      "owner": "user",
+      "title": "Örnek kapsül davranışı",
+      "body": {
+        "slot": "rest"
+      }
+    },
+    {
+      "id": "notify-channel:ornek",
+      "kind": "notify-channel",
+      "owner": "user",
+      "title": "Örnek bildirim kanalı",
+      "body": {
+        "tiers": 1
+      }
+    },
+    {
+      "id": "shortcut:ornek",
+      "kind": "shortcut",
+      "owner": "user",
+      "title": "Örnek kısayol",
+      "body": {
+        "default": "Ctrl+Alt+O"
+      }
+    },
+    {
+      "id": "palette-command:ornek",
+      "kind": "palette-command",
+      "owner": "user",
+      "title": "Örnek palet komutu",
+      "body": {
+        "group": "Genel"
+      }
+    },
+    {
+      "id": "extractor:ornek",
+      "kind": "extractor",
+      "owner": "user",
+      "title": "Örnek çözümleyici",
+      "body": {
+        "lang": "tr"
+      }
+    },
+    {
+      "id": "job-kind:ornek",
+      "kind": "job-kind",
+      "owner": "user",
+      "title": "Örnek iş türü"
+    },
+    {
+      "id": "mode:ornek",
+      "kind": "mode",
+      "owner": "user",
+      "title": "Örnek kip"
+    }
+  ]
+}

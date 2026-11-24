@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "id": "connector:opencode",
+      "kind": "connector",
+      "owner": "user",
+      "title": "OpenCode",
+      "stability": "scaffold",
+      "surfaces": [
+        "panel",
+        "capsule"
+      ],
+      "permissions": [
+        {
+          "cap": "exec",
+          "scope": "opencode",
+          "why": "Ajanı başlatmak için"
+        }
+      ],
+      "body": {
+        "depth": [
+          "run",
+          "intercept"
+        ],
+        "detect": {
+          "commands": [
+            "opencode"
+          ],
+          "versionArgs": [
+            "--version"
+          ]
+        },
+        "launch": {
+          "protocol": "acp",
+          "command": "opencode",
+          "args": [
+            "acp"
+          ],
+          "acpProtocolVersion": 1,
+          "stripEnv": [
+            "OPENAI_API_KEY"
+          ]
+        },
+        "history": {
+          "reader": "none"
+        },
+        "registry": {
+          "id": "opencode"
+        }
+      }
+    }
+  ]
+}

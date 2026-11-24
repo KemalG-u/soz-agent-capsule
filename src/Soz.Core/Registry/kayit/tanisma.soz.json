@@ -1,0 +1,60 @@
+{
+  "$schema": "https://soz.local/schema/registry-1.json",
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "id": "reader:tanisma",
+      "kind": "reader",
+      "owner": "fixed",
+      "title": {
+        "tr": "Tanışma: seni tanıma",
+        "en": "Getting to know you"
+      },
+      "description": "Bilgisayarında hangi yapay zekâ araçlarının, tarayıcıların ve çalışma klasörlerinin olduğuna salt okunur bakar. Yalnız ad, sürüm, sayı ve tarih okur. İçerik okumaz, hiçbir şey göndermez. Bulduklarını öneri olarak yazar, sen onaylamadan hiçbir şey etkinleşmez.",
+      "keywords": [
+        "tanışma",
+        "tanisma",
+        "keşif",
+        "kesif",
+        "seni tanıyorum",
+        "kurulu araçlar",
+        "tarayıcı",
+        "tarayici"
+      ],
+      "surfaces": [
+        "panel"
+      ],
+      "stability": "ground",
+      "since": "0.1",
+      "permissions": [
+        {
+          "cap": "fs.read",
+          "scope": "Araçların kayıt klasörlerinin adları, dosya sayıları ve değişme tarihleri",
+          "why": "Hangi araçların kurulu olduğunu ve hangi klasörlerde çalıştığını görmek için. Dosya içeriği okunmaz. Yalnız bir programın kendi sürüm bilgisi okunur."
+        }
+      ],
+      "contract": {
+        "discover": "\"Seni tanıyorum\" sayfasında altı sabit satır olarak görünür: araçların, kayıt klasörlerin, çalıştığın klasörler, tarayıcıların, ekranın ve dilin. Her bulgunun yanında \"bunu nereden biliyorsun\" cevabı vardır. Taramayı sayfadan başlatırsın.",
+        "disable": "Her bulguda \"bir daha gösterme\" vardır: madde silinmez, keşif tekrar koşsa da geri açılmaz, istediğinde geri getirilir. Keşif hiçbir şeyi kendiliğinden etkinleştirmediği için ayrıca kapatılacak bir şey yoktur.",
+        "onError": "Okunamayan klasör ya da sistem ayarı hata sayılmaz: \"okuyamadım\" diye sayılır ve geri kalanı gösterilir. Parola ya da anahtar gibi görünen bir ad hiçbir yere yazılmaz, yalnız \"atlandı\" diye sayılır. Hiçbir durumda içerik okunmaz ve dışarı bir şey gönderilmez.",
+        "onNewTool": "Yeni bir yapay zekâ aracı gelince keşfin araç tablosuna tek satır (komut adı, varsa paket adı ve kayıt yeri) eklenir. Yeni ekran ya da ayar gerekmez, araç \"Yapay zekâ araçların\" satırında kendiliğinden görünür ve yine ancak sen onaylayınca bir şeye dönüşür."
+      },
+      "body": {
+        "reads": [
+          "komut yolundaki ve bilinen klasörlerdeki ajan araçları (ad, sürüm)",
+          "ajan araçlarının kayıt klasörleri (yalnız ad, sayı, tarih)",
+          "kurulu tarayıcılar ve varsayılan tarayıcı (yalnız kurulu mu, varsayılan mı)",
+          "ekran ölçeği ve sistem dili"
+        ],
+        "neverReads": [
+          "konuşma ve oturum kayıtlarının içi",
+          "oturum ve kimlik dosyaları",
+          "ayar dosyası değerleri ve komut metinleri",
+          "tarayıcı profili, geçmiş, çerez, parola deposu"
+        ],
+        "writes": "registry_suggestion",
+        "network": false
+      }
+    }
+  ]
+}

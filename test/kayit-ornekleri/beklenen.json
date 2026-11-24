@@ -1,0 +1,100 @@
+{
+  "aciklama": "bozuk-* dosyalarının neden reddedildiği. expect: rejected (yüklenmez, hata) ya da warning (yüklenmez, uyarı). contains: neden metninde geçmesi gereken parça. dogru-* dosyaları hatasız yüklenir.",
+  "bozuk": {
+    "bozuk-01-kotu-kimlik.soz.json": {
+      "expect": "rejected",
+      "code": "schema",
+      "contains": "kalıba uymuyor"
+    },
+    "bozuk-02-varsayilan-yok.soz.json": {
+      "expect": "rejected",
+      "code": "schema",
+      "contains": "zorunlu alan yok: default"
+    },
+    "bozuk-03-k4-kapisiz.soz.json": {
+      "expect": "rejected",
+      "code": "schema",
+      "contains": "zorunlu alan yok: securityGate"
+    },
+    "bozuk-04-k3-kip-ile-gevsetilir.soz.json": {
+      "expect": "rejected",
+      "code": "schema",
+      "contains": "false olmalı"
+    },
+    "bozuk-05-izin-gerekcesiz.soz.json": {
+      "expect": "rejected",
+      "code": "schema",
+      "contains": "zorunlu alan yok: why"
+    },
+    "bozuk-06-govdede-bilinmeyen-alan.soz.json": {
+      "expect": "rejected",
+      "code": "schema",
+      "contains": "bilinmeyen alan: fazlaAlan"
+    },
+    "bozuk-07-olcut-sayi-bildirmiyor.soz.json": {
+      "expect": "rejected",
+      "code": "schema",
+      "contains": "zorunlu alan yok: reportsCount"
+    },
+    "bozuk-08-bilinmeyen-tur.soz.json": {
+      "expect": "warning",
+      "code": "unknown-kind",
+      "contains": "bilinmeyen tür. Kayıt yüklenmedi"
+    },
+    "bozuk-09-fixed-sahipli-dosya.soz.json": {
+      "expect": "rejected",
+      "code": "owner",
+      "contains": "dosyadan yazılamaz"
+    },
+    "bozuk-10-sistem-kaydi-etkin.soz.json": {
+      "expect": "rejected",
+      "code": "system-state",
+      "contains": "yalnız state=suggested"
+    },
+    "bozuk-11-state-broken-yazilmis.soz.json": {
+      "expect": "rejected",
+      "code": "state",
+      "contains": "yalnız çekirdek koyar"
+    },
+    "bozuk-12-surum-2.soz.json": {
+      "expect": "rejected",
+      "code": "file",
+      "contains": "desteklenmiyor"
+    },
+    "bozuk-13-k5-grup-dolu.soz.json": {
+      "expect": "rejected",
+      "code": "schema",
+      "contains": "null olmalı"
+    },
+    "bozuk-14-kimlik-tekrari.soz.json": {
+      "expect": "rejected",
+      "code": "duplicate",
+      "contains": "kimlik tekrarı"
+    },
+    "bozuk-15-bos-kart-adi.soz.json": {
+      "expect": "rejected",
+      "code": "schema",
+      "contains": "en az 1 karakter"
+    },
+    "bozuk-16-kimlik-oneki-tur-uyusmuyor.soz.json": {
+      "expect": "rejected",
+      "code": "id-kind",
+      "contains": "aynı olmalı"
+    },
+    "bozuk-17-yinelenen-anahtar.soz.json": {
+      "expect": "rejected",
+      "code": "json",
+      "contains": "iki kez yazılmış"
+    },
+    "bozuk-18-geri-basvurulu-regex.soz.json": {
+      "expect": "rejected",
+      "code": "schema",
+      "contains": "geri başvuru"
+    },
+    "bozuk-19-satir-sonlu-kimlik.soz.json": {
+      "expect": "rejected",
+      "code": "schema",
+      "contains": "kalıba uymuyor"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "id": "setting:oneri.hatirlatma",
+      "kind": "setting",
+      "owner": "system",
+      "state": "suggested",
+      "title": "Hatırlatma sıklığı",
+      "description": "Sistemin gördüğü bir alışkanlıktan çıkardığı öneri.",
+      "body": {
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10
+        },
+        "default": 3,
+        "class": "K1",
+        "group": "kapsul-bildirim",
+        "card": "Öneriler",
+        "order": 1,
+        "control": "number"
+      }
+    }
+  ]
+}

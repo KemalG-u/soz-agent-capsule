@@ -1,0 +1,282 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://soz.local/schema/registry-1.json",
+  "title": "Söz kayıt defteri, bildirge sürümü 1",
+  "description": "Tek kayıt defteri: sabit (pakete gömülü), kişi (veri klasöründeki yetenek dosyaları) ve sistem (öneri) kayıtları aynı zarfı taşır. Kaynak bu dosyadır, elle yazılır. Kayıt zarfında bilinmeyen üst alan yok sayılır (ileri uyum); gövde, izin, sözleşme gibi sıkı nesnelerde bilinmeyen alan reddedilir. Yükleyici yalnız şu anahtar sözcükleri bilir: $ref, allOf, anyOf, oneOf, if, then, else, type, const, enum, pattern, minLength, maxLength, minimum, maximum, exclusiveMinimum, exclusiveMaximum, multipleOf, items, minItems, maxItems, uniqueItems, required, properties, additionalProperties, minProperties.",
+  "$ref": "#/$defs/EntryFile",
+  "$defs": {
+    "EntryFile": {
+      "description": "Bir kayıt dosyası: {schemaVersion: 1, entries: [...]}. Kod yok, yalnız veri.",
+      "type": "object",
+      "required": ["schemaVersion", "entries"],
+      "properties": {
+        "schemaVersion": { "const": 1 },
+        "entries": { "type": "array", "items": { "$ref": "#/$defs/Entry" } }
+      }
+    },
+    "LocalizedText": {
+      "description": "Düz metin ya da dil haritası. Yerleşik kayıtlar doğrudan {tr,en} taşır; eksik dil tr'ye düşer.",
+      "oneOf": [
+        { "type": "string", "minLength": 1, "maxLength": 400 },
+        {
+          "type": "object",
+          "minProperties": 1,
+          "properties": {
+            "tr": { "type": "string", "minLength": 1, "maxLength": 400 },
+            "en": { "type": "string", "minLength": 1, "maxLength": 400 }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "EntryId": {
+      "description": "<tür>:<ad>. Ad ASCII küçük harf, rakam ve . _ - içerir; desen \\z ile biter (sondaki satır sonu kabul edilmez); önek kayıt türüyle aynı olmak zorundadır (yükleyici denetler). Değişmez. Yeniden adlandırma yok: yeni kayıt açılır, eskisine deprecated.replacedBy yazılır.",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*:[a-z][a-z0-9._-]{0,63}\\z"
+    },
+    "Kind": {
+      "description": "Uzantı noktası. Sürüm 1 çekirdeği bu 13 adı bilir. Gövdesi tanımlı olan dördü: setting, connector, check-kind, reader.",
+      "enum": ["setting", "connector", "check-kind", "guard-template", "theme", "capsule-behavior", "notify-channel", "shortcut", "palette-command", "extractor", "reader", "job-kind", "mode"]
+    },
+    "Permission": {
+      "type": "object",
+      "required": ["cap", "why"],
+      "properties": {
+        "cap": { "enum": ["fs.read", "fs.write", "exec", "net", "data", "secret", "input.mic", "screen", "ui.notify"] },
+        "scope": { "type": "string", "maxLength": 260 },
+        "why": { "$ref": "#/$defs/LocalizedText" }
+      },
+      "additionalProperties": false
+    },
+    "Contract": {
+      "description": "Madde sözleşmesi, dört cümle: nasıl bulunur, nasıl kapatılır, hata anında ne der, yeni araç gelince ne değişir. owner=fixed kayıtlarda registry check dolu olmasını ister.",
+      "type": "object",
+      "required": ["discover", "disable", "onError", "onNewTool"],
+      "properties": {
+        "discover": { "$ref": "#/$defs/LocalizedText" },
+        "disable": { "$ref": "#/$defs/LocalizedText" },
+        "onError": { "$ref": "#/$defs/LocalizedText" },
+        "onNewTool": { "$ref": "#/$defs/LocalizedText" }
+      },
+      "additionalProperties": false
+    },
+    "Entry": {
+      "type": "object",
+      "required": ["id", "kind", "owner", "title"],
+      "properties": {
+        "id": { "$ref": "#/$defs/EntryId" },
+        "kind": { "$ref": "#/$defs/Kind" },
+        "owner": { "enum": ["fixed", "user", "system"] },
+        "title": { "$ref": "#/$defs/LocalizedText" },
+        "description": { "$ref": "#/$defs/LocalizedText" },
+        "keywords": { "type": "array", "maxItems": 20, "items": { "type": "string", "minLength": 1, "maxLength": 40 } },
+        "surfaces": { "type": "array", "uniqueItems": true, "items": { "enum": ["capsule", "panel", "palette", "phone", "cli", "tray"] } },
+        "permissions": { "type": "array", "items": { "$ref": "#/$defs/Permission" } },
+        "state": { "enum": ["enabled", "disabled", "suggested", "broken", "deprecated"] },
+        "stability": { "enum": ["scaffold", "ground"] },
+        "since": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+(\\.[0-9]+)?\\z" },
+        "deprecated": {
+          "type": "object",
+          "required": ["since"],
+          "properties": {
+            "since": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+(\\.[0-9]+)?\\z" },
+            "replacedBy": { "$ref": "#/$defs/EntryId" },
+            "message": { "$ref": "#/$defs/LocalizedText" }
+          },
+          "additionalProperties": false
+        },
+        "contract": { "$ref": "#/$defs/Contract" },
+        "body": { "type": "object" }
+      },
+      "allOf": [
+        { "if": { "properties": { "kind": { "const": "setting" } }, "required": ["kind"] }, "then": { "required": ["body"], "properties": { "body": { "$ref": "#/$defs/SettingBody" } } } },
+        { "if": { "properties": { "kind": { "const": "connector" } }, "required": ["kind"] }, "then": { "required": ["body"], "properties": { "body": { "$ref": "#/$defs/ConnectorBody" } } } },
+        { "if": { "properties": { "kind": { "const": "check-kind" } }, "required": ["kind"] }, "then": { "required": ["body"], "properties": { "body": { "$ref": "#/$defs/CheckKindBody" } } } },
+        { "if": { "properties": { "kind": { "const": "reader" } }, "required": ["kind"] }, "then": { "required": ["body"], "properties": { "body": { "$ref": "#/$defs/ReaderBody" } } } },
+        { "if": { "properties": { "kind": { "enum": ["guard-template", "theme", "capsule-behavior", "notify-channel", "shortcut", "palette-command", "extractor"] } }, "required": ["kind"] }, "then": { "required": ["body"] } }
+      ]
+    },
+    "SettingBody": {
+      "description": "Ayar kaydı. Sınır bir kez burada, schema içinde yazılır. Alt küme: type, enum, minimum, maximum, exclusiveMinimum, exclusiveMaximum, multipleOf, minLength, maxLength, pattern, items, minItems, maxItems, uniqueItems, properties, required, additionalProperties.",
+      "type": "object",
+      "required": ["schema", "default", "class"],
+      "properties": {
+        "schema": {
+          "type": "object",
+          "required": ["type"],
+          "properties": {
+            "type": {
+              "anyOf": [
+                { "enum": ["string", "number", "integer", "boolean", "array", "object", "null"] },
+                { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "enum": ["string", "number", "integer", "boolean", "array", "object", "null"] } }
+              ]
+            }
+          }
+        },
+        "default": {},
+        "class": { "enum": ["K1", "K2", "K3", "K4", "K5"] },
+        "scopes": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "enum": ["global", "tool", "project", "job"] } },
+        "group": { "enum": ["genel", "gorunum-ses", "kapsul-bildirim", "arac-ajan", "kural-kanit", "proje", "veri-gizlilik", "gelismis", null] },
+        "card": { "type": "string", "minLength": 1, "maxLength": 60 },
+        "order": { "type": "integer", "minimum": 0, "maximum": 100000 },
+        "control": { "enum": ["auto", "toggle", "number", "slider", "text", "path-file", "path-folder", "select", "secret", "shortcut", "json"] },
+        "unit": { "type": "string", "maxLength": 12 },
+        "restart": { "enum": ["none", "app", "capsule", "next-run"] },
+        "sensitive": { "type": "boolean" },
+        "securityGate": {
+          "type": "object",
+          "required": ["restrictive"],
+          "properties": { "restrictive": { "enum": ["false-wins", "true-wins", "lower-wins", "higher-wins", "intersection-wins"] } },
+          "additionalProperties": false
+        },
+        "validators": { "type": "array", "uniqueItems": true, "items": { "enum": ["path.exists", "agent.id", "model.name", "prices"] } },
+        "effects": { "type": "array", "uniqueItems": true, "items": { "enum": ["phone.apply", "queue.pump", "hotkeys.rebind", "capsule.reload", "theme.apply", "agents.reprobe"] } },
+        "modeSettable": { "type": "boolean" },
+        "clampOnRead": { "type": "boolean" },
+        "legacyKey": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9]{0,63}\\z" }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        { "if": { "properties": { "class": { "const": "K4" } }, "required": ["class"] }, "then": { "required": ["securityGate"], "properties": { "modeSettable": { "const": false } } } },
+        { "if": { "properties": { "class": { "const": "K3" } }, "required": ["class"] }, "then": { "properties": { "modeSettable": { "const": false } } } },
+        { "if": { "properties": { "class": { "const": "K5" } }, "required": ["class"] }, "then": { "required": ["group"], "properties": { "group": { "const": null } } } },
+        { "if": { "properties": { "class": { "enum": ["K1", "K2", "K3", "K4"] } }, "required": ["class"] }, "then": { "required": ["group", "card"], "properties": { "group": { "type": "string" } } } }
+      ]
+    },
+    "ReaderBody": {
+      "description": "Okuyucu bildirgesi (ör. Tanışma): neye bakar, neye ASLA bakmaz, nereye yazar, ağa çıkar mı. Okuyucu kendiliğinden hiçbir şeyi etkinleştirmez; bulduğunu öneri olarak yazar.",
+      "type": "object",
+      "required": ["reads", "neverReads", "writes", "network"],
+      "properties": {
+        "reads": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1, "maxLength": 300 } },
+        "neverReads": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1, "maxLength": 300 } },
+        "writes": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "network": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "ConnectorBody": {
+      "description": "Ajan bağlayıcı bildirgesi. protocol=dialect: koddaki yerleşik lehçeye (claude, codex) bağlanır. protocol=acp: ileride tek dosyayla yeni ajan (bu işte kod yok, yalnız veri).",
+      "type": "object",
+      "required": ["depth", "detect"],
+      "allOf": [
+        { "if": { "required": ["depth"], "properties": { "depth": { "items": { "const": "observe" } } } }, "else": { "required": ["launch"] } }
+      ],
+      "properties": {
+        "depth": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "enum": ["observe", "run", "intercept"] } },
+        "detect": {
+          "type": "object",
+          "required": ["commands"],
+          "properties": {
+            "commands": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+            "versionArgs": { "type": "array", "items": { "type": "string" } },
+            "pathSetting": { "$ref": "#/$defs/EntryId" }
+          },
+          "additionalProperties": false
+        },
+        "launch": {
+          "type": "object",
+          "required": ["protocol"],
+          "properties": {
+            "protocol": { "enum": ["acp", "dialect"] },
+            "dialect": { "enum": ["claude-stream-json", "codex-exec-json", "hermes-chat-stream-json", "opencode-run-json", "antigravity-stream-json"] },
+            "command": { "type": "string", "minLength": 1 },
+            "args": { "type": "array", "items": { "type": "string" } },
+            "stripEnv": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+            "acpProtocolVersion": { "type": "integer", "minimum": 1 }
+          },
+          "additionalProperties": false,
+          "allOf": [
+            { "if": { "properties": { "protocol": { "const": "dialect" } }, "required": ["protocol"] }, "then": { "required": ["dialect"] } }
+          ]
+        },
+        "capabilities": {
+          "type": "object",
+          "properties": {
+            "headless": { "type": "boolean" },
+            "eventStream": { "type": "boolean" },
+            "resume": { "type": "boolean" },
+            "stop": { "type": "boolean" },
+            "beforeTool": { "enum": ["none", "native-hook", "protocol-permission", "os-sandbox"] },
+            "turnEnd": { "enum": ["none", "native-hook", "outer-loop"] },
+            "ask": { "enum": ["none", "resume-reply", "live"] },
+            "cost": { "enum": ["none", "tokens", "dollars"] }
+          },
+          "additionalProperties": false
+        },
+        "history": {
+          "type": "object",
+          "properties": {
+            "reader": { "type": "string", "pattern": "^(none|[a-z][a-z0-9-]{0,63})\\z", "description": "Kayıt okuyucusunun adı (kodda kayıtlı). none: okunacak kayıt yok." },
+            "rootSetting": { "$ref": "#/$defs/EntryId" },
+            "rootEnv": { "type": "array", "items": { "type": "string", "minLength": 1 }, "description": "Kayıt klasörünü gösteren ortam değişkenleri, sırayla." },
+            "userEnv": { "type": "boolean", "description": "Windows'ta değişken süreçte yoksa kullanıcı ortamına da bak." },
+            "envNeedsSubdir": { "type": "boolean", "description": "Ortam değişkeni yalnız altında subdir varsa geçerli sayılır." },
+            "defaultRoot": { "type": "string", "minLength": 1, "description": "Hiçbiri yoksa kullanılan klasör (%USERPROFILE% açılır)." },
+            "subdir": { "type": "string", "minLength": 1, "description": "Kök klasörün altında kayıtların durduğu alt klasör." }
+          },
+          "additionalProperties": false
+        },
+        "registry": {
+          "type": "object",
+          "required": ["id"],
+          "properties": { "id": { "type": "string", "minLength": 1 } },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "CheckKindBody": {
+      "description": "Ölçüt türü: spec şeması, düz cümle şablonları, ölçümü kimin yaptığı. Her tür ölçülen şey sayısını bildirmek zorundadır (sıfırsa çekirdek unchecked sayar).",
+      "type": "object",
+      "required": ["specSchema", "measure", "reportsCount"],
+      "properties": {
+        "specSchema": {
+          "type": "object",
+          "required": ["type"],
+          "properties": { "type": { "const": "object" } }
+        },
+        "templates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "sentence"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*\\z" },
+              "sentence": { "$ref": "#/$defs/LocalizedText" },
+              "fields": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["name", "label"],
+                  "properties": {
+                    "name": { "type": "string", "minLength": 1 },
+                    "label": { "$ref": "#/$defs/LocalizedText" },
+                    "placeholder": { "type": "string" },
+                    "default": {}
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "autoDetect": { "type": "boolean" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "measure": {
+          "type": "object",
+          "required": ["via", "name"],
+          "properties": {
+            "via": { "enum": ["builtin", "module"] },
+            "name": { "type": "string", "minLength": 1 }
+          },
+          "additionalProperties": false
+        },
+        "needs": { "type": "array", "uniqueItems": true, "items": { "enum": ["folder", "network", "screen", "human"] } },
+        "strength": { "enum": ["weak", "medium", "strong"] },
+        "reportsCount": { "const": true }
+      },
+      "additionalProperties": false
+    }
+  }
+}
