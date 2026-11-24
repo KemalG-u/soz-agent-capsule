@@ -4,6 +4,7 @@ import { spawn, execFileSync } from 'node:child_process'
 import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, createReadStream, statSync } from 'node:fs'
 import http from 'node:http'
 import { extname, join, normalize } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { launch } from './pw.mjs'
 import { relaunchAsHuman, writeExitCode } from './insan.mjs'
 
@@ -11,7 +12,9 @@ import { relaunchAsHuman, writeExitCode } from './insan.mjs'
 // Bu yüzden betik kendini ata zinciri kopuk "insan eşdeğeri" süreçte yeniden başlatır (ayrıntı: insan.mjs).
 if (await relaunchAsHuman(import.meta.url)) process.exit(process.exitCode ?? 0)
 
-const URUN = 'E:/Sample Work/urun'
+// Ürün kökü: bu betik ui/scripts altında durur; SOZ_URUN ile başka bir klasör verilebilir.
+const URUN_KOK = process.env.SOZ_URUN ?? fileURLToPath(new URL('../..', import.meta.url)).replaceAll('\\', '/').replace(/\/$/, '')
+const URUN = URUN_KOK
 const EXE = process.env.SOZ_EXE ?? `${URUN}/yayin/soz.exe`
 const DIST = process.env.DIST ?? `${URUN}/src/Soz.Server/wwwroot`
 const TMP = process.env.SOZ_TMP ?? `${URUN}/_gecici` // d2u2: çalışma klasörü ortamdan verilebilir

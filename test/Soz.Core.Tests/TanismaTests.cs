@@ -13,7 +13,7 @@ using static Soz.Core.Tests.RegistryTestKit;
 namespace Soz.Core.Tests;
 
 /// <summary>
-/// d2e Tanışma. Bütün testler `_gecici\d2e\sahte-ev\` altındaki SENTETİK ağaçla koşar. Kemal'in gerçek kayıt klasörlerine,
+/// d2e Tanışma. Bütün testler `_gecici\d2e\sahte-ev\` altındaki SENTETİK ağaçla koşar. Kullanıcının gerçek kayıt klasörlerine,
 /// tarayıcı profillerine ve kayıt defterine DOKUNMAZ: kökler parametredir, sistem okuması <see cref="FakeProbe"/> arkasındadır.
 /// </summary>
 internal sealed class SahteEv : IDisposable

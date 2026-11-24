@@ -186,8 +186,8 @@ public static class AssistantCatalog
             }
             if (local.Length > 0)
                 list.Add(Path.Combine(local, "hermes", "bin", "hermes.exe"));
-            if (includeMachinePaths)
-                list.Add(@"D:\tools\hermes-home\bin\hermes.exe");
+            if (includeMachinePaths && Environment.GetEnvironmentVariable("HERMES_HOME") is { Length: > 0 } hermesHome)
+                list.Add(Path.Combine(hermesHome, "bin", "hermes.exe"));
         }
         else if (key is "agy" or "antigravity")
         {
@@ -213,8 +213,8 @@ public static class AssistantCatalog
         yield return Path.Combine(r.LocalAppData, "hermes", "bin");
         yield return Path.Combine(r.LocalAppData, "agy", "bin");
         yield return Path.Combine(r.LocalAppData, "Programs", "Antigravity", "bin");
-        if (!r.IsSynthetic)
-            yield return @"D:\tools\hermes-home\bin";
+        if (!r.IsSynthetic && Environment.GetEnvironmentVariable("HERMES_HOME") is { Length: > 0 } hermesHome)
+            yield return Path.Combine(hermesHome, "bin");
     }
 
     private static Dictionary<string, AssistantDescriptor> BuildProcessMap()

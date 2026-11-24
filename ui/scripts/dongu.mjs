@@ -4,11 +4,14 @@
 import { createReadStream, existsSync, statSync } from 'node:fs'
 import http from 'node:http'
 import { extname, join, normalize } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { launch } from './pw.mjs'
 import { kapatVeDogrula, portKaydet, temizlikKur } from './temizlik.mjs'
 
 temizlikKur({ sure: 240 })
-const WWW = process.argv[2] ?? 'E:/Sample Work/urun/_gecici/f1/www'
+// Ürün kökü: bu betik ui/scripts altında durur; SOZ_URUN ile başka bir klasör verilebilir.
+const URUN_KOK = process.env.SOZ_URUN ?? fileURLToPath(new URL('../..', import.meta.url)).replaceAll('\\', '/').replace(/\/$/, '')
+const WWW = process.argv[2] ?? `${URUN_KOK}/_gecici/f1/www`
 const PORT = Number(process.env.DONGU_PORT ?? 49631)
 const SURE_MS = 6000
 const MIME = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.svg': 'image/svg+xml', '.woff2': 'font/woff2' }

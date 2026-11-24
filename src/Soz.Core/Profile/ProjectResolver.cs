@@ -282,7 +282,7 @@ public sealed class ProjectResolver(IProjectFileSystem fs, ProjectExclusions exc
 
         // Üst proje kuralı: kendi .git ya da işareti olan klasör, üstünde proje sözleşmesi (PROJECT.md, CLAUDE.md, AGENTS.md) taşıyan
         // TEK projelik bir klasör varsa o projenin parçasıdır (ör. "E:\Sample Work" altındaki "urun"). Üst klasörde birden çok
-        // bağımsız proje varsa o klasör çalışma alanıdır: çocuklar ayrı kalır (ör. "D:\tools" altındaki "wisper kemal").
+        // bağımsız proje varsa o klasör çalışma alanıdır: çocuklar ayrı kalır (ör. "D:\tools" altındaki iki ayrı proje klasörü).
         var workspaceCache = new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase);
         bool IsWorkspaceFolder(string folder)
         {

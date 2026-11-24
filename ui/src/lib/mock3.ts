@@ -307,7 +307,7 @@ async function finish(j: Job, tok: number) {
   const bad = /bozuk/i.test(j.rawText)
   let attempt = (j.attempts ?? 0) + 1
   const finalAttempt = Math.max(3, attempt)
-  // Örnek tetikleyici: işte "test dosyasını değiştir" geçerse ajan testi değiştirmiş sayılır, karar Kemal'e kalır.
+  // Örnek tetikleyici: işte "test dosyasını değiştir" geçerse ajan testi değiştirmiş sayılır, karar kullanıcıya kalır.
   if (list.length > 0 && /test dosyas[ıi]n[ıi] değiştir/i.test(j.rawText)) {
     await sleep(STEP)
     if (!alive(j, tok)) return

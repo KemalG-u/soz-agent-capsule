@@ -6,7 +6,7 @@ namespace Soz.Capsule;
 /// Kapsülden dışarıya giden olaylar: tam panel aç, metin gönder, yeni iş, dikte, paket, ayar aç.
 /// Masaüstü programıyla birlikte çalışırken (<see cref="KabukKanali"/> var) hepsi o programa komut olarak gider: panel onun penceresidir.
 /// Tek başına çalışırken: <c>--panel-komut &lt;exe&gt;</c> verilmişse "panel aç" o programı <c>--is &lt;kimlik&gt;</c> ile başlatır, öteki olaylar yalnız günlüğe yazılır.
-/// Varsayılan olarak tarayıcıda hiçbir şey açılmaz (Kemal'in tarayıcısına dokunulmaz). Başlatılan süreç kapatılmaz; kapsül yalnız izler.
+/// Varsayılan olarak tarayıcıda hiçbir şey açılmaz (kullanıcının tarayıcısına dokunulmaz). Başlatılan süreç kapatılmaz; kapsül yalnız izler.
 /// </summary>
 internal sealed class PanelKoprusu : IDisposable
 {

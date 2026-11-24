@@ -4,7 +4,7 @@ using System.Text.Json;
 
 namespace Soz.Capsule;
 
-/// <summary>Tek tek ayar alanı: ad, birim, sınır ve açıklama. Kemal sayıları değiştirip getirecek, bu yüzden hepsi tek tabloda.</summary>
+/// <summary>Tek tek ayar alanı: ad, birim, sınır ve açıklama. Kullanıcı sayıları değiştirip getirecek, bu yüzden hepsi tek tabloda.</summary>
 internal sealed record AyarTanim(string Ad, string Baslik, double Min, double Max, string Birim, string Aciklama, Func<Ayar, double> Oku, Action<Ayar, double> Yaz);
 
 /// <summary>
@@ -163,7 +163,7 @@ internal sealed class Ayar
         return uyari;
     }
 
-    /// <summary>Bütün ayarlar, okunur biçimde (Kemal sayıları değiştirip getirsin diye).</summary>
+    /// <summary>Bütün ayarlar, okunur biçimde (kullanıcı sayıları değiştirip getirsin diye).</summary>
     public string JsonYaz()
     {
         var sb = new StringBuilder("{\n");

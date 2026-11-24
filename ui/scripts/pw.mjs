@@ -9,7 +9,7 @@ export async function launch() {
   const profile = mkdtempSync(join(tmpdir(), 'soz-pw-'))
   profilKaydet(profile) // temizlik.mjs: bu profili kullanan Edge süreçleri çıkışta kapatılır
   const ctx = await chromium.launchPersistentContext(profile, {
-    executablePath: 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe',
+    executablePath: process.env.SOZ_EDGE ?? 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe',
     headless: true,
     args: ['--no-first-run', '--no-default-browser-check'],
   })

@@ -9,13 +9,16 @@ import { createReadStream, existsSync, mkdirSync, readFileSync, rmSync, statSync
 import http from 'node:http'
 import net from 'node:net'
 import path, { join, normalize, extname } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { launch } from './pw.mjs'
 import { relaunchAsHuman, writeExitCode } from './insan.mjs'
 import { kapatVeDogrula, portKaydet, surecKaydet } from './temizlik.mjs'
 
 if (await relaunchAsHuman(import.meta.url)) process.exit(process.exitCode ?? 1)
 
-const U = 'E:/Sample Work/urun'
+// Ürün kökü: bu betik ui/scripts altında durur; SOZ_URUN ile başka bir klasör verilebilir.
+const URUN_KOK = process.env.SOZ_URUN ?? fileURLToPath(new URL('../..', import.meta.url)).replaceAll('\\', '/').replace(/\/$/, '')
+const U = URUN_KOK
 const BASE = process.env.DENEK_BASE ?? `${U}/_gecici/u9`
 const ETIKET = process.env.DENEK_ETIKET ?? ''
 const TEMA = process.env.DENEK_TEMA ?? ''
@@ -25,7 +28,7 @@ const DLL = process.env.DENEK_DLL ?? null // verilirse sunucu 'dotnet <dll> serv
 const DOTNET = process.env.SOZ_DOTNET ?? 'dotnet'
 const WWW = process.env.DENEK_WWW ?? null // verilirse arayüz bu klasörden sunulur, api sunucuya aktarılır
 const PORT0 = Number(process.env.DENEK_PORT ?? 49571)
-const ORNEK = 'E:/Sample Work/calisma/denek-1/ornek' + ETIKET // sentetik ama gerçekten var olan proje klasörleri ("_gecici" geçmez: sınama klasörü sayılmasın)
+const ORNEK = (process.env.DENEK_ORNEK ?? path.resolve(U, '..', 'calisma', 'denek-1', 'ornek').replaceAll('\\', '/')) + ETIKET // sentetik ama gerçekten var olan proje klasörleri ("_gecici" geçmez: sınama klasörü sayılmasın)
 const only = (process.argv.includes('--only') ? process.argv[process.argv.indexOf('--only') + 1] : '').split(',').filter(Boolean)
 const want = (s) => only.length === 0 || only.includes(s)
 const sleep = (n) => new Promise((r) => setTimeout(r, n))

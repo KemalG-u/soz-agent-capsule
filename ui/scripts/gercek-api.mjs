@@ -45,7 +45,7 @@ try {
   const token = sess.token
 
   browser = await chromium.launchPersistentContext(profile, {
-    executablePath: 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe',
+    executablePath: process.env.SOZ_EDGE ?? 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe',
     headless: true,
     args: ['--no-first-run', '--no-default-browser-check'],
   })

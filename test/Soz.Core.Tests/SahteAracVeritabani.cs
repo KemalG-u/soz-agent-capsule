@@ -8,7 +8,7 @@ namespace Soz.Core.Tests;
 ///   Hermes: calisma\repo-inceleme\cok-ajan\hermes-agent\hermes_state_common.py (SCHEMA_VERSION 33; sessions ve messages tablolarının TÜM sütunları).
 ///   OpenCode 2.x: opencode\packages\core\src\database\schema.gen.ts (session_v2, session_message, session_part; yabancı anahtar satırları çıkarıldı).
 ///   OpenCode 1.x: ...\migration\20260127222353_familiar_lady_ursula.ts (session, message, part; yabancı anahtar satırları çıkarıldı).
-/// Kemal'in gerçek hermes-home, opencode ve claude/codex klasörlerine hiçbir yerde dokunulmaz; her şey urun\_gecici\d2f altında üretilir.
+/// Kullanıcının gerçek hermes-home, opencode ve claude/codex klasörlerine hiçbir yerde dokunulmaz; her şey urun\_gecici\d2f altında üretilir.
 /// </summary>
 internal static class SahteAracVeritabani
 {

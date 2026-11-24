@@ -5,11 +5,14 @@
 import { execFileSync } from 'node:child_process'
 import { mkdirSync, writeFileSync, existsSync } from 'node:fs'
 import { basename } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 const pids = new Set()
 const profiller = new Set()
 const portlar = new Set()
-const PID_KLASOR = process.env.SOZ_PID_KLASOR ?? 'E:/Sample Work/urun/_gecici/f1/pid'
+// Ürün kökü: bu betik ui/scripts altında durur; SOZ_URUN ile başka bir klasör verilebilir.
+const URUN_KOK = process.env.SOZ_URUN ?? fileURLToPath(new URL('../..', import.meta.url)).replaceAll('\\', '/').replace(/\/$/, '')
+const PID_KLASOR = process.env.SOZ_PID_KLASOR ?? `${URUN_KOK}/_gecici/f1/pid`
 const betik = basename(process.argv[1] ?? 'betik')
 let kapandi = false
 let rapor = null
