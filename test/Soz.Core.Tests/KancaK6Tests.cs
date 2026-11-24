@@ -252,7 +252,7 @@ public class KancaK6Tests
     {
         var cmd = HookInstaller.BuildCommand(@"C:\yok\soz-kanca.exe", "pre-tool-use", @"C:\veri", null);
         Assert.EndsWith(" 2>/dev/null || true", cmd);
-        var psi = new System.Diagnostics.ProcessStartInfo("bash") { RedirectStandardError = true, RedirectStandardOutput = true, UseShellExecute = false };
+        var psi = new System.Diagnostics.ProcessStartInfo(TestEnv.BashYolu()) { RedirectStandardError = true, RedirectStandardOutput = true, UseShellExecute = false };
         psi.ArgumentList.Add("-c"); psi.ArgumentList.Add(cmd);
         using var p = System.Diagnostics.Process.Start(psi)!;
         var err = p.StandardError.ReadToEnd();

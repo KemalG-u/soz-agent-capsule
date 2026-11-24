@@ -1,0 +1,10 @@
+# Fixed line endings: tests compare generated text with committed samples and
+# C# multi-line string literals, so a CRLF checkout (Windows autocrlf) changes results.
+* text=auto eol=lf
+*.db binary
+*.ico binary
+*.png binary
+*.jpg binary
+*.woff binary
+*.woff2 binary
+*.sln text eol=crlf

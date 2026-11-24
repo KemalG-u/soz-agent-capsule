@@ -603,7 +603,7 @@ public class DenetimIkiTests
     {
         // Gerçek bash: yolda $(...) ve ters tırnak YÜRÜTÜLMEZ; olmayan dosyayı çalıştırmaya çalışır ve adı tam olarak hata metninde görünür.
         var cmd = HookInstaller.BuildCommand("/yok/x$(echo PWNED)`echo PWNED2`/soz", "stop", null, null, quiet: false); // sessiz sonek hata metnini gizler; burada kabuk hatası okunur
-        var psi = new ProcessStartInfo("bash") { RedirectStandardError = true, RedirectStandardOutput = true, UseShellExecute = false };
+        var psi = new ProcessStartInfo(TestEnv.BashYolu()) { RedirectStandardError = true, RedirectStandardOutput = true, UseShellExecute = false };
         psi.ArgumentList.Add("-c"); psi.ArgumentList.Add(cmd);
         using var p = Process.Start(psi)!;
         var err = p.StandardError.ReadToEnd();

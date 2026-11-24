@@ -25,6 +25,26 @@ public sealed class TestEnv : IDisposable
         }
     }
 
+    /// <summary>
+    /// Gerçek bash yolu. Windows'ta <c>ProcessStartInfo("bash")</c> önce Windows klasöründeki WSL başlatıcısını (System32ash.exe) bulur;
+    /// dağıtımı yoksa o hata verir. Bu yüzden PATH'teki ve Git for Windows'taki bash.exe aranır, Windows klasörü atlanır.
+    /// </summary>
+    public static string BashYolu()
+    {
+        var win = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
+        var adaylar = new List<string>();
+        foreach (var d in (Environment.GetEnvironmentVariable("PATH") ?? "").Split(Path.PathSeparator, StringSplitOptions.RemoveEmptyEntries))
+        {
+            try { adaylar.Add(Path.Combine(d.Trim('"'), "bash.exe")); } catch (ArgumentException) { }
+        }
+        var pf = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+        adaylar.Add(Path.Combine(pf, "Git", "bin", "bash.exe"));
+        adaylar.Add(Path.Combine(pf, "Git", "usr", "bin", "bash.exe"));
+        foreach (var a in adaylar)
+            if (File.Exists(a) && (win.Length == 0 || !a.StartsWith(win, StringComparison.OrdinalIgnoreCase))) return a;
+        return "bash";
+    }
+
     public static string SampleDir => Path.Combine(RepoRoot, "test", "ornek-veri");
 
     public TestEnv(bool copySamples = true)
