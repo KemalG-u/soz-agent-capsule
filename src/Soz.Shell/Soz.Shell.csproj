@@ -21,7 +21,7 @@
     <PackageReference Include="Microsoft.Web.WebView2">
       <Version>1.0.4314.35</Version>
     </PackageReference>
-    <PackageReference Include="Velopack" Version="1.2.0" />
+    <PackageReference Include="Velopack" Version="1.2.161" />
     <ProjectReference Include="..\Soz.Core\Soz.Core.csproj" />
     <ProjectReference Include="..\Soz.Server\Soz.Server.csproj" />
     <!-- Yeni kapsül ve CLI (soz.exe) ayrı süreçlerdir: derleme sırasını garanti eder ama bütünleştirilmiş kod referansı eklemez. -->
