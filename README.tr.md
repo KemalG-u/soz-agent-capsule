@@ -1,6 +1,6 @@
 > 🚧 **Durum: aktif geliştirme.** Yazar için çalışıyor; arayüzler değişebilir.
 
-# Söz
+# Söz (soz-agent-capsule)
 
 [English](README.md)
 

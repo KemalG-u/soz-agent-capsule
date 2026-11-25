@@ -1,6 +1,6 @@
 > 🚧 **Status: active development.** It works for the author; interfaces may change.
 
-# Söz
+# Söz (soz-agent-capsule)
 
 [Türkçe](README.tr.md)
 
